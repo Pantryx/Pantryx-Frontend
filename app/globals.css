@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+
+  /* Color tokens (RGB triplets — consumed by Tailwind as rgb(var(--name) / <alpha>)) */
+  --paper: 255 255 255;
+  --ink: 10 10 10;
+  --ink-soft: 26 26 26;
+  --muted: 107 107 107;
+  --line: 236 236 236;
+  --subtle: 247 247 247;
+
+  color-scheme: light;
+}
+
+.dark {
+  --paper: 10 10 10;
+  --ink: 245 245 245;
+  --ink-soft: 230 230 230;
+  --muted: 150 150 150;
+  --line: 38 38 38;
+  --subtle: 20 20 20;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background: rgb(var(--paper));
+    color: rgb(var(--ink));
+    transition: background-color 300ms ease, color 300ms ease;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01", "ss03";
+    line-height: 1.55;
+  }
+
+  ::selection {
+    background: rgb(var(--ink));
+    color: rgb(var(--paper));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--ink));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: rgb(var(--ink));
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid rgb(var(--line));
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .section {
+    padding-top: clamp(3.5rem, 9vw, 8rem);
+    padding-bottom: clamp(3.5rem, 9vw, 8rem);
+  }
+
+  .hairline {
+    @apply border border-line;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-all duration-300 ease-out-expo hover:bg-ink-soft hover:-translate-y-[1px];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-medium text-ink transition-colors duration-200 hover:border-ink;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.18em] text-muted;
+  }
+}
+
+@layer utilities {
+  .grain {
+    background-image: radial-gradient(rgb(var(--ink) / 0.03) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  .fade-mask-b {
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+}
+
+/* Smooth theme-change animation.
+   Only active while the <html> element has `.theme-transition`, added by
+   ThemeToggle for ~350ms during a theme swap. Scoped to color-related
+   properties so it doesn't fight with other transitions (hover states, reveals). */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition-property: background-color, color, border-color, fill, stroke, box-shadow, outline-color !important;
+    transition-duration: 320ms !important;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition-delay: 0s !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Safe areas for mobile sticky CTA */
+.safe-bottom {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
