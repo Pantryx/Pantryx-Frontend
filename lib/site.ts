@@ -4,8 +4,8 @@ export const site = {
   description:
     "Pantryx scans what you already have and turns it into dishes you can cook tonight — no shopping, no guesswork.",
   appStoreUrl: "#", // TODO: replace with real App Store URL
-  contactEmail: "hello@pantryx.app", // TODO: replace with real support address
-  url: "https://pantryx.app",
+  contactEmail: "communication.pantryx@gmail.com",
+  url: "https://pantryx.org",
 } as const;
 
 export const nav = {
@@ -15,7 +15,7 @@ export const nav = {
   ],
   legal: [
     { href: "/privacy", label: "Privacy Policy" },
-    { href: "/terms", label: "Terms & Conditions" },
+    { href: "/terms", label: "Terms of Use" },
   ],
 } as const;
 
@@ -133,10 +133,6 @@ export const faq = [
   {
     q: "Does it work with my diet?",
     a: "You can set dietary preferences (vegetarian, gluten-free, allergies, etc.) and Pantryx filters suggestions to match.",
-  },
-  {
-    q: "Will it stay free?",
-    a: "During MVP, every feature is free. If we ever introduce a paid tier, core scanning and dish suggestions will stay free.",
   },
   {
     q: "Do I need an account to use it?",

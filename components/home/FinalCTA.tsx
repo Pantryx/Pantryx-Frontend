@@ -7,7 +7,7 @@ export function FinalCTA() {
       <div className="container-page">
         <Reveal className="mx-auto max-w-3xl text-center">
           <h2 className="text-display-1 text-balance">
-            Tonight's dinner is <em className="italic text-muted">one photo away.</em>
+            Tonight&apos;s dinner is <em className="italic text-muted">one photo away.</em>
           </h2>
           <p className="mt-6 text-lead text-muted">
             No shopping list. No subscription. Just open the fridge.

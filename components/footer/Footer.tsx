@@ -36,7 +36,7 @@ export function Footer() {
       <div className="border-t border-line">
         <div className="container-page flex flex-col items-start justify-between gap-2 py-6 text-xs text-muted sm:flex-row sm:items-center">
           <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
-          <span>Built in the open · iOS · Free during MVP</span>
+          <span>Built in the open · iOS</span>
         </div>
       </div>
     </footer>

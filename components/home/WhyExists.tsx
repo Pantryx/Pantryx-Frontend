@@ -13,9 +13,9 @@ export function WhyExists() {
           </div>
           <div className="md:col-span-6 md:col-start-7">
             <p className="text-lead text-muted">
-              Most of it isn't laziness — it's not knowing what to cook before things go bad.
+              Most of it isn&apos;t laziness — it&apos;s not knowing what to cook before things go bad.
               Pantryx fixes that with a 10-second scan and a dish idea you can actually make with
-              what's already in your fridge.
+              what&apos;s already in your fridge.
             </p>
           </div>
         </Reveal>

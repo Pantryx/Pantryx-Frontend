@@ -19,6 +19,12 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+Browser and server requests to **`/api/*`** are rewritten to the Vapor backend (see **`BACKEND_URL`** in `.env.example`). Override **`BACKEND_URL`** to point at a different Heroku app or a local server.
+
+## Deployment
+
+Production hosting, **`pantryx.org` → Vercel**, API proxy, and Heroku env (including **`ALLOWED_ORIGINS`**) are documented in [`DEPLOYMENT.md`](DEPLOYMENT.md).
+
 ## Production build
 
 ```bash
@@ -74,7 +80,7 @@ Applied principles (see `/Users/volodymyrmendyk/.windsurf/plans/pantryx-marketin
 
 - `lib/site.ts` → `appStoreUrl`: replace `#` with the real App Store link.
 - `lib/site.ts` → `contactEmail`: replace `hello@pantryx.app`.
-- `lib/site.ts` → `url`: replace with real production domain.
+- `lib/site.ts` → `url`: production domain is **`https://pantryx.org`** (change here if the canonical URL moves).
 - Privacy & Terms pages contain `[TBD]` markers for legal review.
 - `SocialProof` contains a placeholder quote until real early-tester quotes are available.
 

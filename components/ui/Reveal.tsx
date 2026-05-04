@@ -10,9 +10,19 @@ type Props = {
   y?: number;
   as?: "div" | "section" | "li" | "article" | "header";
   id?: string;
+  /** `inView` (default): animate when scrolled into view. `mount`: animate on mount (e.g. legal pages). */
+  when?: "inView" | "mount";
 };
 
-export function Reveal({ children, delay = 0, className, y = 16, as = "div", id }: Props) {
+export function Reveal({
+  children,
+  delay = 0,
+  className,
+  y = 16,
+  as = "div",
+  id,
+  when = "inView",
+}: Props) {
   const reduce = useReducedMotion();
   const MotionTag = motion[as];
 
@@ -28,6 +38,14 @@ export function Reveal({ children, delay = 0, className, y = 16, as = "div", id 
       },
     },
   };
+
+  if (when === "mount") {
+    return (
+      <MotionTag id={id} className={className} initial="hidden" animate="show" variants={variants}>
+        {children}
+      </MotionTag>
+    );
+  }
 
   return (
     <MotionTag

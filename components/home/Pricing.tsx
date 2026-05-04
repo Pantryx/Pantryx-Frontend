@@ -8,7 +8,7 @@ const included = [
   "Guided cook mode",
   "Live cooking chat",
   "Dietary preferences & allergies",
-  "All future MVP updates",
+  "All features included while we're free",
 ];
 
 export function Pricing() {
@@ -19,14 +19,15 @@ export function Pricing() {
           <div className="eyebrow">Pricing</div>
           <h2 className="mt-3 text-display-2 text-balance">One plan. Free.</h2>
           <p className="mt-5 text-lead text-muted">
-            While we're in MVP, every feature is free. No trials, no credit card, no dark patterns.
+            Pantryx is free while we grow. Every feature, no credit card. If we add subscriptions,
+            we&apos;ll spell out price and what&apos;s included before you pay.
           </p>
         </Reveal>
 
         <Reveal delay={0.05} className="mx-auto mt-12 max-w-xl rounded-3xl border border-line bg-paper p-8 md:p-10">
-          <div className="flex items-baseline gap-3">
-            <span className="font-display text-[64px] leading-none">$0</span>
-            <span className="text-sm text-muted">/ forever, during MVP</span>
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="font-display text-[64px] leading-none">Free</span>
+            <span className="text-sm text-muted">today · subscriptions later</span>
           </div>
           <p className="mt-4 text-sm text-muted">
             Free · No card required · Delete your account anytime.
