@@ -6,6 +6,10 @@ const backendUrl =
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Playwright sets this so its production build doesn't overwrite the `.next`
+  // directory a running `npm run dev` is serving from — the two clobber each
+  // other's chunks and the build fails.
+  ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
   async rewrites() {
     return {
       beforeFiles: [

@@ -1,15 +1,16 @@
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function WhyExists() {
   return (
     <section className="border-y border-line bg-subtle">
       <div className="container-page section">
-        <Reveal className="grid gap-8 md:grid-cols-12 md:items-end">
+        <Reveal y={0} className="grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-5">
             <div className="eyebrow">Why this exists</div>
-            <h2 className="mt-3 text-display-3 text-balance">
+            <AnimatedHeading className="mt-3 text-display-3 text-balance">
               The average household throws out roughly <em className="italic text-muted">30% of the food it buys.</em>
-            </h2>
+            </AnimatedHeading>
           </div>
           <div className="md:col-span-6 md:col-start-7">
             <p className="text-lead text-muted">

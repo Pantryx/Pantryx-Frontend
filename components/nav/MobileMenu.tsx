@@ -14,10 +14,14 @@ export function MobileMenu({ open, onClose }: Props) {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    // Read by globals.css to pull the sticky download bar out of the layout
+    // (and out of the tab order) while the menu is up.
+    document.body.dataset.menuOpen = "true";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = prev;
+      delete document.body.dataset.menuOpen;
       window.removeEventListener("keydown", onKey);
     };
   }, [open, onClose]);
@@ -26,6 +30,9 @@ export function MobileMenu({ open, onClose }: Props) {
     <AnimatePresence>
       {open && (
         <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
           className="fixed inset-0 z-[60] bg-paper md:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

@@ -1,41 +1,82 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { AppStoreBadge } from "@/components/ui/AppStoreBadge";
+import { HeroHeadline } from "@/components/home/HeroHeadline";
+import { HeroStat } from "@/components/home/HeroStat";
+import {
+  DURATION,
+  EASE_OUT_EXPO,
+  HERO_CADENCE,
+  heroSlotDelay,
+} from "@/lib/motion/tokens";
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  show: {
+    transition: {
+      staggerChildren: HERO_CADENCE.step / 1000,
+      delayChildren: HERO_CADENCE.delay / 1000,
+    },
+  },
 };
 
-const item = {
+/**
+ * Headline-block children take their delay from an explicit slot rather than
+ * their position, because the headline between them is no longer a motion
+ * component for framer to count. See HERO_CADENCE.
+ */
+const slotItem: Variants = {
   hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+  show: (slot: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: DURATION.hero / 1000,
+      ease: EASE_OUT_EXPO,
+      delay: heroSlotDelay(slot) / 1000,
+    },
+  }),
+};
+
+/** The stats row is uniform, so it can still lean on the parent's stagger. */
+const item: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: DURATION.hero / 1000, ease: EASE_OUT_EXPO },
+  },
 };
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-28 md:pt-36">
       <div className="container-page pb-20 md:pb-28">
-        <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-5xl">
-          <motion.div variants={item} className="eyebrow inline-flex items-center gap-2">
+        <motion.div initial="hidden" animate="show" className="max-w-5xl">
+          <motion.div
+            variants={slotItem}
+            custom={0}
+            className="eyebrow inline-flex items-center gap-2"
+          >
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
             Now in early access · iOS
           </motion.div>
 
-          <motion.h1 variants={item} className="mt-6 text-display-1 text-balance">
-            Stop staring at the fridge.
-            <br />
-            <span className="italic text-muted">Decide dinner in 60&nbsp;seconds.</span>
-          </motion.h1>
+          <HeroHeadline />
 
-          <motion.p variants={item} className="mt-8 max-w-2xl text-lead text-muted">
+          <motion.p
+            variants={slotItem}
+            custom={2}
+            className="mt-8 max-w-2xl text-lead text-muted"
+          >
             Pantryx scans what you already have and turns it into dishes you can cook tonight —
             no shopping, no guesswork.
           </motion.p>
 
           <motion.div
-            variants={item}
+            variants={slotItem}
+            custom={3}
             className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
           >
             <AppStoreBadge />
@@ -53,10 +94,10 @@ export function Hero() {
             ["30%", "less food waste"],
             ["60s", "to dinner idea"],
             ["0", "subscriptions"],
-          ].map(([big, small]) => (
+          ].map(([big, small], i) => (
             <motion.li key={small} variants={item}>
               <div className="font-display text-[clamp(2rem,4vw,3rem)] leading-none text-ink">
-                {big}
+                <HeroStat value={big} index={i} />
               </div>
               <div className="mt-3 text-xs uppercase tracking-[0.14em] text-muted">{small}</div>
             </motion.li>

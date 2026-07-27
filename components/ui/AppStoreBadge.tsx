@@ -13,6 +13,9 @@ export function AppStoreBadge({ className, variant = "solid" }: Props) {
     <Link
       href={site.appStoreUrl}
       aria-label="Download Pantryx on the App Store"
+      // Marks this as an inline CTA. StickyMobileCTA observes these and stays
+      // hidden while any of them is on screen, so it never covers a real badge.
+      data-appstore-cta
       className={clsx(
         "group inline-flex h-[52px] items-center gap-2.5 rounded-[10px] px-4 transition-all duration-300 ease-out-expo",
         isSolid

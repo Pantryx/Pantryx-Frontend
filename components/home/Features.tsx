@@ -1,3 +1,4 @@
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { features } from "@/lib/site";
 
@@ -5,11 +6,11 @@ export function Features() {
   return (
     <section id="features" className="section border-t border-line">
       <div className="container-page">
-        <Reveal className="mx-auto max-w-3xl">
+        <Reveal y={0} className="mx-auto max-w-3xl">
           <div className="eyebrow">Features</div>
-          <h2 className="mt-3 text-display-2 text-balance">
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">
             Built around the one question: <em className="italic text-muted">what can I cook with this?</em>
-          </h2>
+          </AnimatedHeading>
         </Reveal>
 
         <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">

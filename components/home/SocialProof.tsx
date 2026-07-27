@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
@@ -40,11 +41,11 @@ export function SocialProof() {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="container-page section">
-        <Reveal className="mx-auto max-w-3xl">
+        <Reveal y={0} className="mx-auto max-w-3xl">
           <div className="eyebrow">Built in the open</div>
-          <h2 className="mt-3 text-display-2 text-balance">
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">
             What early testers are saying.
-          </h2>
+          </AnimatedHeading>
           <p className="mt-5 text-lead text-muted">
             A few unfiltered reactions from people cooking with Pantryx during private beta.
           </p>

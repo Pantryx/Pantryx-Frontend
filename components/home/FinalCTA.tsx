@@ -1,3 +1,4 @@
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { AppStoreBadge } from "@/components/ui/AppStoreBadge";
 
@@ -5,10 +6,10 @@ export function FinalCTA() {
   return (
     <section className="section">
       <div className="container-page">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <h2 className="text-display-1 text-balance">
+        <Reveal y={0} className="mx-auto max-w-3xl text-center">
+          <AnimatedHeading className="text-display-1 text-balance">
             Tonight&apos;s dinner is <em className="italic text-muted">one photo away.</em>
-          </h2>
+          </AnimatedHeading>
           <p className="mt-6 text-lead text-muted">
             No shopping list. No subscription. Just open the fridge.
           </p>

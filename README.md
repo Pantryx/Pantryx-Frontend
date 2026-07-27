@@ -84,6 +84,73 @@ Applied principles (see `/Users/volodymyrmendyk/.windsurf/plans/pantryx-marketin
 - Privacy & Terms pages contain `[TBD]` markers for legal review.
 - `SocialProof` contains a placeholder quote until real early-tester quotes are available.
 
+## Motion
+
+Two animation libraries, split by job. They never touch the same DOM node.
+
+- **framer-motion** — everything declarative: the `Reveal` scroll primitive,
+  `PageTransition`, and all five `AnimatePresence` enter/exit pairs (sticky CTA,
+  mobile menu, FAQ accordion, testimonial carousel).
+- **anime.js v4** — everything imperative: word-by-word heading reveals, the hero
+  stat counters, the HowItWorks rail, and the Comparison checkmark draw-on.
+
+Shared vocabulary lives in `lib/motion/`:
+
+| File | Purpose |
+|---|---|
+| `tokens.ts` | Durations, stagger steps, the hero cadence, `EASE_OUT_EXPO`. No imports, so server components can read it |
+| `anime.ts` | `ANIME_EASE` — the same curve in anime's function form |
+| `env.ts` | `prefersReducedMotion()` / `isDesktopViewport()` for use inside effects |
+| `inView.ts` | `observeOnce`, sharing `Reveal`'s `-80px` margin so both libraries trigger on the same scroll line |
+| `splitWords.ts` | Wraps each word in a span, descending into nested inline elements |
+
+Three things worth knowing before editing:
+
+- **Reduced motion is a hard gate.** The `prefers-reduced-motion` block in
+  `globals.css` only zeroes *CSS* durations — it does nothing to JS animation.
+  Every anime.js effect checks `prefersReducedMotion()` itself and returns early,
+  and in that path nothing is split, so the DOM stays exactly as React rendered it.
+- **anime.js v4.5 removed the string easing syntax.** `ease: "cubicBezier(...)"`
+  logs a warning and silently falls back to linear. Always pass `ANIME_EASE`.
+- **We don't use anime's `splitText`.** It treats a child element as one atomic
+  word, so a heading like `Most recipe apps ask: <em>…</em>` would leave the
+  clause unanimated — and splitting the child first then the host wraps the
+  already-split child again, animating it twice. `splitWords` splits at the text
+  node instead, which also keeps ordinary spaces (`includeSpaces` swaps them for
+  U+00A0 and quietly changes `textContent`). This also keeps `animejs/text`
+  (9 kB gz) out of the bundle.
+
+A heading that adopts `AnimatedHeading` should have `y={0}` on its wrapping
+`Reveal`, so the block fades while the words supply the vertical motion — rather
+than both sliding at once.
+
+Cost: **+18 kB gzip** on the home page's First Load JS (148 → 166 kB), almost all
+of it anime's core engine, which is shared by all four effects.
+
+## Testing
+
+End-to-end tests run in Playwright against a production build, in two projects:
+`mobile` (iPhone 13 / WebKit — the engine the sticky CTA bugs actually showed up in)
+and `desktop` (1280×900 Chromium).
+
+```bash
+npm test
+```
+
+One-time browser install: `npx playwright install chromium webkit`.
+
+Other entry points: `npm run test:mobile` (mobile project only), `npm run test:ui`
+(watch mode), `npm run test:report` (open the last HTML report).
+
+The webserver builds into `.next-e2e` via `NEXT_DIST_DIR`, so `npm run dev` can
+keep running in another terminal without the two clobbering each other's chunks.
+
+`e2e/sticky-cta.spec.ts` is the regression suite for the sticky mobile download
+bar — hysteresis (no flicker on scroll jitter), hiding behind inline App Store
+badges, footer clearance, safe-area gap, and mobile-menu interaction. If you
+change `SHOW_AT_Y` / `HIDE_AT_Y` in `lib/hooks/useStickyCtaVisibility.ts`, update
+the mirrored constants at the top of that spec.
+
 ## Deployment
 
 This repo contains **no deployment configuration**. Hosting is intentionally out of scope — push to GitHub and point any host (Vercel, Netlify, Cloudflare Pages, self-hosted, etc.) at it.

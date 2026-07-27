@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
+import { DURATION, EASE_OUT_EXPO } from "@/lib/motion/tokens";
 
 type Props = {
   children: ReactNode;
@@ -32,8 +33,8 @@ export function Reveal({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
+        duration: DURATION.word / 1000,
+        ease: EASE_OUT_EXPO,
         delay,
       },
     },

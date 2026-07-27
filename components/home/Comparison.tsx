@@ -1,4 +1,6 @@
 import { Check, Minus } from "lucide-react";
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
+import { ComparisonChecks } from "@/components/home/ComparisonChecks";
 import { Reveal } from "@/components/ui/Reveal";
 import { comparisonRows } from "@/lib/site";
 
@@ -14,11 +16,12 @@ export function Comparison() {
   return (
     <section id="compare" className="section border-t border-line">
       <div className="container-page">
-        <Reveal className="mx-auto max-w-3xl text-center">
+        <ComparisonChecks />
+        <Reveal y={0} className="mx-auto max-w-3xl text-center">
           <div className="eyebrow">Pantryx vs other apps</div>
-          <h2 className="mt-3 text-display-2 text-balance">
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">
             Most recipe apps ask: <em className="italic text-muted">what do you feel like eating?</em>
-          </h2>
+          </AnimatedHeading>
           <p className="mt-5 text-lead text-muted">
             Pantryx asks a better question: <em className="italic">what can you actually cook right now?</em>
           </p>
@@ -61,7 +64,12 @@ export function Comparison() {
                         }`}
                       >
                         {yes ? (
-                          <Check className="mx-auto h-5 w-5 text-ink" strokeWidth={2.25} />
+                          <Check
+                            // Only the Pantryx column draws itself in.
+                            data-draw-check={a.highlight ? "table" : undefined}
+                            className="mx-auto h-5 w-5 text-ink"
+                            strokeWidth={2.25}
+                          />
                         ) : (
                           <Minus className="mx-auto h-5 w-5 text-line" strokeWidth={2} />
                         )}
@@ -101,7 +109,11 @@ export function Comparison() {
                       className="flex items-start gap-3 text-sm"
                     >
                       {yes ? (
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-ink" strokeWidth={2.5} />
+                        <Check
+                          data-draw-check={a.highlight ? "card" : undefined}
+                          className="mt-0.5 h-4 w-4 shrink-0 text-ink"
+                          strokeWidth={2.5}
+                        />
                       ) : (
                         <Minus className="mt-0.5 h-4 w-4 shrink-0 text-line" strokeWidth={2} />
                       )}

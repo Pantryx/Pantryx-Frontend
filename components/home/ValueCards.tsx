@@ -1,3 +1,4 @@
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { valueCards } from "@/lib/site";
 
@@ -5,11 +6,11 @@ export function ValueCards() {
   return (
     <section className="section">
       <div className="container-page">
-        <Reveal className="mx-auto max-w-3xl">
+        <Reveal y={0} className="mx-auto max-w-3xl">
           <div className="eyebrow">Why Pantryx</div>
-          <h2 className="mt-3 text-display-2 text-balance">
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">
             Three quiet wins, every week.
-          </h2>
+          </AnimatedHeading>
         </Reveal>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {valueCards.map((v, i) => (

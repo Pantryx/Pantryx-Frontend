@@ -132,7 +132,31 @@
   }
 }
 
-/* Safe areas for mobile sticky CTA */
+/* Safe areas for mobile sticky CTA.
+   iOS Safari reports a 0 inset while its bottom toolbar is expanded, which
+   left the pill almost touching that toolbar. The max() guarantees a
+   comfortable gap in that case without double-counting the home indicator
+   when the inset is real. */
 .safe-bottom {
-  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  padding-bottom: max(1.5rem, calc(0.5rem + env(safe-area-inset-bottom)));
+}
+
+/* Bottom clearance so the fixed mobile CTA can never sit on top of page
+   content. Tracks the pill (52px) plus whatever gap .safe-bottom resolves to.
+   Only needed below `md`, which is where the bar renders at all. */
+.cta-clearance {
+  padding-bottom: max(5rem, calc(4rem + env(safe-area-inset-bottom)));
+}
+
+@media (min-width: 768px) {
+  .cta-clearance {
+    padding-bottom: 0;
+  }
+}
+
+/* The mobile menu carries its own App Store badge and covers the whole
+   viewport, so the sticky bar must leave — `display: none` also takes it out
+   of the tab order, which `z-index` alone would not. */
+body[data-menu-open="true"] .sticky-cta {
+  display: none;
 }

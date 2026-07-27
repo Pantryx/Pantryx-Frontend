@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
@@ -12,11 +13,11 @@ export function FAQ() {
   return (
     <section id="faq" className="section border-t border-line">
       <div className="container-page">
-        <Reveal className="mx-auto max-w-3xl">
+        <Reveal y={0} className="mx-auto max-w-3xl">
           <div className="eyebrow">Questions</div>
-          <h2 className="mt-3 text-display-2 text-balance">
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">
             The things people ask before they download.
-          </h2>
+          </AnimatedHeading>
         </Reveal>
 
         <div className="mx-auto mt-12 max-w-3xl">

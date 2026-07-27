@@ -1,3 +1,4 @@
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { AppStoreBadge } from "@/components/ui/AppStoreBadge";
@@ -15,9 +16,9 @@ export function Pricing() {
   return (
     <section id="pricing" className="section border-t border-line">
       <div className="container-page">
-        <Reveal className="mx-auto max-w-2xl text-center">
+        <Reveal y={0} className="mx-auto max-w-2xl text-center">
           <div className="eyebrow">Pricing</div>
-          <h2 className="mt-3 text-display-2 text-balance">One plan. Free.</h2>
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">One plan. Free.</AnimatedHeading>
           <p className="mt-5 text-lead text-muted">
             Pantryx is free while we grow. Every feature, no credit card. If we add subscriptions,
             we&apos;ll spell out price and what&apos;s included before you pay.
@@ -25,12 +26,14 @@ export function Pricing() {
         </Reveal>
 
         <Reveal delay={0.05} className="mx-auto mt-12 max-w-xl rounded-3xl border border-line bg-paper p-8 md:p-10">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="font-display text-[64px] leading-none">Free</span>
+          {/* Stacked on mobile: at 375px the price and its caption can't share a
+              baseline without the caption hanging awkwardly off the descender. */}
+          <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-3">
+            <span className="font-display text-[clamp(2.75rem,11vw,4rem)] leading-none">Free</span>
             <span className="text-sm text-muted">today · subscriptions later</span>
           </div>
           <p className="mt-4 text-sm text-muted">
-            Free · No card required · Delete your account anytime.
+            No card required · Delete your account anytime.
           </p>
 
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">

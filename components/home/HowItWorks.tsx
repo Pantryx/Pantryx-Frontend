@@ -1,3 +1,5 @@
+import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
+import { HowItWorksRail } from "@/components/home/HowItWorksRail";
 import { Reveal } from "@/components/ui/Reveal";
 import { howItWorks } from "@/lib/site";
 
@@ -5,18 +7,18 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="section">
       <div className="container-page">
-        <Reveal className="mx-auto max-w-3xl text-center">
+        <Reveal y={0} className="mx-auto max-w-3xl text-center">
           <div className="eyebrow">How it works</div>
-          <h2 className="mt-3 text-display-2 text-balance">
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">
             Six steps from fridge photo to dinner on the table.
-          </h2>
+          </AnimatedHeading>
           <p className="mt-5 text-lead text-muted">
             Every step is designed to be tappable, skippable, and under a minute.
           </p>
         </Reveal>
 
         <div className="relative mt-16">
-          <div className="pointer-events-none absolute left-0 right-0 top-[28px] hidden h-px bg-line md:block" />
+          <HowItWorksRail />
           <ol className="grid gap-6 md:grid-cols-3 lg:grid-cols-6">
             {howItWorks.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.05} as="li" className="relative">
