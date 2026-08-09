@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { Navbar } from "@/components/nav/Navbar";
 import { Footer } from "@/components/footer/Footer";
@@ -40,8 +41,21 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
   },
+  /*
+   * Google picks the search-result icon from these, and it wants a square PNG
+   * of at least 48px served from the same origin — the previous 32px SVG was
+   * below that floor, which is why results showed the generic globe. favicon.ico
+   * carries 16/32/48 for older crawlers and browsers that still ask for it by
+   * convention.
+   */
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/icon-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
   },
 };
 
@@ -64,6 +78,12 @@ export default function RootLayout({
         <PageTransition>{children}</PageTransition>
         <Footer />
         <StickyMobileCTA />
+        {/*
+          Only mounted on Vercel. Anywhere else — `next start`, the Playwright
+          build, a self-hosted preview — there is no /_vercel/insights endpoint,
+          so the beacon 404s and logs a console error on every page load.
+        */}
+        {process.env.VERCEL_ENV ? <Analytics /> : null}
       </body>
     </html>
   );
