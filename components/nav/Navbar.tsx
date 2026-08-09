@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu } from "lucide-react";
 import clsx from "clsx";
 import { nav, site } from "@/lib/site";
+import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { MobileMenu } from "@/components/nav/MobileMenu";
 
@@ -14,6 +15,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [legalOpen, setLegalOpen] = useState(false);
+  const legalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -27,6 +29,30 @@ export function Navbar() {
     setLegalOpen(false);
   }, [pathname]);
 
+  // The dropdown opens on hover but can also be opened by click or keyboard,
+  // and in those cases moving the mouse away never closes it. Escape and an
+  // outside press are the two exits people reach for.
+  useEffect(() => {
+    if (!legalOpen) return;
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setLegalOpen(false);
+      legalRef.current?.querySelector("button")?.focus();
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (legalRef.current?.contains(event.target as Node)) return;
+      setLegalOpen(false);
+    };
+
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [legalOpen]);
+
   return (
     <>
       <a
@@ -37,7 +63,7 @@ export function Navbar() {
       </a>
       <header
         className={clsx(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out-expo",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out-expo",
           scrolled
             ? "border-b border-line bg-paper/80 backdrop-blur-md"
             : "border-b border-transparent bg-paper/0"
@@ -66,6 +92,7 @@ export function Navbar() {
               </Link>
             ))}
             <div
+              ref={legalRef}
               className="relative"
               onMouseEnter={() => setLegalOpen(true)}
               onMouseLeave={() => setLegalOpen(false)}
@@ -87,12 +114,14 @@ export function Navbar() {
                   strokeWidth={2}
                 />
               </button>
+              {/* Scales from the trigger, not from its own centre — a popover
+                  that grows out of the middle of nowhere reads as unanchored. */}
               <div
                 className={clsx(
-                  "absolute right-0 top-full w-56 pt-2 transition-all duration-200",
+                  "absolute right-0 top-full w-56 origin-top-right pt-2 transition-[transform,opacity] duration-200 ease-out-expo",
                   legalOpen
-                    ? "pointer-events-auto translate-y-0 opacity-100"
-                    : "pointer-events-none -translate-y-1 opacity-0"
+                    ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
+                    : "pointer-events-none -translate-y-1 scale-[0.97] opacity-0"
                 )}
                 role="menu"
               >
@@ -112,8 +141,19 @@ export function Navbar() {
             </div>
           </nav>
 
+          {/* The CTA holds its space from the start and only fades in, so the
+              nav doesn't reflow the moment you begin scrolling. */}
           <div className="hidden items-center gap-2 md:flex">
             <ThemeToggle />
+            <div
+              className={clsx(
+                "transition-opacity duration-300 ease-out-expo",
+                scrolled ? "opacity-100" : "pointer-events-none opacity-0"
+              )}
+              aria-hidden={!scrolled}
+            >
+              <JoinBetaButton size="compact" inline={false} />
+            </div>
           </div>
 
           <div className="flex items-center gap-2 md:hidden">

@@ -14,16 +14,16 @@ import { useEffect, useState } from "react";
 export const SHOW_AT_Y = 560;
 export const HIDE_AT_Y = 360;
 
-/** Every inline "Download on the App Store" badge carries this attribute. */
-export const INLINE_CTA_SELECTOR = "[data-appstore-cta]";
+/** Every inline beta CTA carries this attribute. */
+export const INLINE_CTA_SELECTOR = "[data-beta-cta]";
 
 /** Height of the fixed navbar — a badge scrolled under it isn't really visible. */
 const NAVBAR_HEIGHT = 64;
 
 /**
- * Decides whether the sticky mobile download bar should be on screen.
+ * Decides whether the sticky mobile beta bar should be on screen.
  *
- * It is shown only when the reader is past the gate *and* no inline App Store
+ * It is shown only when the reader is past the gate *and* no inline beta
  * badge is in view. The second condition is what keeps the bar from covering
  * the real badge in the pricing/final CTA sections, and it means the bar has
  * no hard-coded knowledge of the page it sits on.

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import {
-  INLINE_BADGE,
+  INLINE_CTA,
   STICKY_BAR,
   STICKY_PILL,
   barOpacity,
@@ -30,7 +30,7 @@ test.describe("sticky mobile CTA", () => {
   });
 
   test("stays hidden while the hero badge is still on screen", async ({ page }) => {
-    const hero = page.locator(INLINE_BADGE).first();
+    const hero = page.locator(INLINE_CTA).first();
     await expect(hero).toBeInViewport();
 
     await scrollTo(page, SHOW_AT_Y - 100);
@@ -40,9 +40,9 @@ test.describe("sticky mobile CTA", () => {
   test("appears once past the gate with no inline badge in view", async ({ page }) => {
     await scrollTo(page, SHOW_AT_Y + 200);
     await expect(page.locator(STICKY_BAR)).toBeVisible();
-    await expect(page.locator(STICKY_PILL)).toHaveAccessibleName(
-      "Download Pantryx on the App Store"
-    );
+    // The label depends on whether site.testFlightUrl is configured — join the
+    // beta when it is, get notified when it isn't. Both are the same CTA.
+    await expect(page.locator(STICKY_PILL)).toHaveAccessibleName(/Pantryx beta/);
   });
 
   // Regression: the bar used to key off a single `scrollY > 500` threshold, so
@@ -78,11 +78,11 @@ test.describe("sticky mobile CTA", () => {
     }
   });
 
-  test("hides again when an inline App Store badge scrolls into view", async ({ page }) => {
+  test("hides again when an inline beta CTA scrolls into view", async ({ page }) => {
     await scrollTo(page, 1400);
     await expect(page.locator(STICKY_BAR)).toBeVisible();
 
-    await page.locator(INLINE_BADGE).last().scrollIntoViewIfNeeded();
+    await page.locator(INLINE_CTA).last().scrollIntoViewIfNeeded();
     await settle(page);
 
     await expect(page.locator(STICKY_BAR)).toBeHidden();
@@ -92,10 +92,10 @@ test.describe("sticky mobile CTA", () => {
     await scrollTo(page, 1400);
     await expect(page.locator(STICKY_BAR)).toBeVisible();
 
-    await page.locator(INLINE_BADGE).last().scrollIntoViewIfNeeded();
+    await page.locator(INLINE_CTA).last().scrollIntoViewIfNeeded();
     await settle(page);
 
-    await expect(page.locator(INLINE_BADGE).last()).toBeInViewport();
+    await expect(page.locator(INLINE_CTA).last()).toBeInViewport();
     await expect(page.locator(STICKY_BAR)).toBeHidden();
   });
 

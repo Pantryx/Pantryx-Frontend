@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { AppStoreBadge } from "@/components/ui/AppStoreBadge";
+import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
 import { HeroHeadline } from "@/components/home/HeroHeadline";
 import { HeroStat } from "@/components/home/HeroStat";
 import {
@@ -60,7 +60,7 @@ export function Hero() {
             className="eyebrow inline-flex items-center gap-2"
           >
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
-            Now in early access · iOS
+            Now in private beta · iOS
           </motion.div>
 
           <HeroHeadline />
@@ -79,8 +79,8 @@ export function Hero() {
             custom={3}
             className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
           >
-            <AppStoreBadge />
-            <div className="text-sm text-muted">Free · 10-second scan · Delete anytime</div>
+            <JoinBetaButton />
+            <div className="text-sm text-muted">TestFlight · Free · Delete anytime</div>
           </motion.div>
         </motion.div>
 

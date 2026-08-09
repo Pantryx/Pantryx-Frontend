@@ -14,7 +14,11 @@ const nextConfig: NextConfig = {
     return {
       beforeFiles: [
         {
-          source: "/api/:path*",
+          // Everything under /api goes to the backend except /api/site/*, which
+          // is this site's own route handlers (the waitlist). `beforeFiles` runs
+          // ahead of the filesystem, so without the carve-out the proxy would
+          // swallow them.
+          source: "/api/:path((?!site/).*)",
           destination: `${backendUrl}/api/:path*`,
         },
       ],

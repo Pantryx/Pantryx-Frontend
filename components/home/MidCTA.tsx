@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { AppStoreBadge } from "@/components/ui/AppStoreBadge";
+import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
 
 export function MidCTA() {
   return (
@@ -11,7 +11,7 @@ export function MidCTA() {
           </h3>
         </Reveal>
         <Reveal delay={0.05}>
-          <AppStoreBadge variant="outline" />
+          <JoinBetaButton variant="outline" />
         </Reveal>
       </div>
     </section>

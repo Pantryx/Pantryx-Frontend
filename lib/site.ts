@@ -3,9 +3,23 @@ export const site = {
   tagline: "Stop staring at the fridge. Decide dinner in 60 seconds.",
   description:
     "Pantryx scans what you already have and turns it into dishes you can cook tonight — no shopping, no guesswork.",
-  appStoreUrl: "#", // TODO: replace with real App Store URL
+  /**
+   * Public TestFlight invite, e.g. https://testflight.apple.com/join/XXXXXXXX.
+   * Leave empty until the build is out for external testers — JoinBetaButton
+   * renders a disabled "coming soon" state rather than a link to nowhere.
+   */
+  testFlightUrl: "",
+  /** Set on launch day; unused while the app is beta-only. */
+  appStoreUrl: "",
   contactEmail: "communication.pantryx@gmail.com",
   url: "https://pantryx.org",
+} as const;
+
+export const beta = {
+  eyebrow: "Private beta · iOS",
+  waitlistTitle: "Not ready to install?",
+  waitlistCopy: "Leave your email and we'll tell you the moment a beta slot opens.",
+  waitlistSuccess: "You're on the list. We'll be in touch.",
 } as const;
 
 export const nav = {

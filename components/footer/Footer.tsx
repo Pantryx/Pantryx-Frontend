@@ -12,7 +12,11 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
+        {/* min-w-0 lets this shrink inside the flex row; without it the contact
+            address below pushes the whole page into a horizontal scroll on any
+            viewport narrower than the address is long — landscape phones most
+            of all, where the md: row layout kicks in at only 852px. */}
+        <div className="grid min-w-0 grid-cols-2 gap-10 sm:grid-cols-3">
           <FooterCol
             title="Product"
             links={[
@@ -25,7 +29,9 @@ export function Footer() {
             <div className="eyebrow">Contact</div>
             <a
               href={`mailto:${site.contactEmail}`}
-              className="mt-3 block text-sm text-ink hover:underline"
+              // An email address has no spaces to wrap at, so it needs break-all
+              // rather than the usual break-words.
+              className="mt-3 block break-all text-sm text-ink hover:underline"
             >
               {site.contactEmail}
             </a>

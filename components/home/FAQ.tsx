@@ -16,7 +16,7 @@ export function FAQ() {
         <Reveal y={0} className="mx-auto max-w-3xl">
           <div className="eyebrow">Questions</div>
           <AnimatedHeading className="mt-3 text-display-2 text-balance">
-            The things people ask before they download.
+            The things people ask before they join.
           </AnimatedHeading>
         </Reveal>
 

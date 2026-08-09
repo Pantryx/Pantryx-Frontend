@@ -51,8 +51,8 @@ components/
                      # MidCTA, ValueCards, SocialProof, Pricing, FAQ,
                      # FinalCTA, StickyMobileCTA
   legal/             # Shared legal page layout (anchor nav on desktop)
-  ui/                # AppStoreBadge, Reveal (scroll reveal), PhoneMockup,
-                     # PageTransition
+  ui/                # JoinBetaButton, AppleMark, WaitlistForm, Reveal
+                     # (scroll reveal), AnimatedHeading, PageTransition
 lib/site.ts          # Site metadata, nav items, copy data, FAQ, comparison
 public/              # Static assets (favicon, etc.)
 ```
@@ -78,7 +78,11 @@ Applied principles (see `/Users/volodymyrmendyk/.windsurf/plans/pantryx-marketin
 
 ## Open items (placeholders to replace)
 
-- `lib/site.ts` → `appStoreUrl`: replace `#` with the real App Store link.
+- `lib/site.ts` → `testFlightUrl`: paste the public TestFlight invite. Every beta CTA
+  renders a disabled "coming soon" state until it is set.
+- `lib/site.ts` → `appStoreUrl`: set on launch day; unused while the app is beta-only.
+- `.env` → `WAITLIST_WEBHOOK_URL`: where waitlist emails go. Unset means the form
+  falls back to a mailto link.
 - `lib/site.ts` → `contactEmail`: replace `hello@pantryx.app`.
 - `lib/site.ts` → `url`: production domain is **`https://pantryx.org`** (change here if the canonical URL moves).
 - Privacy & Terms pages contain `[TBD]` markers for legal review.

@@ -81,12 +81,14 @@
     @apply border border-line;
   }
 
+  /* `transition-all` here used to sweep up layout properties too, so a hover
+     could animate width or padding on anything that inherited the class. */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-all duration-300 ease-out-expo hover:bg-ink-soft hover:-translate-y-[1px];
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-[transform,background-color] duration-300 ease-out-expo hover:bg-ink-soft hover:-translate-y-[1px] active:translate-y-0 active:scale-[0.97];
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-medium text-ink transition-colors duration-200 hover:border-ink;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-medium text-ink transition-[transform,border-color] duration-200 hover:border-ink active:scale-[0.97];
   }
 
   .eyebrow {
@@ -121,6 +123,37 @@
   }
 }
 
+/* Landscape phones.
+   These are wider than the `md` breakpoint, so they get the desktop layout on a
+   viewport roughly 390px tall. The display sizes are driven by `vw`, which on an
+   852px-wide phone resolves to a ~68px headline — taller than a third of the
+   screen before any body copy. Cap the type and halve the section rhythm so a
+   section still fits in a screenful. */
+@media (orientation: landscape) and (max-height: 540px) {
+  .text-display-1 {
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    line-height: 1.06;
+  }
+
+  .text-display-2 {
+    font-size: clamp(1.625rem, 3.2vw, 2.125rem);
+    line-height: 1.1;
+  }
+
+  .text-display-3 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+  }
+
+  .text-lead {
+    font-size: 1rem;
+  }
+
+  .section {
+    padding-top: clamp(2.5rem, 5vh, 3.5rem);
+    padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -136,16 +169,17 @@
    iOS Safari reports a 0 inset while its bottom toolbar is expanded, which
    left the pill almost touching that toolbar. The max() guarantees a
    comfortable gap in that case without double-counting the home indicator
-   when the inset is real. */
+   when the inset is real. 2rem is the floor because at 1.5rem the pill read as
+   stuck to the bottom edge on browsers that report no inset at all. */
 .safe-bottom {
-  padding-bottom: max(1.5rem, calc(0.5rem + env(safe-area-inset-bottom)));
+  padding-bottom: max(2rem, calc(0.75rem + env(safe-area-inset-bottom)));
 }
 
 /* Bottom clearance so the fixed mobile CTA can never sit on top of page
-   content. Tracks the pill (52px) plus whatever gap .safe-bottom resolves to.
+   content. Tracks the pill (56px) plus whatever gap .safe-bottom resolves to.
    Only needed below `md`, which is where the bar renders at all. */
 .cta-clearance {
-  padding-bottom: max(5rem, calc(4rem + env(safe-area-inset-bottom)));
+  padding-bottom: max(6rem, calc(4.5rem + env(safe-area-inset-bottom)));
 }
 
 @media (min-width: 768px) {
@@ -154,9 +188,9 @@
   }
 }
 
-/* The mobile menu carries its own App Store badge and covers the whole
-   viewport, so the sticky bar must leave — `display: none` also takes it out
-   of the tab order, which `z-index` alone would not. */
+/* The mobile menu carries its own beta CTA and covers the whole viewport, so
+   the sticky bar must leave — `display: none` also takes it out of the tab
+   order, which `z-index` alone would not. */
 body[data-menu-open="true"] .sticky-cta {
   display: none;
 }

@@ -1,7 +1,7 @@
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { AppStoreBadge } from "@/components/ui/AppStoreBadge";
+import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
 
 const included = [
   "AI fridge scanner",
@@ -46,8 +46,8 @@ export function Pricing() {
           </ul>
 
           <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-            <AppStoreBadge />
-            <span className="text-xs text-muted">iPhone · iOS 16+</span>
+            <JoinBetaButton />
+            <span className="text-xs text-muted">TestFlight · iPhone · iOS 16+</span>
           </div>
         </Reveal>
       </div>
