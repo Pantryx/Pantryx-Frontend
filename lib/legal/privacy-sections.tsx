@@ -409,7 +409,7 @@ export const privacySections: LegalSection[] = [
               </p>
             </div>
             <div>
-              <p className="font-medium text-ink">Email Service — Mailgun</p>
+              <p className="font-medium text-ink">Email Service — Resend</p>
               <p>
                 <strong className="text-ink">Purpose:</strong> Sends transactional email such as account verification,
                 password reset, support communication, and service-related notices. If marketing emails are introduced, they
@@ -421,7 +421,7 @@ export const privacySections: LegalSection[] = [
               </p>
             </div>
             <div>
-              <p className="font-medium text-ink">Analytics — Amplitude</p>
+              <p className="font-medium text-ink">Analytics — PostHog</p>
               <p>
                 <strong className="text-ink">Purpose:</strong> Helps us understand how users interact with Pantryx and improve
                 product performance, usability, and feature quality.
@@ -433,7 +433,7 @@ export const privacySections: LegalSection[] = [
               <p>
                 <strong className="text-ink">Data Not Sent:</strong> Pantry photos, allergy profile, health-related dietary
                 data, full pantry inventory, full recipe-step content, passwords, or payment information are not sent to
-                Amplitude.
+                PostHog.
               </p>
             </div>
             <div>
