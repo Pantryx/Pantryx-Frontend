@@ -23,8 +23,8 @@ const steps: Step[] = [
   {
     n: "01",
     kicker: "Scan",
-    title: "Point at your shelf",
-    copy: "Open the camera and frame the fridge. One steady photo captures everything inside.",
+    title: "Start with a photo",
+    copy: "Open the scanner and capture what you have.",
     src: "/product/01-camera.webp",
     alt: "Pantryx camera framing a fridge shelf",
   },
@@ -32,7 +32,7 @@ const steps: Step[] = [
     n: "02",
     kicker: "Processing",
     title: "Pantryx reads it",
-    copy: "It identifies what's in the photo and builds your pantry in a few seconds.",
+    copy: "And identifies what's in the photo to build your pantry in a few seconds.",
     src: "/product/02-processing.webp",
     alt: "Pantryx identifying ingredients from the photo",
   },
@@ -40,23 +40,23 @@ const steps: Step[] = [
     n: "03",
     kicker: "Results",
     title: "Recipes you can cook",
-    copy: "Dishes ranked by what you already have — matched to your ingredients and taste.",
+    copy: "Get recipes based on your ingredients and preferences, then choose the one you want to make.",
     src: "/product/03-results.webp",
     alt: "A list of recipes matched to your scan",
   },
   {
     n: "04",
     kicker: "Choose",
-    title: "Pick your dish",
-    copy: "Open any recipe for timing, servings that scale to your batch, and every ingredient.",
+    title: "Take a closer look",
+    copy: "Open a recipe to see the full details, adjust the servings, review the ingredients and steps, and add any missing ingredients to your shopping list before you cook.",
     src: "/product/04-recipe.webp",
     alt: "The Avocado Salad recipe detail screen",
   },
   {
     n: "05",
     kicker: "Cook",
-    title: "One step at a time",
-    copy: "Follow along step by step, right down to the final toss.",
+    title: "Cook it step by step",
+    copy: "Guided steps walk you through the whole recipe, at your own pace, until it's ready.",
     src: "/product/05-cooking.webp",
     alt: "Guided cooking, one step at a time",
   },
@@ -79,10 +79,17 @@ export default function ProductPage() {
           <div className="grid items-center gap-16 md:grid-cols-12">
             <Reveal className="md:col-span-6 lg:col-span-5">
               <div className="eyebrow">The scan flow</div>
-              <AnimatedHeading className="mt-3 text-display-1 text-balance">
-                From a photo of your fridge to dinner.
+              {/* Sized so the longest line ("Your ingredients.") fits the hero
+                  column on its own — the explicit breaks then keep one sentence
+                  per line from mobile up. */}
+              <AnimatedHeading className="mt-3 text-[clamp(2.25rem,5vw,3.75rem)] font-display leading-[1.05] tracking-tight">
+                Your kitchen.
+                <br />
+                Your ingredients.
+                <br />
+                Your next meal.
               </AnimatedHeading>
-              <p className="mt-6 max-w-md text-lead text-muted">
+              <p className="mt-6 max-w-md text-[1.3125rem] leading-[1.65] text-muted">
                 Pantryx helps you figure out what to cook from the food you
                 already have. It matches your ingredients and preferences with
                 recipes you&apos;ll actually want to make, then guides you from
@@ -94,8 +101,17 @@ export default function ProductPage() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.1} className="md:col-span-6 lg:col-span-7">
-              <div className="relative mx-auto h-[380px] w-full max-w-[360px] sm:h-[420px] sm:max-w-[440px] md:mx-0 md:ml-auto md:max-w-[560px]">
+            {/* Hidden on phones — the six-screen walkthrough below already shows
+                every screen, so a decorative hero shot only costs scroll there.
+                Tablet: one clean device. Desktop: the full cascade. */}
+            <Reveal delay={0.1} className="hidden md:col-span-6 md:block lg:col-span-7">
+              <PhoneFrame
+                src="/product/04-recipe.webp"
+                alt="The recipe detail screen"
+                priority
+                className="mx-auto w-[62%] max-w-[280px] lg:hidden"
+              />
+              <div className="relative mx-auto hidden h-[420px] max-w-[560px] lg:ml-auto lg:block">
                 <PhoneFrame
                   src="/product/04-recipe.webp"
                   alt="The recipe detail screen"

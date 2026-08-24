@@ -21,8 +21,8 @@ export function HowItWorks() {
           <HowItWorksRail />
           <ol className="grid gap-6 md:grid-cols-3 lg:grid-cols-6">
             {howItWorks.map((step, i) => (
-              <Reveal key={step.n} delay={i * 0.05} as="li" className="relative">
-                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-line bg-paper font-display text-lg">
+              <Reveal key={step.n} delay={i * 0.05} as="li" className="relative text-center">
+                <div className="relative z-10 mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-line bg-paper font-display text-lg">
                   {step.n}
                 </div>
                 <div className="mt-5 font-display text-lg leading-tight text-ink">{step.title}</div>

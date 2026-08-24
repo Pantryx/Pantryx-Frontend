@@ -2,7 +2,7 @@
 
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { testimonials } from "@/lib/site";
@@ -25,13 +25,6 @@ export function SocialProof() {
     const id = window.setInterval(() => go(1), AUTO_ADVANCE_MS);
     return () => window.clearInterval(id);
   }, [paused, reduce, go, index]);
-
-  const active = testimonials[index];
-  const initials = active.name
-    .split(" ")
-    .map((p) => p[0])
-    .join("")
-    .slice(0, 2);
 
   return (
     <section
@@ -70,36 +63,46 @@ export function SocialProof() {
               strokeWidth={1.25}
             />
 
-            {/* Reserve a standard height for the quote so the card stays a
-                fixed size as it cycles, instead of animating between the
-                short and long quotes. The min-heights fit the longest quote
-                at each breakpoint. */}
-            <div>
-              <AnimatePresence mode="wait">
-                <motion.blockquote
-                  key={active.name}
-                  initial={{ opacity: 0, y: reduce ? 0 : 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: reduce ? 0 : -10 }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <p className="min-h-[10rem] pr-10 font-display text-[clamp(1.375rem,1.8vw+0.75rem,1.95rem)] leading-snug text-ink text-balance sm:min-h-[8rem] md:min-h-[5rem] md:pr-14">
-                    &ldquo;{active.quote}&rdquo;
-                  </p>
-                  <footer className="mt-6 flex items-center gap-3">
-                    <div
-                      aria-hidden
-                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-subtle font-display text-sm text-ink"
-                    >
-                      {initials}
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-ink">{active.name}</div>
-                      <div className="text-xs text-muted">{active.role}</div>
-                    </div>
-                  </footer>
-                </motion.blockquote>
-              </AnimatePresence>
+            {/* Every quote shares one grid cell, so the card is always as tall
+                as the longest quote and its height never changes as it cycles.
+                Only the active quote is opaque; the rest stay transparent but
+                still occupy the cell to hold the height. */}
+            <div className="grid">
+              {testimonials.map((t, i) => {
+                const isActive = i === index;
+                const tInitials = t.name
+                  .split(" ")
+                  .map((p) => p[0])
+                  .join("")
+                  .slice(0, 2);
+                return (
+                  <motion.blockquote
+                    key={t.name}
+                    aria-hidden={!isActive}
+                    className="col-start-1 row-start-1"
+                    initial={false}
+                    animate={{ opacity: isActive ? 1 : 0, y: isActive || reduce ? 0 : 8 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ pointerEvents: isActive ? "auto" : "none" }}
+                  >
+                    <p className="pr-10 font-display text-[clamp(1.375rem,1.8vw+0.75rem,1.95rem)] leading-snug text-ink text-balance md:pr-14">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    <footer className="mt-6 flex items-center gap-3">
+                      <div
+                        aria-hidden
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-subtle font-display text-sm text-ink"
+                      >
+                        {tInitials}
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-ink">{t.name}</div>
+                        <div className="text-xs text-muted">{t.role}</div>
+                      </div>
+                    </footer>
+                  </motion.blockquote>
+                );
+              })}
             </div>
           </div>
 

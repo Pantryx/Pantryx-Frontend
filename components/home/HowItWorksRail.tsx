@@ -46,7 +46,11 @@ export function HowItWorksRail() {
     <div
       ref={ref}
       data-rail
-      className="pointer-events-none absolute left-0 right-0 top-[28px] hidden h-px origin-left bg-line lg:block"
+      // Span from the first circle's center to the last circle's center so the
+      // line has no tail past step 06. The circles are centered in their columns,
+      // so each inset is half a column width:
+      //   colWidth = (100% - 5×gap) / 6, gap = 1.5rem (gap-6); inset = colWidth / 2.
+      className="pointer-events-none absolute left-[calc((100%_-_7.5rem)_/_12)] right-[calc((100%_-_7.5rem)_/_12)] top-[28px] hidden h-px origin-left bg-line lg:block"
     />
   );
 }
