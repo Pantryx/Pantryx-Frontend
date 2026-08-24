@@ -18,13 +18,14 @@ export const site = {
 export const beta = {
   eyebrow: "Private beta · iOS",
   waitlistTitle: "Not ready to install?",
-  waitlistCopy: "Leave your email and we'll tell you the moment a beta slot opens.",
+  waitlistCopy: "Get early access — we'll email you the moment a spot opens.",
   waitlistSuccess: "You're on the list. We'll be in touch.",
 } as const;
 
 export const nav = {
   primary: [
     { href: "/", label: "Home" },
+    { href: "/product", label: "Product" },
     { href: "/help", label: "Help" },
   ],
   legal: [
@@ -35,11 +36,11 @@ export const nav = {
 
 export const howItWorks = [
   { n: "01", title: "Scan your fridge", copy: "Point your camera. One photo." },
-  { n: "02", title: "Confirm the pantry", copy: "Tap to fix anything the AI got wrong." },
+  { n: "02", title: "Confirm the pantry", copy: "Review your ingredients and make quick adjustments if needed." },
   { n: "03", title: "Get dish ideas", copy: "Only meals you can actually make right now." },
-  { n: "04", title: "Choose one", copy: "Pick by time, mood, or what's going bad first." },
-  { n: "05", title: "Cook in guided mode", copy: "Hands-free, step by step." },
-  { n: "06", title: "Ask while cooking", copy: "Timers, substitutions, whatever you need." },
+  { n: "04", title: "Choose one", copy: "Pick by time, preference, or your favorites." },
+  { n: "05", title: "Cook in guided mode", copy: "Follow along, step by step." },
+  { n: "06", title: "Your recipe is ready", copy: "Rate it, save it to favorites, or share it." },
 ] as const;
 
 export const features = [
@@ -53,19 +54,19 @@ export const features = [
     kicker: "Pantry-based suggestions",
     title: "Only dishes you can actually make.",
     body:
-      "No more recipes that need three things you don't have. Pantryx ranks ideas by what's in your kitchen right now.",
+      "Recipes matched to what you have — and what you like.",
   },
   {
     kicker: "Guided cook mode",
     title: "Your phone becomes a sous chef.",
     body:
-      "Step-by-step instructions, large type, voice-friendly. Designed to be used while your hands are covered in oil.",
+      "Step-by-step instructions that help you follow the recipe as you cook.",
   },
   {
-    kicker: "Cooking chat",
-    title: "Ask anything, mid-recipe.",
+    kicker: "Your pantry",
+    title: "Know what's in your kitchen.",
     body:
-      "Out of garlic? Need a substitution? Overcooked the pasta? Pantryx answers in context of what you're making.",
+      "Keep your ingredients in one place and use them as the starting point for your next meal.",
   },
 ] as const;
 
@@ -90,8 +91,8 @@ export const valueCards = [
     copy: "No more 20-minute fridge stares. Get three good ideas in under a minute.",
   },
   {
-    title: "Cook with confidence",
-    copy: "Guided mode and a live cooking chat mean you're never stuck, even with unfamiliar ingredients.",
+    title: "Cook something different",
+    copy: "Discover recipes that match what you have and what you like, from familiar favorites to something new.",
   },
 ] as const;
 
@@ -107,7 +108,7 @@ export const testimonials = [
   },
   {
     quote:
-      "Guided mode is the first cooking app my hands-full, kid-on-hip self actually sticks with.",
+      "With two kids underfoot, I just scan the fridge and Pantryx hands me something I can actually make tonight — no more staring at the shelves.",
     name: "Tom K.",
     role: "Dad of two · Austin, TX",
   },

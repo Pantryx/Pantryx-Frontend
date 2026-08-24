@@ -7,13 +7,26 @@ import { NextResponse } from "next/server";
  * the Heroku backend before the filesystem is consulted; the rewrite carves out
  * this prefix so the handler is reachable.
  *
- * Storage is deliberately somebody else's problem: WAITLIST_WEBHOOK_URL points
- * at whatever collects the address (Formspree, Buttondown, Zapier, a Google
- * Form). With no webhook configured the route answers 501 and the form falls
- * back to a mailto link, so the input is never a black hole.
+ * The address is forwarded to a collector. In production that defaults to the
+ * Pantryx backend's own /api/waitlist endpoint, which emails the team via Resend
+ * — set WAITLIST_WEBHOOK_URL to override with a third party (Formspree, Zapier,
+ * …). In development, with neither configured, the route answers 501 and the
+ * form falls back to a mailto link, so local testing never silently emails the
+ * team and the input is never a black hole.
  */
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+/** Mirrors next.config.ts: the backend the site proxies /api/* to. */
+const backendUrl = (
+  process.env.BACKEND_URL ?? "https://pantryx-9007814d1092.herokuapp.com"
+).replace(/\/+$/, "");
+
+function collectorUrl(): string | undefined {
+  if (process.env.WAITLIST_WEBHOOK_URL) return process.env.WAITLIST_WEBHOOK_URL;
+  if (process.env.NODE_ENV === "production") return `${backendUrl}/api/waitlist`;
+  return undefined;
+}
 
 export async function POST(request: Request) {
   let email: unknown;
@@ -31,7 +44,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const webhook = process.env.WAITLIST_WEBHOOK_URL;
+  const webhook = collectorUrl();
   if (!webhook) {
     return NextResponse.json(
       { error: "The waitlist isn't connected yet.", fallback: "mailto" },

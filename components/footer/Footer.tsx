@@ -8,7 +8,7 @@ export function Footer() {
         <div className="max-w-sm">
           <div className="font-display text-2xl">{site.name}</div>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            Your fridge, but smarter. Snap once, cook tonight — no shopping, no guesswork.
+            You don&apos;t need more recipes. You need the right one.
           </p>
         </div>
 
@@ -25,12 +25,12 @@ export function Footer() {
             ]}
           />
           <FooterCol title="Legal" links={nav.legal.map((l) => ({ href: l.href, label: l.label }))} />
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <div className="eyebrow">Contact</div>
             <a
               href={`mailto:${site.contactEmail}`}
-              // An email address has no spaces to wrap at, so it needs break-all
-              // rather than the usual break-words.
+              // Spanning the full width on mobile gives the address room to sit on
+              // one line; break-all stays as a safety net on very narrow viewports.
               className="mt-3 block break-all text-sm text-ink hover:underline"
             >
               {site.contactEmail}

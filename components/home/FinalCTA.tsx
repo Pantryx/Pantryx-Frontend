@@ -13,7 +13,7 @@ export function FinalCTA() {
             Tonight&apos;s dinner is <em className="italic text-muted">one photo away.</em>
           </AnimatedHeading>
           <p className="mt-6 text-lead text-muted">
-            No shopping list. No subscription. Just open the fridge.
+            No guesswork. No subscription. Just open the fridge.
           </p>
           <div className="mt-10 flex justify-center">
             <JoinBetaButton />

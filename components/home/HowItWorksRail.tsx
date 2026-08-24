@@ -21,7 +21,8 @@ export function HowItWorksRail() {
 
   useEffect(() => {
     const el = ref.current;
-    // `hidden md:block` already keeps this off phones; don't animate a
+    // `hidden lg:block` keeps this off phones and the 2-row tablet grid, where a
+    // single full-width line would only span the top row; don't animate a
     // display:none node either way.
     if (!el || !isDesktopViewport() || prefersReducedMotion()) return;
 
@@ -45,7 +46,7 @@ export function HowItWorksRail() {
     <div
       ref={ref}
       data-rail
-      className="pointer-events-none absolute left-0 right-0 top-[28px] hidden h-px origin-left bg-line md:block"
+      className="pointer-events-none absolute left-0 right-0 top-[28px] hidden h-px origin-left bg-line lg:block"
     />
   );
 }

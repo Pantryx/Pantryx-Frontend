@@ -13,7 +13,7 @@ const groups = [
     items: [
       {
         q: "What do I need to use Pantryx?",
-        a: "An iPhone running iOS 16 or later, and a free Pantryx account. Creating one takes a few seconds when you first open the app — no credit card required.",
+        a: "An iPhone running iOS 26.2 or later, and a free Pantryx account. Creating one takes a few seconds when you first open the app — no credit card required.",
       },
       {
         q: "How long does a scan take?",

@@ -70,10 +70,11 @@ export function SocialProof() {
               strokeWidth={1.25}
             />
 
-            {/* The quotes run from 90 to 150 characters, so a fixed floor either
-                leaves a hole under the short ones or clips the long one at
-                320px. Animating the height instead keeps the card honest. */}
-            <motion.div layout={!reduce} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
+            {/* Reserve a standard height for the quote so the card stays a
+                fixed size as it cycles, instead of animating between the
+                short and long quotes. The min-heights fit the longest quote
+                at each breakpoint. */}
+            <div>
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={active.name}
@@ -82,7 +83,7 @@ export function SocialProof() {
                   exit={{ opacity: 0, y: reduce ? 0 : -10 }}
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <p className="font-display text-[clamp(1.375rem,1.8vw+0.75rem,1.95rem)] leading-snug text-ink text-balance">
+                  <p className="min-h-[10rem] pr-10 font-display text-[clamp(1.375rem,1.8vw+0.75rem,1.95rem)] leading-snug text-ink text-balance sm:min-h-[8rem] md:min-h-[5rem] md:pr-14">
                     &ldquo;{active.quote}&rdquo;
                   </p>
                   <footer className="mt-6 flex items-center gap-3">
@@ -99,7 +100,7 @@ export function SocialProof() {
                   </footer>
                 </motion.blockquote>
               </AnimatePresence>
-            </motion.div>
+            </div>
           </div>
 
           {/* Controls */}

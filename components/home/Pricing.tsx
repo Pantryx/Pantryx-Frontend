@@ -7,9 +7,9 @@ const included = [
   "AI fridge scanner",
   "Pantry-based dish ideas",
   "Guided cook mode",
-  "Live cooking chat",
+  "Insert Link",
   "Dietary preferences & allergies",
-  "All features included while we're free",
+  "Shopping list",
 ];
 
 export function Pricing() {
@@ -47,7 +47,7 @@ export function Pricing() {
 
           <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <JoinBetaButton />
-            <span className="text-xs text-muted">TestFlight · iPhone · iOS 16+</span>
+            <span className="text-xs text-muted">TestFlight · iPhone · iOS 26.2</span>
           </div>
         </Reveal>
       </div>

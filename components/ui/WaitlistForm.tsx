@@ -2,7 +2,7 @@
 
 import { useId, useState, type FormEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Check, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import clsx from "clsx";
 import { beta, site } from "@/lib/site";
 import { EASE_OUT_EXPO } from "@/lib/motion/tokens";
@@ -60,19 +60,63 @@ export function WaitlistForm({ className, align = "start" }: Props) {
 
   if (status === "done") {
     return (
-      <motion.p
-        initial={{ opacity: 0, y: reduce ? 0 : 6 }}
+      <motion.div
+        role="status"
+        aria-live="polite"
+        initial={{ opacity: 0, y: reduce ? 0 : 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, ease: EASE_OUT_EXPO }}
+        transition={{ duration: 0.35, ease: EASE_OUT_EXPO }}
         className={clsx(
-          "flex items-center gap-2 text-sm text-ink",
+          "flex items-center gap-3 text-sm text-ink",
           centred && "justify-center",
           className
         )}
       >
-        <Check className="h-4 w-4 shrink-0" strokeWidth={2.25} aria-hidden />
-        {beta.waitlistSuccess}
-      </motion.p>
+        <span className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center">
+          {/* One-shot ring that expands and fades — a tactile "received" pulse. */}
+          {!reduce && (
+            <motion.span
+              aria-hidden
+              className="absolute inset-0 rounded-full border border-ink"
+              initial={{ scale: 0.7, opacity: 0.35 }}
+              animate={{ scale: 1.9, opacity: 0 }}
+              transition={{ duration: 0.7, ease: EASE_OUT_EXPO, delay: 0.05 }}
+            />
+          )}
+          <motion.span
+            aria-hidden
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink text-paper"
+            initial={reduce ? false : { scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 320, damping: 18, delay: 0.02 }}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.75}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {/* Checkmark draws itself in after the badge lands. */}
+              <motion.path
+                d="M20 6.5 L9.2 17 L4.5 12.3"
+                initial={{ pathLength: reduce ? 1 : 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 0.45, ease: EASE_OUT_EXPO, delay: 0.18 }}
+              />
+            </svg>
+          </motion.span>
+        </span>
+        <motion.span
+          initial={{ opacity: 0, y: reduce ? 0 : 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: EASE_OUT_EXPO, delay: reduce ? 0 : 0.12 }}
+        >
+          {beta.waitlistSuccess}
+        </motion.span>
+      </motion.div>
     );
   }
 

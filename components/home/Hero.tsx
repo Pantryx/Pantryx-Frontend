@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
+import { WaitlistForm } from "@/components/ui/WaitlistForm";
 import { HeroHeadline } from "@/components/home/HeroHeadline";
 import { HeroStat } from "@/components/home/HeroStat";
 import {
@@ -51,16 +51,16 @@ const item: Variants = {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 md:pt-36">
+    <section className="relative overflow-hidden pt-28 md:pt-32">
       <div className="container-page pb-20 md:pb-28">
-        <motion.div initial="hidden" animate="show" className="max-w-5xl">
+        <motion.div initial="hidden" animate="show" className="mx-auto max-w-4xl text-center">
           <motion.div
             variants={slotItem}
             custom={0}
             className="eyebrow inline-flex items-center gap-2"
           >
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
-            Now in private beta · iOS
+            Now in beta · iOS
           </motion.div>
 
           <HeroHeadline />
@@ -68,19 +68,22 @@ export function Hero() {
           <motion.p
             variants={slotItem}
             custom={2}
-            className="mt-8 max-w-2xl text-lead text-muted"
+            className="mt-8 mx-auto max-w-2xl text-lead text-muted"
           >
-            Pantryx scans what you already have and turns it into dishes you can cook tonight —
-            no shopping, no guesswork.
+            Pantryx scans what you already have and turns it into dishes you can actually cook tonight.
           </motion.p>
 
           <motion.div
             variants={slotItem}
             custom={3}
-            className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+            className="mt-10 mx-auto w-full max-w-md"
+            data-beta-cta
+            id="waitlist-hero"
           >
-            <JoinBetaButton />
-            <div className="text-sm text-muted">TestFlight · Free · Delete anytime</div>
+            <WaitlistForm align="center" />
+            <p className="mt-3 text-xs text-muted">
+              iOS beta · we&apos;ll email your invite first, no spam.
+            </p>
           </motion.div>
         </motion.div>
 
@@ -88,18 +91,20 @@ export function Hero() {
           variants={stagger}
           initial="hidden"
           animate="show"
-          className="mt-20 grid grid-cols-3 gap-6 border-t border-line pt-10 text-sm md:mt-28 md:max-w-3xl md:gap-12"
+          className="mt-20 mx-auto grid grid-cols-3 gap-4 border-t border-line pt-10 text-sm md:mt-28 md:max-w-3xl md:gap-12"
         >
           {[
-            ["30%", "less food waste"],
-            ["60s", "to dinner idea"],
+            ["60s", "from pantry to recipe"],
+            ["2H", "saves per week"],
             ["0", "subscriptions"],
           ].map(([big, small], i) => (
-            <motion.li key={small} variants={item}>
+            <motion.li key={small} variants={item} className="text-center">
               <div className="font-display text-[clamp(2rem,4vw,3rem)] leading-none text-ink">
                 <HeroStat value={big} index={i} />
               </div>
-              <div className="mt-3 text-xs uppercase tracking-[0.14em] text-muted">{small}</div>
+              <div className="mt-3 text-[11px] uppercase tracking-[0.05em] text-muted md:text-xs md:tracking-[0.14em]">
+                {small}
+              </div>
             </motion.li>
           ))}
         </motion.ul>

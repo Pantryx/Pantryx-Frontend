@@ -63,13 +63,18 @@ export function Navbar() {
       </a>
       <header
         className={clsx(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out-expo",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter,box-shadow] duration-300 ease-out-expo",
           scrolled
-            ? "border-b border-line bg-paper/80 backdrop-blur-md"
+            ? "border-b border-line bg-paper/80 shadow-[0_10px_30px_-16px_rgba(0,0,0,0.25)] backdrop-blur-md"
             : "border-b border-transparent bg-paper/0"
         )}
       >
-        <div className="container-page flex h-16 items-center justify-between">
+        <div
+          className={clsx(
+            "container-page flex items-center justify-between transition-[height] duration-300 ease-out-expo",
+            scrolled ? "h-14" : "h-16"
+          )}
+        >
           <Link href="/" className="group flex items-center gap-2" aria-label="Pantryx home">
             <Logo />
             <span className="font-display text-xl leading-none text-ink">{site.name}</span>
@@ -144,16 +149,18 @@ export function Navbar() {
           {/* The CTA holds its space from the start and only fades in, so the
               nav doesn't reflow the moment you begin scrolling. */}
           <div className="hidden items-center gap-2 md:flex">
-            <ThemeToggle />
             <div
               className={clsx(
-                "transition-opacity duration-300 ease-out-expo",
-                scrolled ? "opacity-100" : "pointer-events-none opacity-0"
+                "origin-right transition-[transform,opacity] duration-300 ease-out-expo motion-reduce:transition-opacity",
+                scrolled
+                  ? "translate-y-0 scale-100 opacity-100"
+                  : "pointer-events-none -translate-y-1 scale-[0.97] opacity-0"
               )}
               aria-hidden={!scrolled}
             >
               <JoinBetaButton size="compact" inline={false} />
             </div>
+            <ThemeToggle />
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
