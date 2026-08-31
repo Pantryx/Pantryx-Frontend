@@ -1,6 +1,5 @@
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
 import { WaitlistForm } from "@/components/ui/WaitlistForm";
 import { beta } from "@/lib/site";
 
@@ -15,10 +14,7 @@ export function FinalCTA() {
           <p className="mt-6 text-lead text-muted">
             No guesswork. No subscription. Just open the fridge.
           </p>
-          <div className="mt-10 flex justify-center">
-            <JoinBetaButton />
-          </div>
-          <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-[0.16em] text-muted">
+          <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-[0.16em] text-muted">
             <span>Free</span>
             <span className="opacity-40">·</span>
             <span>No credit card</span>
@@ -26,9 +22,11 @@ export function FinalCTA() {
             <span>Private by default</span>
           </div>
 
-          {/* scroll-mt clears the fixed navbar when the sticky bar links here. */}
+          {/* scroll-mt clears the fixed navbar when the sticky bar links here.
+              data-beta-cta pulls the sticky bar down off this form. */}
           <div
             id="waitlist"
+            data-beta-cta
             className="mx-auto mt-12 max-w-sm scroll-mt-24 border-t border-line pt-10"
           >
             <p className="font-display text-lg text-ink">{beta.waitlistTitle}</p>

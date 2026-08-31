@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { nav, site } from "@/lib/site";
-import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
 import { WaitlistForm } from "@/components/ui/WaitlistForm";
 
 type Props = { open: boolean; onClose: () => void };
@@ -112,13 +111,10 @@ export function MobileMenu({ open, onClose }: Props) {
               ))}
             </ul>
             <div className="mt-10 flex flex-col gap-3 pb-10">
-              <JoinBetaButton className="w-full justify-center" />
-              <p className="text-center text-xs text-muted">
-                TestFlight · Free · Private by default
+              <WaitlistForm />
+              <p className="text-xs text-muted">
+                iOS beta · Free · Private by default
               </p>
-              <div className="mt-6 border-t border-line pt-6">
-                <WaitlistForm />
-              </div>
             </div>
           </motion.div>
         </motion.div>

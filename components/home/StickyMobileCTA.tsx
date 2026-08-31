@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AppleMark } from "@/components/ui/AppleMark";
-import { site } from "@/lib/site";
 import { useStickyCtaVisibility } from "@/lib/hooks/useStickyCtaVisibility";
 
 export function StickyMobileCTA() {
@@ -32,37 +31,26 @@ export function StickyMobileCTA() {
   );
 }
 
-const PILL =
-  "pointer-events-auto flex items-center justify-center gap-3 rounded-full bg-ink px-5 py-4 text-paper shadow-[0_18px_50px_-12px_rgba(0,0,0,0.45)] transition-transform duration-200 ease-out-expo active:scale-[0.97]";
-
 /**
  * A bar that permanently occupies the bottom of every phone screen has to do
- * something when tapped. While the TestFlight invite is still closed it points
- * at the waitlist instead of rendering a dead, dimmed pill — and it stays fully
- * opaque either way, since a translucent bar lets the page scroll through it.
+ * something when tapped. Invites go out by email, so it points at the waitlist
+ * form — from another route that has to be an absolute path, or the hash
+ * resolves against a page with no #waitlist on it and the tap does nothing.
+ *
+ * It stays fully opaque: a translucent bar lets the page scroll through it.
  */
 function StickyPill() {
-  const open = site.testFlightUrl.length > 0;
-
-  if (!open) {
-    return (
-      <a href="#waitlist" aria-label="Get notified when the Pantryx beta opens" className={PILL}>
-        <AppleMark className="h-5 w-5" />
-        <span className="text-sm font-medium">Get notified when the beta opens</span>
-      </a>
-    );
-  }
+  const pathname = usePathname();
+  const href = pathname === "/" ? "#waitlist" : "/#waitlist";
 
   return (
-    <Link
-      href={site.testFlightUrl}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Join the Pantryx beta on TestFlight"
-      className={PILL}
+    <a
+      href={href}
+      aria-label="Get your Pantryx beta invite by email"
+      className="pointer-events-auto flex items-center justify-center gap-3 rounded-full bg-ink px-5 py-4 text-paper shadow-[0_18px_50px_-12px_rgba(0,0,0,0.45)] transition-transform duration-200 ease-out-expo active:scale-[0.97]"
     >
       <AppleMark className="h-5 w-5" />
-      <span className="text-sm font-medium">Join the beta · Free</span>
-    </Link>
+      <span className="text-sm font-medium">Get your beta invite</span>
+    </a>
   );
 }

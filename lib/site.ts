@@ -4,12 +4,10 @@ export const site = {
   description:
     "Pantryx scans what you already have and turns it into dishes you can cook tonight — no shopping, no guesswork.",
   /**
-   * Public TestFlight invite, e.g. https://testflight.apple.com/join/XXXXXXXX.
-   * Leave empty until the build is out for external testers — JoinBetaButton
-   * renders a disabled "coming soon" state rather than a link to nowhere.
+   * Set on launch day, when an App Store badge becomes the primary CTA.
+   * Unused while the app is beta-only: invites are sent by email from the
+   * waitlist, so the site deliberately carries no public install link.
    */
-  testFlightUrl: "",
-  /** Set on launch day; unused while the app is beta-only. */
   appStoreUrl: "",
   contactEmail: "communication.pantryx@gmail.com",
   url: "https://pantryx.org",
@@ -17,8 +15,8 @@ export const site = {
 
 export const beta = {
   eyebrow: "Private beta · iOS",
-  waitlistTitle: "Not ready to install?",
-  waitlistCopy: "Get early access — we'll email you the moment a spot opens.",
+  waitlistTitle: "Want in?",
+  waitlistCopy: "Leave your email and we'll send your iOS beta invite.",
   waitlistSuccess: "You're on the list. We'll be in touch.",
 } as const;
 

@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Menu } from "lucide-react";
 import clsx from "clsx";
 import { nav, site } from "@/lib/site";
-import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { MobileMenu } from "@/components/nav/MobileMenu";
 
@@ -146,20 +145,7 @@ export function Navbar() {
             </div>
           </nav>
 
-          {/* The CTA holds its space from the start and only fades in, so the
-              nav doesn't reflow the moment you begin scrolling. */}
           <div className="hidden items-center gap-2 md:flex">
-            <div
-              className={clsx(
-                "origin-right transition-[transform,opacity] duration-300 ease-out-expo motion-reduce:transition-opacity",
-                scrolled
-                  ? "translate-y-0 scale-100 opacity-100"
-                  : "pointer-events-none -translate-y-1 scale-[0.97] opacity-0"
-              )}
-              aria-hidden={!scrolled}
-            >
-              <JoinBetaButton size="compact" inline={false} />
-            </div>
             <ThemeToggle />
           </div>
 

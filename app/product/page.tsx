@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
-import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
+import { WaitlistForm } from "@/components/ui/WaitlistForm";
 import { PhoneFrame } from "@/components/product/PhoneFrame";
 
 export const metadata: Metadata = {
@@ -95,9 +95,11 @@ export default function ProductPage() {
                 recipes you&apos;ll actually want to make, then guides you from
                 your first ingredient to the finished meal.
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <JoinBetaButton />
-                <span className="text-sm text-muted">Six steps · under a minute</span>
+              <div className="mt-8" data-beta-cta>
+                <WaitlistForm />
+                <p className="mt-3 text-xs text-muted">
+                  Six steps · under a minute · invite by email
+                </p>
               </div>
             </Reveal>
 

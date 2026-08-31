@@ -40,8 +40,8 @@ test.describe("sticky mobile CTA", () => {
   test("appears once past the gate with no inline badge in view", async ({ page }) => {
     await scrollTo(page, SHOW_AT_Y + 200);
     await expect(page.locator(STICKY_BAR)).toBeVisible();
-    // The label depends on whether site.testFlightUrl is configured — join the
-    // beta when it is, get notified when it isn't. Both are the same CTA.
+    // The bar's only job is to reach the email waitlist — there is no public
+    // install link while the app is invite-only.
     await expect(page.locator(STICKY_PILL)).toHaveAccessibleName(/Pantryx beta/);
   });
 

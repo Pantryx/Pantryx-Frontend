@@ -1,7 +1,7 @@
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { JoinBetaButton } from "@/components/ui/JoinBetaButton";
+import { WaitlistForm } from "@/components/ui/WaitlistForm";
 
 const included = [
   "AI fridge scanner",
@@ -45,9 +45,9 @@ export function Pricing() {
             ))}
           </ul>
 
-          <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-            <JoinBetaButton />
-            <span className="text-xs text-muted">TestFlight · iPhone · iOS 26.2</span>
+          <div className="mt-10" data-beta-cta>
+            <WaitlistForm />
+            <p className="mt-3 text-xs text-muted">iPhone · iOS 26.2 · invite by email</p>
           </div>
         </Reveal>
       </div>
