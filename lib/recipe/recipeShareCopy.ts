@@ -25,8 +25,7 @@ export const recipeShareCopy: Record<RecipeLanguage, RecipeShareCopy> = {
     getTheApp: "Don't have Pantryx yet?",
     downloadOnAppStore: "Download on the App Store",
     betaNote: "Pantryx is in private beta on iPhone.",
-    metaDescription: (minutes, servings) =>
-      `${minutes} min · serves ${servings}. Cook it step by step in Pantryx.`,
+    metaDescription: (minutes, servings) => `${minutes} min · serves ${servings}`,
     previewBadge: "Cook in Pantryx",
   },
   uk: {
@@ -39,8 +38,7 @@ export const recipeShareCopy: Record<RecipeLanguage, RecipeShareCopy> = {
     getTheApp: "Ще немає Pantryx?",
     downloadOnAppStore: "Завантажити в App Store",
     betaNote: "Pantryx зараз у закритій бета-версії для iPhone.",
-    metaDescription: (minutes, servings) =>
-      `${minutes} хв · порцій: ${servings}. Готуйте крок за кроком у Pantryx.`,
+    metaDescription: (minutes, servings) => `${minutes} хв · порцій: ${servings}`,
     previewBadge: "Готуйте в Pantryx",
   },
 };

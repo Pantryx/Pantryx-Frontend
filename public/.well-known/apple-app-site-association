@@ -9,8 +9,12 @@
         ],
         "components": [
           {
-            "/": "/recipe/*",
+            "/": "/recipes/*",
             "comment": "Shared recipe links open the recipe in the app."
+          },
+          {
+            "/": "/recipe/*",
+            "comment": "Links shared before readable recipe URLs."
           }
         ]
       }

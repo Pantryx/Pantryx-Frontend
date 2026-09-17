@@ -13,10 +13,16 @@ test.describe("shared recipe links", () => {
       "826BUSUT25.com.pantryx.app.staging",
       "826BUSUT25.com.pantryx.app.dev",
     ]);
-    expect(detail.components.map((component: { "/": string }) => component["/"])).toEqual(["/recipe/*"]);
+    expect(detail.components.map((component: { "/": string }) => component["/"])).toEqual(["/recipes/*", "/recipe/*"]);
   });
 
-  for (const recipePath of ["/recipe/not-a-number", "/recipe/1000000"]) {
+  test("links shared before readable URLs redirect permanently to the new path", async ({ request }) => {
+    const response = await request.get("/recipe/39", { maxRedirects: 0 });
+    expect(response.status()).toBe(308);
+    expect(response.headers()["location"]).toBe("/recipes/39");
+  });
+
+  for (const recipePath of ["/recipes/not-a-number", "/recipes/pasta-alla-carbonara-1000000", "/recipes/Pasta-39"]) {
     test(`${recipePath} is not found without asking the backend`, async ({ page }) => {
       const response = await page.goto(recipePath);
       expect(response?.status()).toBe(404);

@@ -11,6 +11,7 @@ export type RecipePreviewIngredient = {
 export type RecipePreview = {
   id: number;
   recipe_name: string;
+  slug?: string;
   description?: string | null;
   image: string;
   prep_time: number;
@@ -29,6 +30,21 @@ export function parseShareableRecipeId(raw: string): number | null {
   if (!/^\d{1,7}$/.test(raw)) return null;
   const id = Number(raw);
   return id < importedRecipeIdOffset ? id : null;
+}
+
+/**
+ * Reads the id from a shared recipe path segment such as `pasta-alla-carbonara-39`.
+ * The id is the only part that resolves the recipe; the name in front of it is
+ * presentation, so a renamed recipe or a hand-edited link still opens.
+ */
+export function parseRecipeIdFromPathSegment(segment: string): number | null {
+  const match = /^(?:[a-z0-9-]*-)?(\d{1,7})$/.exec(segment);
+  return match ? parseShareableRecipeId(match[1]) : null;
+}
+
+/** The canonical `/recipes/...` path: the backend's English slug followed by the id. */
+export function recipePath(recipe: Pick<RecipePreview, "id" | "slug">): string {
+  return recipe.slug ? `/recipes/${recipe.slug}-${recipe.id}` : `/recipes/${recipe.id}`;
 }
 
 /**

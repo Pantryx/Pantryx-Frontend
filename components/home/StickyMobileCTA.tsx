@@ -12,7 +12,7 @@ export function StickyMobileCTA() {
   const slide = reduceMotion ? 0 : 80;
 
   // A shared recipe page's own call to action is opening the app, not the waitlist.
-  const onSharedRecipePage = pathname.startsWith("/recipe/");
+  const onSharedRecipePage = pathname.startsWith("/recipes/");
 
   return (
     <AnimatePresence>

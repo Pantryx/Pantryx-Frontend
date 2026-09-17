@@ -1,39 +1,42 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 import { WaitlistForm } from "@/components/ui/WaitlistForm";
 import { AppStoreLink } from "@/components/recipe/AppStoreLink";
 import { OpenInAppButton } from "@/components/recipe/OpenInAppButton";
 import { RecipePageViewTracker } from "@/components/recipe/RecipePageViewTracker";
-import { fetchRecipePreview, parseShareableRecipeId } from "@/lib/recipe/recipePreview";
+import { fetchRecipePreview, parseRecipeIdFromPathSegment, recipePath } from "@/lib/recipe/recipePreview";
 import { recipeLocaleFromAcceptLanguage } from "@/lib/recipe/recipeLanguage";
 import { recipeShareCopy } from "@/lib/recipe/recipeShareCopy";
 import { site } from "@/lib/site";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 };
 
 const getAppSectionId = "get-pantryx";
 
-const loadRecipePage = cache(async (rawId: string) => {
-  const recipeId = parseShareableRecipeId(rawId);
+const loadRecipePage = cache(async (pathSegment: string) => {
+  const recipeId = parseRecipeIdFromPathSegment(pathSegment);
   if (recipeId === null) notFound();
 
   const locale = recipeLocaleFromAcceptLanguage((await headers()).get("accept-language"));
   const recipe = await fetchRecipePreview(recipeId, locale.language);
   if (!recipe) notFound();
 
+  const canonicalPath = recipePath(recipe);
+  if (canonicalPath !== `/recipes/${pathSegment}`) permanentRedirect(canonicalPath);
+
   return { recipe, locale, copy: recipeShareCopy[locale.language] };
 });
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
-  const { recipe, locale, copy } = await loadRecipePage(id);
+  const { slug } = await params;
+  const { recipe, locale, copy } = await loadRecipePage(slug);
   const title = recipe.recipe_name.trim();
   const description = copy.metaDescription(Math.round(recipe.total_time), recipe.servings);
-  const canonicalPath = `/recipe/${recipe.id}`;
+  const canonicalPath = recipePath(recipe);
   const previewImagePath = `/api/site/recipe-preview/${recipe.id}?lang=${locale.language}`;
 
   return {
@@ -61,8 +64,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function RecipePage({ params }: Props) {
-  const { id } = await params;
-  const { recipe, locale, copy } = await loadRecipePage(id);
+  const { slug } = await params;
+  const { recipe, locale, copy } = await loadRecipePage(slug);
   const title = recipe.recipe_name.trim();
   const ingredients = recipe.ingredients.map((ingredient) => ({
     name: ingredient.name,
