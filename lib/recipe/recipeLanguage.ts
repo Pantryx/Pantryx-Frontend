@@ -1,4 +1,8 @@
 export type RecipeLanguage = "en" | "uk";
+
+export function recipeLanguageFromQuery(value: string | null): RecipeLanguage {
+  return value === "uk" ? "uk" : "en";
+}
 export type MeasurementSystem = "metric" | "imperial";
 
 export type RecipeLocale = {

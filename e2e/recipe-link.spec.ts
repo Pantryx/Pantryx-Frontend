@@ -24,6 +24,13 @@ test.describe("shared recipe links", () => {
     });
   }
 
+  test("the link preview image is not generated for private or malformed ids", async ({ request }) => {
+    for (const recipeId of ["1000000", "not-a-number"]) {
+      const response = await request.get(`/api/site/recipe-preview/${recipeId}`);
+      expect(response.status()).toBe(404);
+    }
+  });
+
   test("site events reject names outside the recipe funnel", async ({ request }) => {
     const response = await request.post("/api/site/events", {
       data: { event: "anything_else", distinctId: "test" },

@@ -30,10 +30,11 @@ const loadRecipePage = cache(async (rawId: string) => {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const { recipe, copy } = await loadRecipePage(id);
+  const { recipe, locale, copy } = await loadRecipePage(id);
   const title = recipe.recipe_name.trim();
   const description = copy.metaDescription(Math.round(recipe.total_time), recipe.servings);
   const canonicalPath = `/recipe/${recipe.id}`;
+  const previewImagePath = `/api/site/recipe-preview/${recipe.id}?lang=${locale.language}`;
 
   return {
     title,
@@ -45,13 +46,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonicalPath,
       siteName: site.name,
       type: "article",
-      images: [{ url: recipe.image, alt: title }],
+      images: [{ url: previewImagePath, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [recipe.image],
+      images: [previewImagePath],
     },
     ...(site.appStoreId
       ? { itunes: { appId: site.appStoreId, appArgument: `${site.url}${canonicalPath}` } }
