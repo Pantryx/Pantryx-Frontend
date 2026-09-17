@@ -9,6 +9,11 @@ export const site = {
    * waitlist, so the site deliberately carries no public install link.
    */
   appStoreUrl: "",
+  /**
+   * Numeric App Store id, set together with `appStoreUrl`. Drives the Safari
+   * Smart App Banner on shared recipe pages; empty keeps the banner off.
+   */
+  appStoreId: "",
   contactEmail: "communication.pantryx@gmail.com",
   url: "https://pantryx.org",
 } as const;

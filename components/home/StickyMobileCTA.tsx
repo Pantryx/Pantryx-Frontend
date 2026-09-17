@@ -6,13 +6,17 @@ import { AppleMark } from "@/components/ui/AppleMark";
 import { useStickyCtaVisibility } from "@/lib/hooks/useStickyCtaVisibility";
 
 export function StickyMobileCTA() {
+  const pathname = usePathname();
   const visible = useStickyCtaVisibility();
   const reduceMotion = useReducedMotion();
   const slide = reduceMotion ? 0 : 80;
 
+  // A shared recipe page's own call to action is opening the app, not the waitlist.
+  const onSharedRecipePage = pathname.startsWith("/recipe/");
+
   return (
     <AnimatePresence>
-      {visible && (
+      {visible && !onSharedRecipePage && (
         <motion.div
           initial={{ y: slide, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

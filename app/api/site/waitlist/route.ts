@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { backendUrl } from "@/lib/backend";
 
 /**
  * Beta waitlist signup.
@@ -17,10 +18,6 @@ import { NextResponse } from "next/server";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-/** Mirrors next.config.ts: the backend the site proxies /api/* to. */
-const backendUrl = (
-  process.env.BACKEND_URL ?? "https://pantryx-9007814d1092.herokuapp.com"
-).replace(/\/+$/, "");
 
 function collectorUrl(): string | undefined {
   if (process.env.WAITLIST_WEBHOOK_URL) return process.env.WAITLIST_WEBHOOK_URL;

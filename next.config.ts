@@ -10,6 +10,17 @@ const nextConfig: NextConfig = {
   // directory a running `npm run dev` is serving from — the two clobber each
   // other's chunks and the build fails.
   ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
+  async headers() {
+    return [
+      {
+        // Served from public/ with no extension, which would otherwise go out as
+        // application/octet-stream. Apple's CDN fetches it to decide which paths
+        // open the app.
+        source: "/.well-known/apple-app-site-association",
+        headers: [{ key: "Content-Type", value: "application/json" }],
+      },
+    ];
+  },
   async rewrites() {
     return {
       beforeFiles: [

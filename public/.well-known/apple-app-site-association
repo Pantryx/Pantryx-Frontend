@@ -1,0 +1,19 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "826BUSUT25.com.pantryx.app",
+          "826BUSUT25.com.pantryx.app.staging",
+          "826BUSUT25.com.pantryx.app.dev"
+        ],
+        "components": [
+          {
+            "/": "/recipe/*",
+            "comment": "Shared recipe links open the recipe in the app."
+          }
+        ]
+      }
+    ]
+  }
+}
