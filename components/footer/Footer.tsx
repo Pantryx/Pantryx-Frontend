@@ -21,6 +21,9 @@ export function Footer() {
             title="Product"
             links={[
               { href: "/", label: "Home" },
+              { href: "/product", label: "Product" },
+              { href: "/#features", label: "Features" },
+              { href: "/#pricing", label: "Pricing" },
               { href: "/help", label: "Help" },
             ]}
           />

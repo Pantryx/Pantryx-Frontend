@@ -7,7 +7,7 @@ const included = [
   "AI fridge scanner",
   "Pantry-based dish ideas",
   "Guided cook mode",
-  "Insert Link",
+  "Save & share recipes",
   "Dietary preferences & allergies",
   "Shopping list",
 ];

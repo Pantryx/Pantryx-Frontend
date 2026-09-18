@@ -77,7 +77,7 @@ export const comparisonRows = [
   { label: "AI scan of your real fridge", pantryx: true, whisk: false, mealime: false, supercook: false, yummly: false },
   { label: "Uses what you already have", pantryx: true, whisk: false, mealime: false, supercook: true, yummly: false },
   { label: "Guided step-by-step cooking", pantryx: true, whisk: false, mealime: true, supercook: false, yummly: false },
-  { label: "Real-time cooking chat", pantryx: true, whisk: false, mealime: false, supercook: false, yummly: false },
+  { label: "Matches your taste and diet", pantryx: true, whisk: true, mealime: true, supercook: false, yummly: true },
   { label: "Free (no paywalled features)", pantryx: true, whisk: false, mealime: false, supercook: true, yummly: false },
   { label: "No ad clutter", pantryx: true, whisk: false, mealime: true, supercook: false, yummly: false },
 ] as const;
@@ -154,6 +154,6 @@ export const faq = [
   },
   {
     q: "Do I need an account to use it?",
-    a: "Yes — you'll create a free account the first time you open the app. It takes a few seconds, no credit card required, and it's what lets your pantry, preferences, and cooking history sync across devices.",
+    a: "No — you can enter as a guest and start scanning right away. Create a free account whenever you want to save your pantry, preferences, and cooking history and sync them across devices. No credit card required.",
   },
 ] as const;
