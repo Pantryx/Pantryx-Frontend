@@ -49,6 +49,21 @@ test.describe("navigation", () => {
     }
   });
 
+  test("footer links to every social profile in a new tab", async ({ page }) => {
+    await page.goto("/");
+    const footer = page.locator("footer").last();
+
+    for (const [name, href] of [
+      ["Pantryx on Instagram", "https://www.instagram.com/pantryx.app"],
+      ["Pantryx on TikTok", "https://www.tiktok.com/@pantryx.app"],
+      ["Pantryx on Threads", "https://www.threads.com/@pantryx.app"],
+    ] as const) {
+      const link = footer.getByRole("link", { name, exact: true });
+      await expect(link).toHaveAttribute("href", href);
+      await expect(link).toHaveAttribute("target", "_blank");
+    }
+  });
+
   test("mobile menu opens, navigates and closes", async ({ page, isMobile }) => {
     test.skip(!isMobile, "the hamburger only exists below md");
 

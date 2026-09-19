@@ -18,6 +18,14 @@ export const site = {
   url: "https://pantryx.org",
 } as const;
 
+export const social = [
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/pantryx.app" },
+  { id: "tiktok", label: "TikTok", href: "https://www.tiktok.com/@pantryx.app" },
+  { id: "threads", label: "Threads", href: "https://www.threads.com/@pantryx.app" },
+] as const;
+
+export type SocialId = (typeof social)[number]["id"];
+
 export const beta = {
   eyebrow: "Private beta · iOS",
   waitlistTitle: "Want in?",
