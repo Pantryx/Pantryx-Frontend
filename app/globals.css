@@ -188,7 +188,7 @@
   }
 }
 
-/* The mobile menu carries its own beta CTA and covers the whole viewport, so
+/* The mobile menu carries its own App Store CTA and covers the whole viewport, so
    the sticky bar must leave — `display: none` also takes it out of the tab
    order, which `z-index` alone would not. */
 body[data-menu-open="true"] .sticky-cta {

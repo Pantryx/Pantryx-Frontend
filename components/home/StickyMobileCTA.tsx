@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AppleMark } from "@/components/ui/AppleMark";
 import { useStickyCtaVisibility } from "@/lib/hooks/useStickyCtaVisibility";
+import { site } from "@/lib/site";
 
 export function StickyMobileCTA() {
   const pathname = usePathname();
@@ -11,7 +12,7 @@ export function StickyMobileCTA() {
   const reduceMotion = useReducedMotion();
   const slide = reduceMotion ? 0 : 80;
 
-  // A shared recipe page's own call to action is opening the app, not the waitlist.
+  // A shared recipe page's own call to action is opening the app.
   const onSharedRecipePage = pathname.startsWith("/recipes/");
 
   return (
@@ -37,24 +38,19 @@ export function StickyMobileCTA() {
 
 /**
  * A bar that permanently occupies the bottom of every phone screen has to do
- * something when tapped. Invites go out by email, so it points at the waitlist
- * form — from another route that has to be an absolute path, or the hash
- * resolves against a page with no #waitlist on it and the tap does nothing.
+ * something when tapped, so it goes straight to the App Store listing.
  *
  * It stays fully opaque: a translucent bar lets the page scroll through it.
  */
 function StickyPill() {
-  const pathname = usePathname();
-  const href = pathname === "/" ? "#waitlist" : "/#waitlist";
-
   return (
     <a
-      href={href}
-      aria-label="Get your Pantryx beta invite by email"
+      href={site.appStoreUrl}
+      aria-label="Download Pantryx on the App Store"
       className="pointer-events-auto flex items-center justify-center gap-3 rounded-full bg-ink px-5 py-4 text-paper shadow-[0_18px_50px_-12px_rgba(0,0,0,0.45)] transition-transform duration-200 ease-out-expo active:scale-[0.97]"
     >
       <AppleMark className="h-5 w-5" />
-      <span className="text-sm font-medium">Get your beta invite</span>
+      <span className="text-sm font-medium">Download on the App Store</span>
     </a>
   );
 }

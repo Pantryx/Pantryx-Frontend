@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 
 export const STICKY_BAR = ".sticky-cta";
 export const STICKY_PILL = `${STICKY_BAR} a`;
-export const INLINE_CTA = "[data-beta-cta]";
+export const INLINE_CTA = "[data-inline-cta]";
 
 /** Scroll to an absolute offset and let the rAF-throttled listener settle. */
 export async function scrollTo(page: Page, y: number) {

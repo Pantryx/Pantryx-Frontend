@@ -40,9 +40,9 @@ test.describe("sticky mobile CTA", () => {
   test("appears once past the gate with no inline badge in view", async ({ page }) => {
     await scrollTo(page, SHOW_AT_Y + 200);
     await expect(page.locator(STICKY_BAR)).toBeVisible();
-    // The bar's only job is to reach the email waitlist — there is no public
-    // install link while the app is invite-only.
-    await expect(page.locator(STICKY_PILL)).toHaveAccessibleName(/Pantryx beta/);
+    // The bar's only job is to reach the App Store listing.
+    await expect(page.locator(STICKY_PILL)).toHaveAccessibleName(/App Store/);
+    await expect(page.locator(STICKY_PILL)).toHaveAttribute("href", /apps\.apple\.com/);
   });
 
   // Regression: the bar used to key off a single `scrollY > 500` threshold, so
@@ -78,7 +78,7 @@ test.describe("sticky mobile CTA", () => {
     }
   });
 
-  test("hides again when an inline beta CTA scrolls into view", async ({ page }) => {
+  test("hides again when an inline CTA scrolls into view", async ({ page }) => {
     await scrollTo(page, 1400);
     await expect(page.locator(STICKY_BAR)).toBeVisible();
 

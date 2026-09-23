@@ -1,7 +1,6 @@
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { WaitlistForm } from "@/components/ui/WaitlistForm";
-import { beta } from "@/lib/site";
+import { AppStoreButton } from "@/components/ui/AppStoreButton";
 
 export function FinalCTA() {
   return (
@@ -22,15 +21,12 @@ export function FinalCTA() {
             <span>Private by default</span>
           </div>
 
-          {/* scroll-mt clears the fixed navbar when the sticky bar links here.
-              data-beta-cta pulls the sticky bar down off this form. */}
+          {/* data-inline-cta pulls the sticky bar down off this button. */}
           <div
-            id="waitlist"
-            data-beta-cta
-            className="mx-auto mt-12 max-w-sm scroll-mt-24 border-t border-line pt-10"
+            data-inline-cta
+            className="mx-auto mt-12 max-w-sm border-t border-line pt-10"
           >
-            <p className="font-display text-lg text-ink">{beta.waitlistTitle}</p>
-            <WaitlistForm align="center" className="mt-4 text-left" />
+            <AppStoreButton />
           </div>
         </Reveal>
       </div>

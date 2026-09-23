@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 type Props = {
   recipeId: number;
   label: string;
-  /** Element to scroll to when the app can't be opened and there is no App Store listing yet. */
+  /** Element to scroll to when the app can't be opened and there is no App Store listing. */
   fallbackTargetId: string;
 };
 

@@ -3,17 +3,10 @@ export const site = {
   tagline: "Stop staring at the fridge. Decide dinner in 60 seconds.",
   description:
     "Pantryx scans what you already have and turns it into dishes you can cook tonight — no shopping, no guesswork.",
-  /**
-   * Set on launch day, when an App Store badge becomes the primary CTA.
-   * Unused while the app is beta-only: invites are sent by email from the
-   * waitlist, so the site deliberately carries no public install link.
-   */
-  appStoreUrl: "",
-  /**
-   * Numeric App Store id, set together with `appStoreUrl`. Drives the Safari
-   * Smart App Banner on shared recipe pages; empty keeps the banner off.
-   */
-  appStoreId: "",
+  /** The App Store listing — the primary CTA on every page. */
+  appStoreUrl: "https://apps.apple.com/us/app/ai-recipes-pantry-pantryx/id6761001136",
+  /** Numeric App Store id, kept in step with `appStoreUrl`. Drives the Safari Smart App Banner. */
+  appStoreId: "6761001136",
   contactEmail: "communication.pantryx@gmail.com",
   url: "https://pantryx.org",
 } as const;
@@ -25,13 +18,6 @@ export const social = [
 ] as const;
 
 export type SocialId = (typeof social)[number]["id"];
-
-export const beta = {
-  eyebrow: "Private beta · iOS",
-  waitlistTitle: "Want in?",
-  waitlistCopy: "Leave your email and we'll send your iOS beta invite.",
-  waitlistSuccess: "You're on the list. We'll be in touch.",
-} as const;
 
 export const nav = {
   primary: [
@@ -108,7 +94,7 @@ export const valueCards = [
 ] as const;
 
 // PLACEHOLDER CONTENT — replace with real, permissioned quotes from
-// private-beta testers before public launch. Keep first-name-initial format
+// early testers. Keep first-name-initial format
 // unless you have explicit consent to show full names.
 export const testimonials = [
   {

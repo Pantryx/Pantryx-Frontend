@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
-import { WaitlistForm } from "@/components/ui/WaitlistForm";
+import { AppStoreButton } from "@/components/ui/AppStoreButton";
 import { PhoneFrame } from "@/components/product/PhoneFrame";
 
 export const metadata: Metadata = {
@@ -95,10 +95,10 @@ export default function ProductPage() {
                 recipes you&apos;ll actually want to make, then guides you from
                 your first ingredient to the finished meal.
               </p>
-              <div className="mt-8" data-beta-cta>
-                <WaitlistForm />
+              <div className="mt-8" data-inline-cta>
+                <AppStoreButton />
                 <p className="mt-3 text-xs text-muted">
-                  Six steps · under a minute · invite by email
+                  Six steps · under a minute · free on iPhone
                 </p>
               </div>
             </Reveal>

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 /**
- * The Apple glyph, shared by every beta CTA on the site.
+ * The Apple glyph, shared by every App Store CTA on the site.
  *
  * Lives on its own because the path used to be pasted into both the inline
  * badge and the sticky mobile bar, and the two drifted apart.

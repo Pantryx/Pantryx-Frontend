@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
-import { WaitlistForm } from "@/components/ui/WaitlistForm";
 import { AppStoreLink } from "@/components/recipe/AppStoreLink";
 import { OpenInAppButton } from "@/components/recipe/OpenInAppButton";
 import { RecipePageViewTracker } from "@/components/recipe/RecipePageViewTracker";
@@ -57,9 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       images: [previewImagePath],
     },
-    ...(site.appStoreId
-      ? { itunes: { appId: site.appStoreId, appArgument: `${site.url}${canonicalPath}` } }
-      : {}),
+    itunes: { appId: site.appStoreId, appArgument: `${site.url}${canonicalPath}` },
   };
 }
 
@@ -104,7 +101,7 @@ export default async function RecipePage({ params }: Props) {
                 <p className="mt-5 max-w-md text-lead text-muted">{recipe.description}</p>
               ) : null}
 
-              <div className="mt-8" data-beta-cta>
+              <div className="mt-8" data-inline-cta>
                 <OpenInAppButton recipeId={recipe.id} label={copy.openInApp} fallbackTargetId={getAppSectionId} />
                 <p className="mt-3 text-xs text-muted">{copy.stepsInApp}</p>
               </div>
@@ -125,18 +122,11 @@ export default async function RecipePage({ params }: Props) {
 
       <section id={getAppSectionId} className="section scroll-mt-24">
         <div className="container-page">
-          <div className="mx-auto max-w-md text-center" data-beta-cta>
+          <div className="mx-auto max-w-md text-center" data-inline-cta>
             <h2 className="font-display text-display-3">{copy.getTheApp}</h2>
-            {site.appStoreUrl ? (
-              <div className="mt-6">
-                <AppStoreLink recipeId={recipe.id} href={site.appStoreUrl} label={copy.downloadOnAppStore} />
-              </div>
-            ) : (
-              <>
-                <p className="mt-3 text-sm text-muted">{copy.betaNote}</p>
-                <WaitlistForm align="center" className="mt-6" />
-              </>
-            )}
+            <div className="mt-6">
+              <AppStoreLink recipeId={recipe.id} href={site.appStoreUrl} label={copy.downloadOnAppStore} />
+            </div>
           </div>
         </div>
       </section>

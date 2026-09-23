@@ -40,7 +40,7 @@ export function SocialProof() {
             What early testers are saying.
           </AnimatedHeading>
           <p className="mt-5 text-lead text-muted">
-            A few unfiltered reactions from people cooking with Pantryx during private beta.
+            A few unfiltered reactions from people cooking with Pantryx.
           </p>
         </Reveal>
 

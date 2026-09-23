@@ -24,12 +24,12 @@ const groups = [
         a: "Yes. When you create a free account, the pantry and preferences from your guest session carry over so you don't have to start from scratch.",
       },
       {
-        q: "How do I get access?",
-        a: "Pantryx is in a private iOS beta right now. Join the waitlist and we'll email your invite when a spot opens up.",
+        q: "Where can I download Pantryx?",
+        a: "Pantryx is free on the App Store for iPhone. Search for \"Pantryx\" or use any Download button on this site.",
       },
       {
         q: "Is there an Android version?",
-        a: "Not yet — Pantryx is iOS-only for now. Android isn't available during the beta.",
+        a: "Not yet — Pantryx is iOS-only for now.",
       },
       {
         q: "How long does a scan take?",

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { WaitlistForm } from "@/components/ui/WaitlistForm";
+import { AppStoreButton } from "@/components/ui/AppStoreButton";
 import { HeroHeadline } from "@/components/home/HeroHeadline";
 import { HeroStat } from "@/components/home/HeroStat";
 import {
@@ -60,7 +60,7 @@ export function Hero() {
             className="eyebrow inline-flex items-center gap-2"
           >
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
-            Now in beta · iOS
+            Now on the App Store · iOS
           </motion.div>
 
           <HeroHeadline />
@@ -77,12 +77,11 @@ export function Hero() {
             variants={slotItem}
             custom={3}
             className="mt-10 mx-auto w-full max-w-md"
-            data-beta-cta
-            id="waitlist-hero"
+            data-inline-cta
           >
-            <WaitlistForm align="center" />
+            <AppStoreButton />
             <p className="mt-3 text-xs text-muted">
-              iOS beta · we&apos;ll email your invite first, no spam.
+              Free on iPhone · no credit card · no account needed
             </p>
           </motion.div>
         </motion.div>

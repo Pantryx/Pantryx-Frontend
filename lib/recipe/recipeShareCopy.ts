@@ -9,7 +9,6 @@ export type RecipeShareCopy = {
   servings: (count: number) => string;
   getTheApp: string;
   downloadOnAppStore: string;
-  betaNote: string;
   metaDescription: (minutes: number, servings: number) => string;
   previewBadge: string;
 };
@@ -24,7 +23,6 @@ export const recipeShareCopy: Record<RecipeLanguage, RecipeShareCopy> = {
     servings: (count) => `Serves ${count}`,
     getTheApp: "Don't have Pantryx yet?",
     downloadOnAppStore: "Download on the App Store",
-    betaNote: "Pantryx is in private beta on iPhone.",
     metaDescription: (minutes, servings) => `${minutes} min · serves ${servings}`,
     previewBadge: "Cook in Pantryx",
   },
@@ -37,7 +35,6 @@ export const recipeShareCopy: Record<RecipeLanguage, RecipeShareCopy> = {
     servings: (count) => `Порцій: ${count}`,
     getTheApp: "Ще немає Pantryx?",
     downloadOnAppStore: "Завантажити в App Store",
-    betaNote: "Pantryx зараз у закритій бета-версії для iPhone.",
     metaDescription: (minutes, servings) => `${minutes} хв · порцій: ${servings}`,
     previewBadge: "Готуйте в Pantryx",
   },

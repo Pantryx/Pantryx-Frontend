@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { WaitlistForm } from "@/components/ui/WaitlistForm";
+import { AppStoreButton } from "@/components/ui/AppStoreButton";
 
 export function MidCTA() {
   return (
@@ -11,10 +11,10 @@ export function MidCTA() {
           </h3>
         </Reveal>
         <Reveal delay={0.05} className="w-full md:w-auto">
-          {/* data-beta-cta keeps the sticky mobile bar off this form while it's
+          {/* data-inline-cta keeps the sticky mobile bar off this button while it's
               on screen — see useStickyCtaVisibility. */}
-          <div data-beta-cta>
-            <WaitlistForm />
+          <div data-inline-cta>
+            <AppStoreButton className="w-full md:w-auto" />
           </div>
         </Reveal>
       </div>

@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   applicationName: site.name,
+  itunes: { appId: site.appStoreId },
   openGraph: {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,

@@ -1,7 +1,7 @@
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { WaitlistForm } from "@/components/ui/WaitlistForm";
+import { AppStoreButton } from "@/components/ui/AppStoreButton";
 
 const included = [
   "AI fridge scanner",
@@ -45,9 +45,9 @@ export function Pricing() {
             ))}
           </ul>
 
-          <div className="mt-10" data-beta-cta>
-            <WaitlistForm />
-            <p className="mt-3 text-xs text-muted">iPhone · iOS 26.2 · invite by email</p>
+          <div className="mt-10" data-inline-cta>
+            <AppStoreButton />
+            <p className="mt-3 text-xs text-muted">iPhone · iOS 26.2 or later</p>
           </div>
         </Reveal>
       </div>

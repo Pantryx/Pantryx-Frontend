@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { nav, site } from "@/lib/site";
-import { WaitlistForm } from "@/components/ui/WaitlistForm";
+import { AppStoreButton } from "@/components/ui/AppStoreButton";
 
 type Props = { open: boolean; onClose: () => void };
 
@@ -20,7 +20,7 @@ export function MobileMenu({ open, onClose }: Props) {
     const prev = document.body.style.overflow;
     const previouslyFocused = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
-    // Read by globals.css to pull the sticky beta bar out of the layout
+    // Read by globals.css to pull the sticky CTA bar out of the layout
     // (and out of the tab order) while the menu is up.
     document.body.dataset.menuOpen = "true";
 
@@ -111,9 +111,9 @@ export function MobileMenu({ open, onClose }: Props) {
               ))}
             </ul>
             <div className="mt-10 flex flex-col gap-3 pb-10">
-              <WaitlistForm />
+              <AppStoreButton />
               <p className="text-xs text-muted">
-                iOS beta · Free · Private by default
+                iPhone · Free · Private by default
               </p>
             </div>
           </motion.div>
