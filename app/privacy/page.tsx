@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       kind="privacy"
       title="Privacy Policy"
       intro="Operated by Volodymyr Mendyk. This policy explains how we collect, use, store, share, and protect personal data when you use Pantryx, including your rights under the GDPR and other applicable laws."
-      lastUpdated="June 10, 2026"
+      lastUpdated="September 24, 2026"
       sections={privacySections}
     />
   );

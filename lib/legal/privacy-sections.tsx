@@ -115,9 +115,12 @@ export const privacySections: LegalSection[] = [
             <div>
               <p className="font-medium text-ink">Photo Data</p>
               <p>
-                Photos captured through the App&apos;s camera or selected from your photo library for item recognition.
-                Original uploaded photos are stored temporarily on Pantryx&apos;s backend for up to 24 hours for recognition,
-                debugging, security, abuse prevention, and service reliability purposes, and are then automatically deleted.
+                Photos captured through the App&apos;s camera or selected from your photo library for item recognition. To
+                recognise items, a downscaled copy of the photo is transmitted through Pantryx&apos;s backend to our
+                third-party AI recognition provider, OpenAI (see &quot;Camera, Photo Data, and AI Item Recognition&quot; and
+                &quot;Data Sharing and Third-Party Processing&quot; below). Original uploaded photos are stored temporarily on
+                Pantryx&apos;s backend for up to 24 hours for recognition, debugging, security, abuse prevention, and service
+                reliability purposes, and are then automatically deleted.
               </p>
             </div>
             <div>
@@ -313,7 +316,12 @@ export const privacySections: LegalSection[] = [
           grocery items for item recognition.&quot;
         </p>
         <Subheading>Where photos go</Subheading>
-        <p>Photos are uploaded to Pantryx&apos;s backend for item recognition and temporary processing.</p>
+        <p>
+          Photos are uploaded to Pantryx&apos;s backend for temporary processing and are transmitted from there to our
+          third-party AI recognition provider, OpenAI, to identify items. The App never contacts OpenAI directly and never
+          holds any OpenAI credentials; all recognition requests pass through Pantryx&apos;s own backend and are authorised
+          using your Pantryx account token.
+        </p>
         <Subheading>How long photos are stored</Subheading>
         <p>
           Original uploaded photos are retained on Pantryx&apos;s backend for up to 24 hours for recognition, debugging,
@@ -322,16 +330,36 @@ export const privacySections: LegalSection[] = [
         </p>
         <Subheading>AI item recognition model</Subheading>
         <p>
-          Pantryx uses its own proprietary item recognition model and curated recognition data to analyse submitted photos
-          and suggest recognised items for user confirmation. In the MVP version of the App, AI is used for item recognition
-          only.
+          Pantryx uses a third-party artificial intelligence model provided by OpenAI (currently OpenAI&apos;s GPT-4o-mini
+          vision model) to analyse submitted photos and suggest recognised items for your confirmation. The model is
+          accessed through Pantryx&apos;s own backend, which sends the photo to OpenAI, receives a list of suggested
+          ingredient names, and returns them to the App. In the MVP version of the App, AI is used for item recognition
+          only, and recognition returns ingredient names only.
         </p>
-        <Subheading>What is processed by the recognition model</Subheading>
-        <p>Submitted photos and limited technical or contextual data needed to return recognition results.</p>
-        <Subheading>What is not processed by the recognition model</Subheading>
+        <Subheading>What is sent to OpenAI for recognition</Subheading>
         <p>
-          Pantryx does not send your password, full account profile, unrelated personal data, or payment information to the
-          recognition model.
+          A downscaled copy of the submitted photo and a limit on the number of results to return. This is the only
+          information sent to OpenAI for item recognition.
+        </p>
+        <Subheading>What is not sent to OpenAI</Subheading>
+        <p>
+          Pantryx does not send your name, email address, password, account profile, pantry inventory, dietary or
+          health-related data, location, or payment information to OpenAI. Recognition requests are authorised using your
+          Pantryx account token only, never any OpenAI credentials.
+        </p>
+        <Subheading>How OpenAI handles the photos</Subheading>
+        <p>
+          OpenAI processes the photo only to generate the ingredient suggestions Pantryx requests, acting as a data
+          processor on Pantryx&apos;s behalf. Under OpenAI&apos;s applicable API terms, content submitted through the API is
+          not used to train or improve OpenAI&apos;s models. OpenAI may retain API inputs and outputs for a limited period
+          (generally up to 30 days) for abuse and misuse monitoring and then deletes them, unless longer retention is
+          required by law.
+        </p>
+        <Subheading>International processing</Subheading>
+        <p>
+          OpenAI processes photos in the United States, so recognising an item involves transferring a downscaled copy of
+          your photo outside the European Economic Area and the United Kingdom. Where required, this transfer is protected by
+          appropriate safeguards such as Standard Contractual Clauses. See &quot;International Data Transfers&quot; below.
         </p>
         <Subheading>Human access to photos</Subheading>
         <p>
@@ -382,8 +410,9 @@ export const privacySections: LegalSection[] = [
             <div>
               <p className="font-medium text-ink">Temporary Photo Processing — Pantryx Backend</p>
               <p>
-                <strong className="text-ink">Purpose:</strong> Temporarily stores uploaded pantry, fridge, shopping bag, or
-                item photos for AI item recognition and operational reliability.
+                <strong className="text-ink">Purpose:</strong> Receives uploaded pantry, fridge, shopping bag, or item
+                photos, forwards a downscaled copy to our AI recognition provider (OpenAI) for item recognition, and
+                temporarily processes them for operational reliability.
               </p>
               <p>
                 <strong className="text-ink">Retention:</strong> Original uploaded photos are retained for up to 24 hours and
@@ -395,17 +424,36 @@ export const privacySections: LegalSection[] = [
               </p>
             </div>
             <div>
-              <p className="font-medium text-ink">AI Item Recognition — Pantryx Proprietary Model</p>
+              <p className="font-medium text-ink">AI Item Recognition — OpenAI</p>
               <p>
-                <strong className="text-ink">Purpose:</strong> Analyses submitted photos to suggest recognised items for user
-                confirmation.
+                <strong className="text-ink">Provider:</strong> OpenAI, L.L.C. (&quot;OpenAI&quot;), United States.
               </p>
               <p>
-                <strong className="text-ink">Data Processed:</strong> Submitted photos and recognition metadata.
+                <strong className="text-ink">Purpose:</strong> Analyses photos submitted for scanning to suggest recognised
+                ingredient items for your confirmation. OpenAI is used for item recognition only.
               </p>
               <p>
-                <strong className="text-ink">External AI Provider:</strong> Pantryx does not currently use an external
-                third-party AI model provider for recipe generation or cooking chat in the MVP version of the App.
+                <strong className="text-ink">Data Processed:</strong> A downscaled copy of the submitted photo and a limit on
+                the number of results to return. No account, contact, pantry, dietary, health, location, or payment data is
+                sent to OpenAI.
+              </p>
+              <p>
+                <strong className="text-ink">Training:</strong> Under OpenAI&apos;s applicable API terms, content submitted
+                through the API is not used to train or improve OpenAI&apos;s models.
+              </p>
+              <p>
+                <strong className="text-ink">Retention:</strong> OpenAI may retain API inputs and outputs for a limited period
+                (generally up to 30 days) for abuse and misuse monitoring and then deletes them, unless longer retention is
+                required by law.
+              </p>
+              <p>
+                <strong className="text-ink">Location and Safeguards:</strong> OpenAI processes data in the United States.
+                Where required, transfers are protected by appropriate safeguards such as Standard Contractual Clauses.
+              </p>
+              <p>
+                <strong className="text-ink">Recipe Generation:</strong> Pantryx does not use OpenAI or any other external AI
+                model to generate recipes or to provide a cooking chat assistant. Recipes come from Pantryx&apos;s curated
+                recipe database.
               </p>
             </div>
             <div>
@@ -476,6 +524,10 @@ export const privacySections: LegalSection[] = [
         <p>
           Some service providers may process personal data outside the European Economic Area (EEA), the United Kingdom, or
           your country of residence.
+        </p>
+        <p>
+          In particular, our AI item recognition provider, OpenAI, processes submitted photos in the United States. When you
+          scan an item, a downscaled copy of your photo is therefore transferred to the United States for recognition.
         </p>
         <p>
           Where required, we use appropriate safeguards such as Standard Contractual Clauses, adequacy decisions, contractual
@@ -550,7 +602,11 @@ export const privacySections: LegalSection[] = [
                   "Recipe interaction data",
                   "Until you delete your account or the data is no longer needed for the App",
                 ],
-                ["Original uploaded pantry/item photos", "Up to 24 hours, then automatically deleted"],
+                ["Original uploaded pantry/item photos", "Up to 24 hours on Pantryx's backend, then automatically deleted"],
+                [
+                  "Photos processed by OpenAI for recognition",
+                  "Processed to return recognition results and not used to train OpenAI's models; may be retained by OpenAI for a limited period (generally up to 30 days) for abuse monitoring and then deleted, unless longer retention is required by law",
+                ],
                 [
                   "Recognition metadata",
                   "Retained as part of scan/inventory records where needed for the App; recognition metadata does not include original uploaded photos after the 24-hour deletion period",

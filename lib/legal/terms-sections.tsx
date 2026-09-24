@@ -143,8 +143,12 @@ export const termsSections: LegalSection[] = [
     body: (
       <>
         <p>
-          Pantryx uses a proprietary AI item recognition model to analyse photos submitted by users and suggest
-          recognised pantry, fridge, grocery, or food-related items.
+          Pantryx uses a third-party artificial intelligence model provided by OpenAI (currently OpenAI&apos;s GPT-4o-mini
+          vision model), accessed through Pantryx&apos;s own backend, to analyse photos submitted by users and suggest
+          recognised pantry, fridge, grocery, or food-related items. To provide this feature, a downscaled copy of your
+          photo is transmitted to OpenAI in the United States. OpenAI processes the photo only to return recognition results
+          and, under its applicable API terms, does not use it to train its models. Your use of item recognition is also
+          governed by our Privacy Policy.
         </p>
         <p>You acknowledge and agree that:</p>
         <Bullets
@@ -260,7 +264,7 @@ export const termsSections: LegalSection[] = [
         items={[
           "Our Property: The App, software, design, branding, trademarks, logos, interface, curated recipe database, text, images, and other content made available by Pantryx are owned by Pantryx or its licensors and are protected by applicable intellectual property laws.",
           "Your Content: You retain ownership of photos, pantry inventory entries, dietary preferences, and other content you submit to the App.",
-          "Licence to Process Your Content: By using the App, you grant Pantryx a worldwide, non-exclusive, royalty-free licence to process your submitted content solely for the purpose of providing, securing, maintaining, and improving the Services. This includes processing photos through Pantryx's proprietary item recognition systems and backend infrastructure.",
+          "Licence to Process Your Content: By using the App, you grant Pantryx a worldwide, non-exclusive, royalty-free licence to process your submitted content solely for the purpose of providing, securing, maintaining, and improving the Services. This includes transmitting and processing photos through Pantryx's backend infrastructure and its third-party AI recognition provider (OpenAI) for the sole purpose of item recognition.",
           "Recipe Content: Recipes, recommendations, and cooking steps made available in the App may be used for personal, non-commercial purposes only, unless we give written permission otherwise.",
           "Restrictions: You may not copy, modify, reproduce, redistribute, sell, lease, publicly display, reverse-engineer, or commercially exploit the App, its database, or its content without our prior written consent.",
           "Third-Party IP Claims: In the event of any third-party claim that the App or your possession and use of it infringes that third party's intellectual property rights, Pantryx, not Apple, will be solely responsible for the investigation, defence, settlement, and discharge of such claim.",
@@ -302,9 +306,10 @@ export const termsSections: LegalSection[] = [
     body: (
       <>
         <p>
-          The App may rely on third-party services for infrastructure, database hosting, email delivery, analytics,
-          notifications, app store distribution, and related functionality. Your use of the App may also be subject to
-          applicable third-party terms, including Apple App Store terms.
+          The App may rely on third-party services for infrastructure, database hosting, AI-based image recognition
+          (OpenAI), email delivery, analytics, notifications, app store distribution, and related functionality. Your use of
+          the App may also be subject to applicable third-party terms, including Apple App Store terms and OpenAI&apos;s
+          terms.
         </p>
         <p>
           We are not responsible for third-party services, websites, or content that we do not control, except where
