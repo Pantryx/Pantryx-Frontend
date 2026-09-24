@@ -140,7 +140,7 @@ export const faq = [
   },
   {
     q: "Is my data private?",
-    a: "Photos are processed to identify ingredients and are not used to train public models. You can delete your pantry and account any time.",
+    a: "To identify ingredients, your photo — and nothing else — is sent to our AI provider, OpenAI. It isn't used to train their models, uploaded photos are deleted within 24 hours, and you can delete your pantry and account any time.",
   },
   {
     q: "Does it work with my diet?",
