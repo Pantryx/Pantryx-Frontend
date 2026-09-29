@@ -1,6 +1,7 @@
 "use client";
 
 import { AppleMark } from "@/components/ui/AppleMark";
+import { appStoreUrlForCampaign, campaignFromSearch } from "@/lib/analytics/campaign";
 import { trackSiteEvent } from "@/lib/analytics/trackSiteEvent";
 import { site } from "@/lib/site";
 
@@ -30,7 +31,7 @@ export function OpenInAppButton({ recipeId, label, fallbackTargetId }: Props) {
   function openFallback() {
     if (site.appStoreUrl) {
       trackSiteEvent("recipe_link_app_store_tapped", { recipe_id: recipeId, trigger: "open_in_app_fallback" });
-      window.location.href = site.appStoreUrl;
+      window.location.href = appStoreUrlForCampaign(campaignFromSearch(window.location.search));
       return;
     }
     document.getElementById(fallbackTargetId)?.scrollIntoView({ behavior: "smooth", block: "center" });

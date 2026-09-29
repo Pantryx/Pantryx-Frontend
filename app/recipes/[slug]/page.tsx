@@ -8,6 +8,7 @@ import { RecipePageViewTracker } from "@/components/recipe/RecipePageViewTracker
 import { fetchRecipePreview, parseRecipeIdFromPathSegment, recipePath } from "@/lib/recipe/recipePreview";
 import { recipeLocaleFromAcceptLanguage } from "@/lib/recipe/recipeLanguage";
 import { recipeShareCopy } from "@/lib/recipe/recipeShareCopy";
+import { recipeStructuredData, serializedStructuredData } from "@/lib/recipe/recipeStructuredData";
 import { site } from "@/lib/site";
 
 type Props = {
@@ -69,8 +70,14 @@ export default async function RecipePage({ params }: Props) {
     amount: (locale.measurementSystem === "imperial" ? ingredient.imperial : ingredient.metric).trim(),
   }));
 
+  const structuredData = recipeStructuredData(recipe, ingredients, locale.language, recipePath(recipe));
+
   return (
     <article lang={locale.language} className="pt-28 md:pt-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializedStructuredData(structuredData) }}
+      />
       <RecipePageViewTracker recipeId={recipe.id} language={locale.language} />
 
       <section className="section pb-0">

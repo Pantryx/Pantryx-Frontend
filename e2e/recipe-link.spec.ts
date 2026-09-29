@@ -37,6 +37,15 @@ test.describe("shared recipe links", () => {
     }
   });
 
+  test("the sitemap lists the static pages even when recipes can't be fetched", async ({ request }) => {
+    const response = await request.get("/sitemap.xml");
+    expect(response.status()).toBe(200);
+    const body = await response.text();
+    for (const path of ["/", "/product", "/help"]) {
+      expect(body).toContain(`<loc>https://pantryx.org${path}</loc>`);
+    }
+  });
+
   test("site events reject names outside the recipe funnel", async ({ request }) => {
     const response = await request.post("/api/site/events", {
       data: { event: "anything_else", distinctId: "test" },
