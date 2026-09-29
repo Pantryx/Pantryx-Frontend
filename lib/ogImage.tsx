@@ -13,8 +13,9 @@ import { site } from "@/lib/site";
  * right so people see the payoff before they tap. Key text stays out of the
  * bottom-left corner, where X overlays the domain label.
  *
- * Assets are read from `lib/og-assets/` at build time and inlined, so the route
- * has no runtime network dependency.
+ * Assets are read from `lib/og-assets/` when the card is rendered, never at
+ * import: Next imports this module to build every page's metadata, and pages
+ * other than the image routes don't ship those files.
  */
 export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
@@ -25,20 +26,19 @@ const font = (file: string) => readFileSync(join(ASSETS, file));
 const dataUri = (file: string, mime: string) =>
   `data:${mime};base64,${readFileSync(join(ASSETS, file)).toString("base64")}`;
 
-const interRegular = font("Inter-Regular.woff");
-const interMedium = font("Inter-Medium.woff");
-const interSemiBold = font("Inter-SemiBold.woff");
-const instrumentSerif = font("InstrumentSerif-Regular.ttf");
-
-const iconBadge = dataUri("icon-badge.png", "image/png");
-const recipeShot = dataUri("recipe.jpg", "image/jpeg");
-
 const CREAM = "#F4F0E9";
 const INK = "#171310";
 const INK_SOFT = "#5b5247";
 const MUTED = "#948976";
 
 export function renderOgImage() {
+  const interRegular = font("Inter-Regular.woff");
+  const interMedium = font("Inter-Medium.woff");
+  const interSemiBold = font("Inter-SemiBold.woff");
+  const instrumentSerif = font("InstrumentSerif-Regular.ttf");
+  const iconBadge = dataUri("icon-badge.png", "image/png");
+  const recipeShot = dataUri("recipe.jpg", "image/jpeg");
+
   return new ImageResponse(
     (
       <div

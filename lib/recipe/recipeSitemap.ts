@@ -1,4 +1,4 @@
-import { backendUrl } from "@/lib/backend";
+import { sitemapBackendUrl } from "@/lib/backend";
 import { recipePath } from "@/lib/recipe/recipePreview";
 
 type RecipeSitemapEntry = {
@@ -13,7 +13,7 @@ type RecipeSitemapEntry = {
  */
 export async function fetchRecipeSitemapPaths(): Promise<string[]> {
   try {
-    const response = await fetch(`${backendUrl}/api/recipes/sitemap`, { next: { revalidate: 86_400 } });
+    const response = await fetch(`${sitemapBackendUrl}/api/recipes/sitemap`, { next: { revalidate: 86_400 } });
     if (!response.ok) return [];
     const entries: RecipeSitemapEntry[] = await response.json();
     return entries.map(recipePath);
