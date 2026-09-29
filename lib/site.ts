@@ -1,5 +1,7 @@
 export const site = {
   name: "Pantryx",
+  /** Full App Store listing title, used where the store name should be shown verbatim. */
+  appStoreName: "AI Recipes & Pantry: Pantryx",
   tagline: "Stop staring at the fridge. Decide dinner in 60 seconds.",
   description:
     "Pantryx scans what you already have and turns it into dishes you can cook tonight — no shopping, no guesswork.",
