@@ -15,6 +15,10 @@
           {
             "/": "/recipe/*",
             "comment": "Links shared before readable recipe URLs."
+          },
+          {
+            "/": "/meal-planner",
+            "comment": "In-app event and marketing links open the Meal Planner."
           }
         ]
       }
