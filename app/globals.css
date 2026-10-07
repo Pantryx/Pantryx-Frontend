@@ -4,7 +4,9 @@
 
 :root {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
-  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  /* Cyrillic-only face first: it claims no Latin code points, so English text
+     renders in Instrument exactly as before (lib/fonts.ts). */
+  --font-display: var(--font-display-cyrillic), var(--font-instrument), ui-serif, Georgia, serif;
 
   /* Color tokens (RGB triplets — consumed by Tailwind as rgb(var(--name) / <alpha>)) */
   --paper: 255 255 255;

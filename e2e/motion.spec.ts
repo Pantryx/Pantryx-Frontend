@@ -74,7 +74,7 @@ test.describe("hero entrance", () => {
     const stats = page.locator(STATS);
     await expect(stats).toHaveCount(3);
     // The third is the no-op guard: counting up to "0" is skipped entirely.
-    await expect(stats).toHaveText(["30%", "60s", "0"], { timeout: 6000 });
+    await expect(stats).toHaveText(["60s", "2H", "0"], { timeout: 6000 });
   });
 });
 
@@ -199,7 +199,7 @@ test.describe("reduced motion", () => {
     await expect(page.locator(`h2 ${WORD}`)).toHaveCount(0);
 
     // Counters show their real values immediately rather than starting at zero.
-    await expect(page.locator(STATS)).toHaveText(["30%", "60s", "0"]);
+    await expect(page.locator(STATS)).toHaveText(["60s", "2H", "0"]);
 
     // Checkmarks are left as rendered, never retracted.
     await page.locator("#compare").scrollIntoViewIfNeeded();

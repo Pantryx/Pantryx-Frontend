@@ -1,18 +1,23 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
+import { Link } from "@/components/i18n/Link";
 import { Reveal } from "@/components/ui/Reveal";
-
-type Section = { id: string; title: string; body: ReactNode };
+import { defaultLocale, type Locale } from "@/lib/i18n/config";
+import { fmt, formatDate } from "@/lib/i18n/format";
+import { localizedPath } from "@/lib/i18n/paths";
+import { getDictionary } from "@/lib/i18n/server";
+import { legalLastUpdated, type LegalDocument } from "@/lib/legal/meta";
+import { legalSections } from "@/lib/legal/sections";
 
 type Props = {
-  kind: "privacy" | "terms";
-  title: string;
-  intro: string;
-  lastUpdated: string;
-  sections: Section[];
+  locale: Locale;
+  kind: LegalDocument;
 };
 
-export function LegalLayout({ kind, title, intro, lastUpdated, sections }: Props) {
+export function LegalLayout({ locale, kind }: Props) {
+  const { legal: copy, chrome } = getDictionary(locale);
+  const { title, intro } = copy[kind];
+  const { sections, lang } = legalSections[kind][locale];
+  const lastUpdated = formatDate(locale, legalLastUpdated[kind]);
+
   return (
     <div className="pt-28 md:pt-32">
       <section className="section">
@@ -21,7 +26,7 @@ export function LegalLayout({ kind, title, intro, lastUpdated, sections }: Props
             {/* Anchor nav: narrow column, hugging the left edge of the container */}
             <aside className="hidden lg:block">
               <nav className="sticky top-28 text-sm">
-                <div className="eyebrow mb-3">On this page</div>
+                <div className="eyebrow mb-3">{copy.onThisPage}</div>
                 <ul className="space-y-2">
                   {sections.map((s) => (
                     <li key={s.id}>
@@ -40,30 +45,42 @@ export function LegalLayout({ kind, title, intro, lastUpdated, sections }: Props
             {/* Hero + article share one max width and horizontal centering */}
             <div className="min-w-0">
               <Reveal when="mount" className="mx-auto max-w-3xl">
-                <div className="eyebrow">Legal</div>
+                <div className="eyebrow">{copy.eyebrow}</div>
                 <h1 className="mt-3 text-display-2 text-balance">{title}</h1>
                 <p className="mt-5 text-lead text-muted">{intro}</p>
                 <div className="mt-4 text-xs uppercase tracking-[0.16em] text-muted">
-                  Last updated: {lastUpdated}
+                  {fmt(copy.lastUpdated, { date: lastUpdated })}
                 </div>
+                {copy.translationNotice ? (
+                  <p className="mt-4 max-w-2xl rounded-xl border border-line bg-subtle px-4 py-3 text-sm text-muted">
+                    {copy.translationNotice.text}{" "}
+                    {/* A plain link: reading the original is not a change of language preference. */}
+                    <a href={localizedPath(defaultLocale, `/${kind}`)} hrefLang={defaultLocale} className="text-ink underline">
+                      {copy.translationNotice.link}
+                    </a>
+                  </p>
+                ) : null}
                 <div className="mt-4 flex gap-4 text-sm">
                   <Link
                     href="/privacy"
                     className={kind === "privacy" ? "text-ink underline" : "text-muted hover:text-ink"}
                   >
-                    Privacy Policy
+                    {chrome.nav.privacy}
                   </Link>
                   <Link
                     href="/terms"
                     className={kind === "terms" ? "text-ink underline" : "text-muted hover:text-ink"}
                   >
-                    Terms of Use
+                    {chrome.nav.terms}
                   </Link>
                 </div>
               </Reveal>
 
               <div className="mx-auto mt-12 max-w-3xl">
-                <article className="text-[15px] leading-relaxed text-muted">
+                <article
+                  lang={lang === locale ? undefined : lang}
+                  className="text-[15px] leading-relaxed text-muted"
+                >
                   {sections.map((s, i) => (
                     <Reveal
                       when="mount"

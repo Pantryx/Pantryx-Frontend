@@ -7,6 +7,7 @@ import { ANIME_EASE } from "@/lib/motion/anime";
 import { isDesktopViewport, prefersReducedMotion } from "@/lib/motion/env";
 import { splitWords } from "@/lib/motion/splitWords";
 import { DURATION, STAGGER, heroSlotDelay } from "@/lib/motion/tokens";
+import type { Accented } from "@/lib/i18n/dictionaries/en";
 
 const useIsomorphicLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -22,7 +23,7 @@ const START = heroSlotDelay(1);
  * use, so the line reads as the same entrance — just resolved a word at a time
  * instead of all at once.
  */
-export function HeroHeadline() {
+export function HeroHeadline({ copy }: { copy: Accented }) {
   const ref = useRef<HTMLHeadingElement>(null);
 
   useIsomorphicLayoutEffect(() => {
@@ -68,12 +69,14 @@ export function HeroHeadline() {
       <h1
         ref={ref}
         data-hero-headline
-        className="mt-6 text-display-1 text-balance"
+        // Ukrainian runs ~40% wider than English; a little smaller (with room
+        // from the wider column in Hero) keeps one sentence per line on desktop.
+        className="mt-6 text-display-1 text-balance [&:lang(uk)]:text-[clamp(2.5rem,5.6vw+0.5rem,5rem)]"
         style={{ opacity: 0 }}
       >
-        Stop staring at the fridge.
+        {copy.lead}
         <br />
-        <span className="italic text-muted">Decide dinner in 60&nbsp;seconds.</span>
+        <span className="italic text-muted">{copy.accent}</span>
       </h1>
     </>
   );

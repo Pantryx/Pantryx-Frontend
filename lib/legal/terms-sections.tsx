@@ -1,21 +1,11 @@
-import type { ReactNode } from "react";
+import { Bullets } from "@/lib/legal/blocks";
+import { termsSectionIds } from "@/lib/legal/section-ids";
+import type { SectionsFor } from "@/lib/legal/types";
 import { site } from "@/lib/site";
 
 const email = site.contactEmail;
 
-function Bullets({ items }: { items: string[] }) {
-  return (
-    <ul className="list-disc space-y-2 pl-5">
-      {items.map((text, i) => (
-        <li key={i}>{text}</li>
-      ))}
-    </ul>
-  );
-}
-
-export type LegalSection = { id: string; title: string; body: ReactNode };
-
-export const termsSections: LegalSection[] = [
+export const termsSections = [
   {
     id: "introduction",
     title: "Introduction",
@@ -491,4 +481,4 @@ export const termsSections: LegalSection[] = [
       </>
     ),
   },
-];
+] satisfies SectionsFor<typeof termsSectionIds>;

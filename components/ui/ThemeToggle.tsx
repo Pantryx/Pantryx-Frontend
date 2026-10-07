@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Monitor, Moon, Sun } from "lucide-react";
 import clsx from "clsx";
+import { useMessages } from "@/lib/i18n/client";
+import { fmt } from "@/lib/i18n/format";
 
 type Pref = "light" | "dark" | "system";
 
@@ -46,6 +48,7 @@ type Props = {
 export function ThemeToggle({ className }: Props) {
   const [pref, setPref] = useState<Pref>("system");
   const [mounted, setMounted] = useState(false);
+  const t = useMessages().theme;
 
   useEffect(() => {
     const stored = (localStorage.getItem(STORAGE_KEY) as Pref | null) ?? "system";
@@ -80,18 +83,13 @@ export function ThemeToggle({ className }: Props) {
   }
 
   const Icon = pref === "dark" ? Moon : pref === "light" ? Sun : Monitor;
-  const label =
-    pref === "dark"
-      ? "Dark mode"
-      : pref === "light"
-      ? "Light mode"
-      : "System theme";
+  const label = pref === "dark" ? t.dark : pref === "light" ? t.light : t.system;
 
   return (
     <button
       type="button"
       onClick={cycle}
-      aria-label={`Theme: ${label}. Click to change.`}
+      aria-label={fmt(t.button, { label })}
       title={label}
       className={clsx(
         "inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-ink",

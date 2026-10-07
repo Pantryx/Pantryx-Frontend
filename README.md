@@ -8,7 +8,8 @@ Minimal, black-and-white, fully responsive marketing site for **Pantryx** — an
 - **Tailwind CSS v3** (black/white tokens, custom display scale with `clamp()`)
 - **Framer Motion** (scroll reveals, page transitions, mobile menu, FAQ accordion)
 - **Lucide React** (icons)
-- **Inter** (body) + **Instrument Serif** (display) via `next/font`
+- **Inter** (body) + **Instrument Serif** (display) via `next/font`; Ukrainian headings use a Cyrillic-only cut of **Noto Serif Display** (`lib/fonts.ts`)
+- **English and Ukrainian**, with no i18n dependency (see [Localization](#localization))
 
 ## Local development
 
@@ -35,27 +36,55 @@ npm run start
 ## Project structure
 
 ```
+middleware.ts        # Locale routing: /uk/… prefix, /en/… → unprefixed, first-visit detection
 app/
-  layout.tsx         # Fonts, nav, footer, page transitions, sticky mobile CTA
-  page.tsx           # Home
-  help/page.tsx
-  privacy/page.tsx
-  terms/page.tsx
-  sitemap.ts
+  [locale]/
+    layout.tsx       # Root layout per locale: <html lang>, fonts, LocaleProvider, nav, footer
+    page.tsx         # Home
+    product/ help/ meal-planner/ privacy/ terms/ recipes/[slug]/
+    not-found.tsx    # Branded 404 (plus [...rest] catch-all)
+    opengraph-image.tsx, twitter-image.tsx   # Social cards, one per locale
+  api/site/          # Site events, recipe link-preview image
+  sitemap.ts         # Every page in every language, with hreflang alternates
   robots.ts
   globals.css
 components/
-  nav/               # Navbar (with legal dropdown) + MobileMenu
+  i18n/Link.tsx      # next/link that adds the locale prefix
+  nav/               # Navbar (legal dropdown, LanguageSwitcher), MobileMenu (LanguageOptions)
   footer/            # Footer
   home/              # Hero, WhyExists, HowItWorks, Features, Comparison,
                      # MidCTA, ValueCards, SocialProof, Pricing, FAQ,
                      # FinalCTA, StickyMobileCTA
   legal/             # Shared legal page layout (anchor nav on desktop)
   ui/                # AppleMark, AppStoreButton, Reveal
-                     # (scroll reveal), AnimatedHeading, PageTransition
-lib/site.ts          # Site metadata, nav items, copy data, FAQ, comparison
+                     # (scroll reveal), AnimatedHeading, Accented, PageTransition
+lib/
+  i18n/              # Locale config, paths, negotiation, dictionaries (en, uk), formatting, metadata
+  content.ts         # Content structure: ids, order, links, images (no words)
+  site.ts            # Language-neutral config: URLs, App Store id, email, socials
+  legal/             # Privacy and Terms, per language (*.uk.tsx are translations)
+docs/i18n-uk-style.md  # How the Ukrainian copy is written
 public/              # Static assets (favicon, etc.)
 ```
+
+## Localization
+
+The site is in **English** (unprefixed URLs) and **Ukrainian** (`/uk/…`).
+
+- **Routing** (`middleware.ts`):
+  - `/en/…` redirects permanently to the unprefixed URL.
+  - Unprefixed requests are rewritten to `app/[locale]` with `en`.
+  - Someone arriving from outside the site whose preferred language is Ukrainian is redirected to `/uk/…`. Preference is the `pantryx-locale` cookie, written only by the language switcher; otherwise `Accept-Language`. Navigation inside the site is never redirected.
+- **Copy:**
+  - Words live in `lib/i18n/dictionaries/en.ts` and `uk.ts`.
+  - `en.ts` defines the shape. `uk.ts` is declared `satisfies Dictionary`, so **a missing or extra key fails the build**.
+  - Server components get their strings as props from the page.
+  - Client components read the `chrome` namespace through `useMessages()`.
+- **Adding a string:** add it to `en.ts`, translate it in `uk.ts`, then run `npm run test -- e2e/i18n-dictionary.spec.ts` to check the Ukrainian typography.
+- **Ukrainian style:** modern standard Ukrainian, terms as in the iOS app. See [`docs/i18n-uk-style.md`](docs/i18n-uk-style.md) before editing `uk.ts`.
+- **Legal documents:** `lib/legal/*-sections.uk.tsx` are translations. The English versions prevail, and the pages say so. Any change to the English text must be carried over; the section ids must match.
+- **SEO:** every page sets its canonical URL, `hreflang` alternates (`en`, `uk`, `x-default`) and `og:locale`. The sitemap lists both languages.
+- **Not yet:** Universal Links for `/uk/recipes/*` and `/uk/meal-planner` need an iOS release that understands the `/uk` prefix. Add them to `public/.well-known/apple-app-site-association` only after that release.
 
 ## Conversion-psychology layer
 
@@ -81,7 +110,8 @@ Applied principles (see `/Users/volodymyrmendyk/.windsurf/plans/pantryx-marketin
 - `lib/site.ts` → `contactEmail`: replace `hello@pantryx.app`.
 - `lib/site.ts` → `url`: production domain is **`https://pantryx.org`** (change here if the canonical URL moves).
 - Privacy & Terms pages contain `[TBD]` markers for legal review.
-- `SocialProof` contains a placeholder quote until real early-tester quotes are available.
+- `SocialProof` contains a placeholder quote until real early-tester quotes are available. The section is hidden on the Ukrainian site until real, permissioned quotes exist.
+- Ukrainian copy and the translated legal documents need a native-speaker review, and the legal documents a legal review (see `docs/i18n-uk-style.md`).
 
 ## Motion
 

@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { stripLocale } from "@/lib/i18n/paths";
 import { EASE_OUT_EXPO } from "@/lib/motion/tokens";
 
 export function PageTransition({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
+  // Normalised so the key matches between the prerender (`/en/…`) and the browser.
+  const pathname = stripLocale(usePathname()).pathname;
   return (
     <motion.main
       id="main"

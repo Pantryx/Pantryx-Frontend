@@ -1,27 +1,13 @@
-import type { ReactNode } from "react";
-import Link from "next/link";
+import { Bullets, Subheading } from "@/lib/legal/blocks";
+import { privacySectionIds } from "@/lib/legal/section-ids";
+import type { SectionsFor } from "@/lib/legal/types";
+import { Link } from "@/components/i18n/Link";
 import { site } from "@/lib/site";
 
 const email = site.contactEmail;
 const privacyUrl = `${site.url}/privacy`;
 
-function Bullets({ items }: { items: string[] }) {
-  return (
-    <ul className="list-disc space-y-2 pl-5">
-      {items.map((text, i) => (
-        <li key={i}>{text}</li>
-      ))}
-    </ul>
-  );
-}
-
-function Subheading({ children }: { children: ReactNode }) {
-  return <h3 className="font-display text-xl text-ink">{children}</h3>;
-}
-
-export type LegalSection = { id: string; title: string; body: ReactNode };
-
-export const privacySections: LegalSection[] = [
+export const privacySections = [
   {
     id: "introduction",
     title: "Introduction",
@@ -816,4 +802,4 @@ export const privacySections: LegalSection[] = [
       </>
     ),
   },
-];
+] satisfies SectionsFor<typeof privacySectionIds>;

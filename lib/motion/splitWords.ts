@@ -1,11 +1,18 @@
 /** Marks every word span produced by `splitWords`. */
 export const WORD_CLASS = "anime-word";
 
-const isWhitespace = (value: string) => /^\s+$/.test(value);
+/**
+ * Breakable whitespace only. JavaScript's `\s` also matches the no-break
+ * spaces (U+00A0, U+202F) that keep "60 seconds" or Ukrainian "у холодильнику"
+ * together; splitting on them would turn each half into its own inline-block
+ * and let the line break between them anyway.
+ */
+const BREAKABLE_SPACE = /([^\S\u00A0\u202F]+)/;
+const isWhitespace = (value: string) => /^[^\S\u00A0\u202F]+$/.test(value);
 
 function splitTextNode(node: Text, words: HTMLElement[]) {
   // Capturing split keeps the whitespace runs as their own entries.
-  const parts = node.data.split(/(\s+)/).filter((part) => part.length > 0);
+  const parts = node.data.split(BREAKABLE_SPACE).filter((part) => part.length > 0);
   if (parts.length === 0) return;
 
   const fragment = document.createDocumentFragment();

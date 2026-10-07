@@ -5,27 +5,27 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { faq } from "@/lib/site";
+import { faqIds } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n/dictionaries/en";
 
-export function FAQ() {
+export function FAQ({ copy }: { copy: Dictionary["home"]["faq"] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section id="faq" className="section border-t border-line">
       <div className="container-page">
         <Reveal y={0} className="mx-auto max-w-3xl">
-          <div className="eyebrow">Questions</div>
-          <AnimatedHeading className="mt-3 text-display-2 text-balance">
-            The things people ask before they join.
-          </AnimatedHeading>
+          <div className="eyebrow">{copy.eyebrow}</div>
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">{copy.heading}</AnimatedHeading>
         </Reveal>
 
         <div className="mx-auto mt-12 max-w-3xl">
           <ul className="divide-y divide-line border-y border-line">
-            {faq.map((item, i) => {
+            {faqIds.map((id, i) => {
+              const item = copy.items[id];
               const isOpen = open === i;
               return (
-                <li key={item.q}>
+                <li key={id}>
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}

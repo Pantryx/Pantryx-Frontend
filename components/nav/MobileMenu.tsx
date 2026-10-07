@@ -1,11 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import { nav, site } from "@/lib/site";
+import { Link } from "@/components/i18n/Link";
+import { navLinks } from "@/lib/content";
+import { useMessages } from "@/lib/i18n/client";
+import { site } from "@/lib/site";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
+import { LanguageOptions } from "@/components/nav/LanguageOptions";
 
 type Props = { open: boolean; onClose: () => void };
 
@@ -14,6 +17,7 @@ const FOCUSABLE =
 
 export function MobileMenu({ open, onClose }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const t = useMessages();
 
   useEffect(() => {
     if (!open) return;
@@ -74,7 +78,7 @@ export function MobileMenu({ open, onClose }: Props) {
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          aria-label="Menu"
+          aria-label={t.menu}
           className="fixed inset-0 z-[60] overflow-y-auto overscroll-contain bg-paper md:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -85,7 +89,7 @@ export function MobileMenu({ open, onClose }: Props) {
             <span className="font-display text-xl">{site.name}</span>
             <button
               onClick={onClose}
-              aria-label="Close menu"
+              aria-label={t.closeMenu}
               className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line"
             >
               <X className="h-5 w-5" strokeWidth={1.75} />
@@ -98,23 +102,22 @@ export function MobileMenu({ open, onClose }: Props) {
             transition={{ duration: 0.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
           >
             <ul className="flex flex-col">
-              {[...nav.primary, ...nav.legal].map((item) => (
-                <li key={item.href} className="border-b border-line">
+              {[...navLinks.primary, ...navLinks.legal].map((item) => (
+                <li key={item.id} className="border-b border-line">
                   <Link
                     href={item.href}
                     onClick={onClose}
                     className="block py-5 font-display text-3xl text-ink"
                   >
-                    {item.label}
+                    {t.nav[item.id]}
                   </Link>
                 </li>
               ))}
             </ul>
+            <LanguageOptions onSameLanguage={onClose} />
             <div className="mt-10 flex flex-col gap-3 pb-10">
               <AppStoreButton />
-              <p className="text-xs text-muted">
-                iPhone · Free · Private by default
-              </p>
+              <p className="text-xs text-muted">{t.mobileMenuNote}</p>
             </div>
           </motion.div>
         </motion.div>

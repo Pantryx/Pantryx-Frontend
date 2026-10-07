@@ -13,6 +13,10 @@ export default defineConfig({
 
   use: {
     baseURL,
+    // Pinned so the browser's Accept-Language never depends on the machine
+    // running the suite: a Ukrainian-locale host would otherwise be redirected
+    // to /uk on every unprefixed page.
+    locale: "en-US",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },

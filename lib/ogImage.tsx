@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/server";
 import { site } from "@/lib/site";
 
 /**
@@ -16,13 +18,20 @@ import { site } from "@/lib/site";
  * Assets are read from `lib/og-assets/` when the card is rendered, never at
  * import: Next imports this module to build every page's metadata, and pages
  * other than the image routes don't ship those files.
+ *
+ * Neither bundled Inter nor Instrument Serif has Cyrillic, so each family gets
+ * a Cyrillic-only companion listed after it: Inter's own Cyrillic glyphs
+ * (`Inter-Cyrillic-*.woff`, subset from Google Fonts' static Inter with the
+ * pyftsubset command in docs/i18n-uk-style.md) and the site's Cyrillic display
+ * face. Latin text is unaffected; the renderer falls through per glyph.
  */
 export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
-export const ogAlt = `${site.appStoreName} — ${site.tagline}`;
 
 const ASSETS = join(process.cwd(), "lib", "og-assets");
 const font = (file: string) => readFileSync(join(ASSETS, file));
+const SANS = '"Inter", "Inter Cyrillic"';
+const SERIF = '"Instrument Serif", "Display Cyrillic"';
 const dataUri = (file: string, mime: string) =>
   `data:${mime};base64,${readFileSync(join(ASSETS, file)).toString("base64")}`;
 
@@ -31,11 +40,16 @@ const INK = "#171310";
 const INK_SOFT = "#5b5247";
 const MUTED = "#948976";
 
-export function renderOgImage() {
+export function renderOgImage(locale: Locale) {
+  const copy = getDictionary(locale).og;
   const interRegular = font("Inter-Regular.woff");
   const interMedium = font("Inter-Medium.woff");
   const interSemiBold = font("Inter-SemiBold.woff");
   const instrumentSerif = font("InstrumentSerif-Regular.ttf");
+  const interCyrillicRegular = font("Inter-Cyrillic-Regular.woff");
+  const interCyrillicMedium = font("Inter-Cyrillic-Medium.woff");
+  const interCyrillicSemiBold = font("Inter-Cyrillic-SemiBold.woff");
+  const displayCyrillic = readFileSync(join(process.cwd(), "lib", "fonts", "display-cyrillic.woff"));
   const iconBadge = dataUri("icon-badge.png", "image/png");
   const recipeShot = dataUri("recipe.jpg", "image/jpeg");
 
@@ -49,7 +63,7 @@ export function renderOgImage() {
           display: "flex",
           background: CREAM,
           overflow: "hidden",
-          fontFamily: "Inter",
+          fontFamily: SANS,
           color: INK,
         }}
       >
@@ -114,13 +128,13 @@ export function renderOgImage() {
               marginTop: 56,
             }}
           >
-            AI FRIDGE SCANNER
+            {copy.kicker}
           </div>
           <div
             style={{
               display: "flex",
-              fontFamily: "Instrument Serif",
-              fontSize: 88,
+              fontFamily: SERIF,
+              fontSize: copy.headlineSize,
               lineHeight: 0.98,
               letterSpacing: "-0.015em",
               color: INK,
@@ -128,7 +142,7 @@ export function renderOgImage() {
               maxWidth: 470,
             }}
           >
-            Decide dinner in 60 seconds.
+            {copy.headline}
           </div>
           <div
             style={{
@@ -140,7 +154,7 @@ export function renderOgImage() {
               maxWidth: 545,
             }}
           >
-            Snap your fridge. Cook what you already have — tonight.
+            {copy.subline}
           </div>
 
           <div style={{ display: "flex", marginTop: 44 }}>
@@ -156,7 +170,7 @@ export function renderOgImage() {
                 borderRadius: 999,
               }}
             >
-              Free on the App Store
+              {copy.cta}
             </div>
           </div>
         </div>
@@ -188,6 +202,10 @@ export function renderOgImage() {
         { name: "Inter", data: interMedium, weight: 500, style: "normal" },
         { name: "Inter", data: interSemiBold, weight: 600, style: "normal" },
         { name: "Instrument Serif", data: instrumentSerif, weight: 400, style: "normal" },
+        { name: "Inter Cyrillic", data: interCyrillicRegular, weight: 400, style: "normal" },
+        { name: "Inter Cyrillic", data: interCyrillicMedium, weight: 500, style: "normal" },
+        { name: "Inter Cyrillic", data: interCyrillicSemiBold, weight: 600, style: "normal" },
+        { name: "Display Cyrillic", data: displayCyrillic, weight: 400, style: "normal" },
       ],
     },
   );

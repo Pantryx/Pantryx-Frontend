@@ -1,5 +1,6 @@
 import type { RecipePreview } from "@/lib/recipe/recipePreview";
-import type { RecipeLanguage } from "@/lib/recipe/recipeLanguage";
+import type { Locale } from "@/lib/i18n/config";
+import { absoluteUrl } from "@/lib/i18n/paths";
 import { site } from "@/lib/site";
 
 type StructuredIngredient = {
@@ -19,8 +20,8 @@ function isoDurationFromMinutes(minutes: number): string | undefined {
 export function recipeStructuredData(
   recipe: RecipePreview,
   ingredients: StructuredIngredient[],
-  language: RecipeLanguage,
-  canonicalPath: string
+  locale: Locale,
+  recipePagePath: string
 ) {
   const base = site.url.replace(/\/$/, "");
   const image = recipe.image.startsWith("http") ? recipe.image : `${base}${recipe.image}`;
@@ -30,8 +31,8 @@ export function recipeStructuredData(
     name: recipe.recipe_name.trim(),
     description: recipe.description ?? undefined,
     image: [image],
-    url: `${base}${canonicalPath}`,
-    inLanguage: language,
+    url: absoluteUrl(locale, recipePagePath),
+    inLanguage: locale,
     author: { "@type": "Organization", name: site.name, url: base },
     prepTime: isoDurationFromMinutes(recipe.prep_time),
     cookTime: isoDurationFromMinutes(recipe.cook_time),

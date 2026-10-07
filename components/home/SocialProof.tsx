@@ -5,18 +5,21 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { testimonials } from "@/lib/site";
+import { testimonialIds } from "@/lib/content";
+import type { SocialProofCopy } from "@/lib/i18n/dictionaries/en";
+import { fmt } from "@/lib/i18n/format";
 
 const AUTO_ADVANCE_MS = 6500;
 
-export function SocialProof() {
+export function SocialProof({ copy }: { copy: SocialProofCopy }) {
+  const testimonials = testimonialIds.map((id) => ({ id, ...copy.testimonials[id] }));
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
 
   const go = useCallback(
     (delta: number) =>
-      setIndex((i) => (i + delta + testimonials.length) % testimonials.length),
+      setIndex((i) => (i + delta + testimonialIds.length) % testimonialIds.length),
     []
   );
 
@@ -28,20 +31,16 @@ export function SocialProof() {
 
   return (
     <section
-      aria-label="What early testers are saying"
+      aria-label={copy.regionLabel}
       className="border-t border-line bg-subtle"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <div className="container-page section">
         <Reveal y={0} className="mx-auto max-w-3xl">
-          <div className="eyebrow">Built in the open</div>
-          <AnimatedHeading className="mt-3 text-display-2 text-balance">
-            What early testers are saying.
-          </AnimatedHeading>
-          <p className="mt-5 text-lead text-muted">
-            A few unfiltered reactions from people cooking with Pantryx.
-          </p>
+          <div className="eyebrow">{copy.eyebrow}</div>
+          <AnimatedHeading className="mt-3 text-display-2 text-balance">{copy.heading}</AnimatedHeading>
+          <p className="mt-5 text-lead text-muted">{copy.lead}</p>
         </Reveal>
 
         <Reveal
@@ -77,7 +76,7 @@ export function SocialProof() {
                   .slice(0, 2);
                 return (
                   <motion.blockquote
-                    key={t.name}
+                    key={t.id}
                     aria-hidden={!isActive}
                     className="col-start-1 row-start-1"
                     initial={false}
@@ -86,7 +85,9 @@ export function SocialProof() {
                     style={{ pointerEvents: isActive ? "auto" : "none" }}
                   >
                     <p className="pr-10 font-display text-[clamp(1.375rem,1.8vw+0.75rem,1.95rem)] leading-snug text-ink text-balance md:pr-14">
-                      &ldquo;{t.quote}&rdquo;
+                      {copy.quoteOpen}
+                      {t.quote}
+                      {copy.quoteClose}
                     </p>
                     <footer className="mt-6 flex items-center gap-3">
                       <div
@@ -112,7 +113,7 @@ export function SocialProof() {
               <button
                 type="button"
                 onClick={() => go(-1)}
-                aria-label="Previous testimonial"
+                aria-label={copy.previous}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-paper text-ink transition-colors hover:border-ink"
               >
                 <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
@@ -120,7 +121,7 @@ export function SocialProof() {
               <button
                 type="button"
                 onClick={() => go(1)}
-                aria-label="Next testimonial"
+                aria-label={copy.next}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-paper text-ink transition-colors hover:border-ink"
               >
                 <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
@@ -130,14 +131,14 @@ export function SocialProof() {
             <div
               className="flex items-center gap-2"
               role="tablist"
-              aria-label="Select testimonial"
+              aria-label={copy.select}
             >
               {testimonials.map((t, i) => (
                 <button
-                  key={t.name}
+                  key={t.id}
                   type="button"
                   onClick={() => setIndex(i)}
-                  aria-label={`Show testimonial ${i + 1} of ${testimonials.length}`}
+                  aria-label={fmt(copy.show, { index: i + 1, total: testimonials.length })}
                   aria-selected={i === index}
                   role="tab"
                   className={`h-1.5 rounded-full transition-all duration-300 ease-out ${

@@ -1,5 +1,5 @@
 import { backendUrl } from "@/lib/backend";
-import type { RecipeLanguage } from "@/lib/recipe/recipeLanguage";
+import type { Locale } from "@/lib/i18n/config";
 
 export type RecipePreviewIngredient = {
   name: string;
@@ -57,7 +57,7 @@ export function recipePath(recipe: Pick<RecipePreview, "id" | "slug">): string {
  */
 export async function fetchRecipePreview(
   id: number,
-  language: RecipeLanguage
+  language: Locale
 ): Promise<RecipePreview | null> {
   const response = await fetch(`${backendUrl}/api/recipes/${id}/preview?lang=${language}`, {
     next: { revalidate: 3600 },

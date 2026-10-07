@@ -1,29 +1,23 @@
 import { Check, Minus } from "lucide-react";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { ComparisonChecks } from "@/components/home/ComparisonChecks";
+import { Accented } from "@/components/ui/Accented";
 import { Reveal } from "@/components/ui/Reveal";
-import { comparisonRows } from "@/lib/site";
+import { comparisonApps as apps, comparisonRows } from "@/lib/content";
+import type { Dictionary } from "@/lib/i18n/dictionaries/en";
 
-const apps = [
-  { key: "pantryx" as const, label: "Pantryx", highlight: true },
-  { key: "whisk" as const, label: "Whisk", highlight: false },
-  { key: "mealime" as const, label: "Mealime", highlight: false },
-  { key: "supercook" as const, label: "SuperCook", highlight: false },
-  { key: "yummly" as const, label: "Yummly", highlight: false },
-];
-
-export function Comparison() {
+export function Comparison({ copy }: { copy: Dictionary["home"]["comparison"] }) {
   return (
     <section id="compare" className="section border-t border-line">
       <div className="container-page">
         <ComparisonChecks />
         <Reveal y={0} className="mx-auto max-w-3xl text-center">
-          <div className="eyebrow">Pantryx vs other apps</div>
+          <div className="eyebrow">{copy.eyebrow}</div>
           <AnimatedHeading className="mt-3 text-display-2 text-balance">
-            Most recipe apps ask: <em className="italic text-muted">what do you feel like eating?</em>
+            <Accented copy={copy.heading} />
           </AnimatedHeading>
           <p className="mt-5 text-lead text-muted">
-            Pantryx asks a better question: <em className="italic">what can you actually cook right now?</em>
+            <Accented copy={copy.lead} className="italic" />
           </p>
         </Reveal>
 
@@ -33,7 +27,7 @@ export function Comparison() {
             <thead>
               <tr className="bg-subtle">
                 <th className="w-[38%] px-6 py-5 font-medium text-muted" scope="col">
-                  Capability
+                  {copy.capability}
                 </th>
                 {apps.map((a) => (
                   <th
@@ -50,9 +44,9 @@ export function Comparison() {
             </thead>
             <tbody>
               {comparisonRows.map((row) => (
-                <tr key={row.label} className="border-t border-line">
+                <tr key={row.id} className="border-t border-line">
                   <th scope="row" className="px-6 py-5 text-left font-normal text-ink">
-                    {row.label}
+                    {copy.rows[row.id]}
                   </th>
                   {apps.map((a) => {
                     const yes = row[a.key];
@@ -96,7 +90,7 @@ export function Comparison() {
                 <div className="font-display text-xl">{a.label}</div>
                 {a.highlight && (
                   <span className="rounded-full bg-ink px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-paper">
-                    You
+                    {copy.youBadge}
                   </span>
                 )}
               </div>
@@ -105,7 +99,7 @@ export function Comparison() {
                   const yes = row[a.key];
                   return (
                     <li
-                      key={row.label}
+                      key={row.id}
                       className="flex items-start gap-3 text-sm"
                     >
                       {yes ? (
@@ -117,7 +111,7 @@ export function Comparison() {
                       ) : (
                         <Minus className="mt-0.5 h-4 w-4 shrink-0 text-line" strokeWidth={2} />
                       )}
-                      <span className={yes ? "text-ink" : "text-muted"}>{row.label}</span>
+                      <span className={yes ? "text-ink" : "text-muted"}>{copy.rows[row.id]}</span>
                     </li>
                   );
                 })}

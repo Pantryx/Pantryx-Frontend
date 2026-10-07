@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AppleMark } from "@/components/ui/AppleMark";
 import { useStickyCtaVisibility } from "@/lib/hooks/useStickyCtaVisibility";
+import { useMessages } from "@/lib/i18n/client";
+import { stripLocale } from "@/lib/i18n/paths";
 import { site } from "@/lib/site";
 
 export function StickyMobileCTA() {
@@ -13,7 +15,7 @@ export function StickyMobileCTA() {
   const slide = reduceMotion ? 0 : 80;
 
   // A shared recipe page's own call to action is opening the app.
-  const onSharedRecipePage = pathname.startsWith("/recipes/");
+  const onSharedRecipePage = stripLocale(pathname).pathname.startsWith("/recipes/");
 
   return (
     <AnimatePresence>
@@ -43,14 +45,15 @@ export function StickyMobileCTA() {
  * It stays fully opaque: a translucent bar lets the page scroll through it.
  */
 function StickyPill() {
+  const t = useMessages().appStore;
   return (
     <a
       href={site.appStoreUrl}
-      aria-label="Download Pantryx on the App Store"
+      aria-label={t.ariaLabel}
       className="pointer-events-auto flex items-center justify-center gap-3 rounded-full bg-ink px-5 py-4 text-paper shadow-[0_18px_50px_-12px_rgba(0,0,0,0.45)] transition-transform duration-200 ease-out-expo active:scale-[0.97]"
     >
       <AppleMark className="h-5 w-5" />
-      <span className="text-sm font-medium">Download on the App Store</span>
+      <span className="text-sm font-medium">{t.label}</span>
     </a>
   );
 }

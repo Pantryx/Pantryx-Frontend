@@ -2,8 +2,8 @@ import { ImageResponse } from "next/og";
 import type { ReactNode } from "react";
 import { backendUrl } from "@/lib/backend";
 import { fetchRecipePreview, parseShareableRecipeId } from "@/lib/recipe/recipePreview";
-import { recipeLanguageFromQuery } from "@/lib/recipe/recipeLanguage";
-import { recipeShareCopy } from "@/lib/recipe/recipeShareCopy";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/server";
 
 const imageSize = { width: 1200, height: 630 };
 const oneDayInSeconds = 86_400;
@@ -43,11 +43,12 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   const recipeId = parseShareableRecipeId((await params).id);
   if (recipeId === null) return new Response(null, { status: 404 });
 
-  const language = recipeLanguageFromQuery(new URL(request.url).searchParams.get("lang"));
-  const recipe = await fetchRecipePreview(recipeId, language);
+  const lang = new URL(request.url).searchParams.get("lang");
+  const locale = isLocale(lang) ? lang : defaultLocale;
+  const recipe = await fetchRecipePreview(recipeId, locale);
   if (!recipe) return new Response(null, { status: 404 });
 
-  const copy = recipeShareCopy[language];
+  const copy = getDictionary(locale).recipe;
   const minutesLabel = copy.minutes(Math.round(recipe.total_time));
   const servingsLabel = String(recipe.servings);
   const font = await loadFont(`${minutesLabel}${servingsLabel}${copy.previewBadge}`);

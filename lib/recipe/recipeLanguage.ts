@@ -1,45 +1,19 @@
-export type RecipeLanguage = "en" | "uk";
+import type { Locale } from "@/lib/i18n/config";
+import { parseAcceptLanguage } from "@/lib/i18n/negotiate";
 
-export function recipeLanguageFromQuery(value: string | null): RecipeLanguage {
-  return value === "uk" ? "uk" : "en";
-}
 export type MeasurementSystem = "metric" | "imperial";
-
-export type RecipeLocale = {
-  language: RecipeLanguage;
-  measurementSystem: MeasurementSystem;
-};
 
 const imperialRegions = new Set(["US", "LR", "MM"]);
 
 /**
- * Picks the recipe language from the visitor's `Accept-Language`, not from the
- * link: a Ukrainian sharer's link should still read in English for an English
- * recipient. Only languages the catalog is translated into are considered.
+ * Metric or imperial amounts for a recipe page. The page's language comes from
+ * its URL (which the middleware picks from the visitor's own preferences, not
+ * the sharer's); units still follow the visitor's browser: Ukrainian is always
+ * metric, English is imperial only when the first English tag names a country
+ * that uses it (`en-US`).
  */
-export function recipeLocaleFromAcceptLanguage(header: string | null): RecipeLocale {
-  const tags = (header ?? "")
-    .split(",")
-    .map((entry) => {
-      const [tag, ...parameters] = entry.trim().split(";");
-      const qualityParameter = parameters.find((parameter) => parameter.trim().startsWith("q="));
-      const quality = qualityParameter ? Number(qualityParameter.trim().slice(2)) : 1;
-      return { tag, quality: Number.isFinite(quality) ? quality : 0 };
-    })
-    .filter(({ tag, quality }) => tag.length > 0 && quality > 0)
-    .sort((first, second) => second.quality - first.quality);
-
-  for (const { tag } of tags) {
-    const [primary, region] = tag.split("-");
-    const language = primary.toLowerCase();
-    if (language === "uk") {
-      return { language: "uk", measurementSystem: "metric" };
-    }
-    if (language === "en") {
-      const measurementSystem = region && imperialRegions.has(region.toUpperCase()) ? "imperial" : "metric";
-      return { language: "en", measurementSystem };
-    }
-  }
-
-  return { language: "en", measurementSystem: "metric" };
+export function measurementSystemFor(locale: Locale, acceptLanguage: string | null): MeasurementSystem {
+  if (locale !== "en") return "metric";
+  const english = parseAcceptLanguage(acceptLanguage).find(({ language }) => language === "en");
+  return english?.region && imperialRegions.has(english.region) ? "imperial" : "metric";
 }
