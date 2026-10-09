@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("shared recipe links", () => {
-  test("apple-app-site-association claims only recipe paths, as JSON", async ({ request }) => {
+  test("apple-app-site-association claims only the app's deep-link paths, as JSON", async ({ request }) => {
     const response = await request.get("/.well-known/apple-app-site-association", { maxRedirects: 0 });
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain("application/json");
@@ -13,7 +13,11 @@ test.describe("shared recipe links", () => {
       "826BUSUT25.com.pantryx.app.staging",
       "826BUSUT25.com.pantryx.app.dev",
     ]);
-    expect(detail.components.map((component: { "/": string }) => component["/"])).toEqual(["/recipes/*", "/recipe/*"]);
+    expect(detail.components.map((component: { "/": string }) => component["/"])).toEqual([
+      "/recipes/*",
+      "/recipe/*",
+      "/meal-planner",
+    ]);
   });
 
   test("links shared before readable URLs redirect permanently to the new path", async ({ request }) => {

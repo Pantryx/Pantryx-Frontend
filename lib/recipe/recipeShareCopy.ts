@@ -11,6 +11,7 @@ export type RecipeShareCopy = {
   downloadOnAppStore: string;
   metaDescription: (minutes: number, servings: number) => string;
   previewBadge: string;
+  linkCopiedForInstall: string;
 };
 
 export const recipeShareCopy: Record<RecipeLanguage, RecipeShareCopy> = {
@@ -25,6 +26,7 @@ export const recipeShareCopy: Record<RecipeLanguage, RecipeShareCopy> = {
     downloadOnAppStore: "Download on the App Store",
     metaDescription: (minutes, servings) => `${minutes} min · serves ${servings}`,
     previewBadge: "Cook in Pantryx",
+    linkCopiedForInstall: "Link copied. Tap Paste in the app to open your recipe.",
   },
   uk: {
     eyebrow: "Рецепт у Pantryx",
@@ -37,5 +39,6 @@ export const recipeShareCopy: Record<RecipeLanguage, RecipeShareCopy> = {
     downloadOnAppStore: "Завантажити в App Store",
     metaDescription: (minutes, servings) => `${minutes} хв · порцій: ${servings}`,
     previewBadge: "Готуйте в Pantryx",
+    linkCopiedForInstall: "Посилання скопійовано. Натисніть «Вставити» в застосунку, щоб відкрити рецепт.",
   },
 };

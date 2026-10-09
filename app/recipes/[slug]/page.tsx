@@ -109,7 +109,12 @@ export default async function RecipePage({ params }: Props) {
               ) : null}
 
               <div className="mt-8" data-inline-cta>
-                <OpenInAppButton recipeId={recipe.id} label={copy.openInApp} fallbackTargetId={getAppSectionId} />
+                <OpenInAppButton
+                  recipeId={recipe.id}
+                  label={copy.openInApp}
+                  linkCopiedMessage={copy.linkCopiedForInstall}
+                  fallbackTargetId={getAppSectionId}
+                />
                 <p className="mt-3 text-xs text-muted">{copy.stepsInApp}</p>
               </div>
 
@@ -132,7 +137,12 @@ export default async function RecipePage({ params }: Props) {
           <div className="mx-auto max-w-md text-center" data-inline-cta>
             <h2 className="font-display text-display-3">{copy.getTheApp}</h2>
             <div className="mt-6">
-              <AppStoreLink recipeId={recipe.id} href={site.appStoreUrl} label={copy.downloadOnAppStore} />
+              <AppStoreLink
+                recipeId={recipe.id}
+                href={site.appStoreUrl}
+                label={copy.downloadOnAppStore}
+                linkCopiedMessage={copy.linkCopiedForInstall}
+              />
             </div>
           </div>
         </div>

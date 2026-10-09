@@ -11,6 +11,7 @@ const allowedEvents = new Set<SiteEventName>([
   "recipe_link_page_viewed",
   "recipe_link_open_in_app_tapped",
   "recipe_link_app_store_tapped",
+  "recipe_link_copied_for_install",
 ]);
 
 const posthogHost = (process.env.POSTHOG_HOST ?? "https://eu.i.posthog.com").replace(/\/+$/, "");

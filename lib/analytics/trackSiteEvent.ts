@@ -1,7 +1,8 @@
 export type SiteEventName =
   | "recipe_link_page_viewed"
   | "recipe_link_open_in_app_tapped"
-  | "recipe_link_app_store_tapped";
+  | "recipe_link_app_store_tapped"
+  | "recipe_link_copied_for_install";
 
 export type SiteEventProperties = Record<string, string | number | boolean>;
 
