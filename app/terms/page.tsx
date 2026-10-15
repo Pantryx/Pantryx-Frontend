@@ -13,7 +13,7 @@ export default function TermsPage() {
       kind="terms"
       title="Terms of Use"
       intro="Operated by Volodymyr Mendyk. These Terms of Use govern your use of the Pantryx mobile application and related services."
-      lastUpdated="September 24, 2026"
+      lastUpdated="October 16, 2026"
       sections={termsSections}
     />
   );
