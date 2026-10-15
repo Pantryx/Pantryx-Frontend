@@ -76,7 +76,7 @@ export const termsSections: LegalSection[] = [
     title: "Description of the Services",
     body: (
       <>
-        <p>The MVP version of Pantryx may include the following features:</p>
+        <p>Pantryx includes the following features:</p>
         <Bullets
           items={[
             "AI Pantry Scanning: You can take or upload photos of your pantry, fridge, shopping bag, or individual items so the App can suggest recognised items.",

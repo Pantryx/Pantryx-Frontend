@@ -63,7 +63,7 @@ export const privacySections: LegalSection[] = [
     title: "Key Features of the App",
     body: (
       <>
-        <p>The MVP version of Pantryx may include the following features:</p>
+        <p>Pantryx includes the following features:</p>
         <Bullets
           items={[
             "AI Pantry Scanning via Camera: Capture or upload photos of your pantry, fridge, shopping bag, or individual items so Pantryx can suggest recognised items for your confirmation.",
@@ -367,8 +367,9 @@ export const privacySections: LegalSection[] = [
           Pantryx uses a third-party artificial intelligence model provided by OpenAI (currently OpenAI&apos;s GPT-4o-mini
           vision model) to analyse submitted photos and suggest recognised items for your confirmation. The model is
           accessed through Pantryx&apos;s own backend, which sends the photo to OpenAI, receives a list of suggested
-          ingredient names, and returns them to the App. In the MVP version of the App, AI is used for item recognition
-          only, and recognition returns ingredient names only.
+          ingredient names, and returns them to the App. Item recognition returns ingredient names only. AI is
+          also used to extract recipes from links you submit, as described in &quot;Recipe Import from Links and AI
+          Extraction&quot; below.
         </p>
         <Subheading>What is sent to OpenAI for recognition</Subheading>
         <p>
