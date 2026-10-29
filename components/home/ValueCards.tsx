@@ -1,19 +1,19 @@
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { valueCards } from "@/lib/site";
+import type { Dictionary } from "@/lib/i18n/types";
 
-export function ValueCards() {
+export function ValueCards({ copy }: { copy: Dictionary["valueCards"] }) {
   return (
     <section className="section">
       <div className="container-page">
         <Reveal y={0} className="mx-auto max-w-3xl">
-          <div className="eyebrow">Why Pantryx</div>
+          <div className="eyebrow">{copy.eyebrow}</div>
           <AnimatedHeading className="mt-3 text-display-2 text-balance">
-            Three quiet wins, every week.
+            {copy.heading}
           </AnimatedHeading>
         </Reveal>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {valueCards.map((v, i) => (
+          {copy.items.map((v, i) => (
             <Reveal
               key={v.title}
               delay={i * 0.05}

@@ -5,11 +5,12 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { testimonials } from "@/lib/site";
+import type { Dictionary } from "@/lib/i18n/types";
 
 const AUTO_ADVANCE_MS = 6500;
 
-export function SocialProof() {
+export function SocialProof({ copy }: { copy: Dictionary["socialProof"] }) {
+  const testimonials = copy.testimonials;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
@@ -17,7 +18,7 @@ export function SocialProof() {
   const go = useCallback(
     (delta: number) =>
       setIndex((i) => (i + delta + testimonials.length) % testimonials.length),
-    []
+    [testimonials.length]
   );
 
   useEffect(() => {
@@ -28,20 +29,14 @@ export function SocialProof() {
 
   return (
     <section
-      aria-label="What early testers are saying"
+      aria-label={copy.lead}
       className="border-t border-line bg-subtle"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <div className="container-page section">
         <Reveal y={0} className="mx-auto max-w-3xl">
-          <div className="eyebrow">Built in the open</div>
-          <AnimatedHeading className="mt-3 text-display-2 text-balance">
-            What early testers are saying.
-          </AnimatedHeading>
-          <p className="mt-5 text-lead text-muted">
-            A few unfiltered reactions from people cooking with Pantryx.
-          </p>
+          <AnimatedHeading className="text-display-2 text-balance">{copy.lead}</AnimatedHeading>
         </Reveal>
 
         <Reveal
