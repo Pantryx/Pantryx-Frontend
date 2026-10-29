@@ -184,7 +184,7 @@ export const uk: Dictionary = {
     price: "Безкоштовно",
     priceNote: "сьогодні · підписки згодом",
     cardNote: "Картка не потрібна · Видаліть акаунт будь-коли.",
-    platformNote: "iPhone · iOS 26.2 або новіша",
+    platformNote: "iPhone · iOS 18 або новіша",
   },
   faq: {
     eyebrow: "Питання",

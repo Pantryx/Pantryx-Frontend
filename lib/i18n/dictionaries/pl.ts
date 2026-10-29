@@ -184,7 +184,7 @@ export const pl: Dictionary = {
     price: "Za darmo",
     priceNote: "dziś · subskrypcje później",
     cardNote: "Karta niepotrzebna · Usuń konto w każdej chwili.",
-    platformNote: "iPhone · iOS 26.2 lub nowszy",
+    platformNote: "iPhone · iOS 18 lub nowszy",
   },
   faq: {
     eyebrow: "Pytania",
