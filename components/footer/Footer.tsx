@@ -20,33 +20,23 @@ export function Footer({ copy }: { copy: Dictionary["footer"] }) {
 
   return (
     <footer className="cta-clearance border-t border-line">
-      <div className="container-page flex flex-col gap-10 py-14 md:flex-row md:items-start md:justify-between">
-        <div className="max-w-sm">
-          <div className="font-display text-2xl">{site.name}</div>
-          <p className="mt-3 text-sm leading-relaxed text-muted">{copy.tagline}</p>
-        </div>
-
-        {/* min-w-0 lets this shrink inside the flex row; without it the contact
-            address below pushes the whole page into a horizontal scroll on any
-            viewport narrower than the address is long — landscape phones most
-            of all, where the md: row layout kicks in at only 852px. */}
-        <div className="grid min-w-0 grid-cols-2 gap-10 sm:grid-cols-3">
-          <FooterCol title={copy.columns.product} links={productLinks} />
-          <FooterCol title={copy.columns.legal} links={legalLinks} />
-          <div className="col-span-2 sm:col-span-1">
-            <div className="eyebrow">{copy.columns.contact}</div>
-            <a
-              href={`mailto:${site.contactEmail}`}
-              // Spanning the full width on mobile gives the address room to sit on
-              // one line. In the narrow three-column layout the <wbr> lets it wrap
-              // after the @ instead of mid-word; overflow-wrap:anywhere stays as a
-              // safety net on very narrow viewports.
-              className="mt-3 block text-sm text-ink [overflow-wrap:anywhere] hover:underline"
-            >
-              {emailUser}@<wbr />
-              {emailDomain}
-            </a>
-          </div>
+      {/* Three equal columns on one grid: eyebrows share a baseline and the
+          gaps stay even, so the footer reads as composed now that the brand
+          block no longer anchors the left. */}
+      <div className="container-page grid grid-cols-2 gap-10 py-14 sm:grid-cols-3 md:py-16">
+        <FooterCol title={copy.columns.product} links={productLinks} />
+        <FooterCol title={copy.columns.legal} links={legalLinks} />
+        {/* min-w-0 + <wbr> + overflow-wrap keep the long address from forcing a
+            horizontal scroll inside its grid cell on narrow viewports. */}
+        <div className="col-span-2 min-w-0 sm:col-span-1">
+          <div className="eyebrow">{copy.columns.contact}</div>
+          <a
+            href={`mailto:${site.contactEmail}`}
+            className="mt-3 block text-sm text-ink [overflow-wrap:anywhere] hover:underline"
+          >
+            {emailUser}@<wbr />
+            {emailDomain}
+          </a>
         </div>
       </div>
 

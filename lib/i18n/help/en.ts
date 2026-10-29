@@ -46,7 +46,7 @@ export const helpEn: HelpDictionary = {
           a: "After the scan you'll see a confirm screen. Tap to add, remove, or rename anything before you get dish ideas.",
         },
         {
-          q: "Does it work with a messy fridge?",
+          q: "Does it work with a real-life fridge?",
           a: "Yes — that's explicitly what it's built for. You don't need to arrange anything.",
         },
       ],

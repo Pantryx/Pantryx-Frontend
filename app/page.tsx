@@ -11,7 +11,6 @@ import { ValueCards } from "@/components/home/ValueCards";
 import { SocialProof } from "@/components/home/SocialProof";
 import { Pricing } from "@/components/home/Pricing";
 import { FAQ } from "@/components/home/FAQ";
-import { FinalCTA } from "@/components/home/FinalCTA";
 import { LOCALE_COOKIE, resolveLocale } from "@/lib/i18n/locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
@@ -46,7 +45,7 @@ export default async function HomePage() {
   // every heading in the new language instead of patching half of it.
   return (
     <Fragment key={locale}>
-      <Hero copy={dict.hero} cta={dict.cta} />
+      <Hero copy={dict.hero} cta={dict.cta} locale={locale} />
       <WhyExists copy={dict.whyExists} />
       <HowItWorks copy={dict.howItWorks} />
       <Features copy={dict.features} />
@@ -56,7 +55,6 @@ export default async function HomePage() {
       <SocialProof copy={dict.socialProof} />
       <Pricing copy={dict.pricing} cta={dict.cta} />
       <FAQ copy={dict.faq} />
-      <FinalCTA copy={dict.finalCTA} cta={dict.cta} />
     </Fragment>
   );
 }

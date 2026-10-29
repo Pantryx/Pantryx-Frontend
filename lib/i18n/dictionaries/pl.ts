@@ -23,11 +23,11 @@ export const pl: Dictionary = {
       line2: "Wybierz kolację w 60 sekund.",
     },
     sub: "Pantryx skanuje to, co już masz, i zamienia to w dania, które naprawdę ugotujesz dziś wieczorem.",
-    ctaNote: "Za darmo na iPhonie · bez karty · bez konta",
+    ctaNote: "Za darmo na iPhonie · bez konta",
     stats: [
-      { value: "60 s", label: "od lodówki do przepisu" },
-      { value: "2 godz.", label: "oszczędności tygodniowo" },
-      { value: "0", label: "subskrypcji" },
+      { value: "~10 s", label: "jeden skan lodówki" },
+      { value: "150+", label: "przepisów z tego, co masz" },
+      { value: "0 zł", label: "bez subskrypcji i reklam" },
     ],
   },
   whyExists: {
@@ -69,7 +69,7 @@ export const pl: Dictionary = {
       {
         kicker: "Skaner AI",
         title: "Jedno zdjęcie. Bez wpisywania.",
-        body: "Skaner rozpoznaje składniki z jednego zdjęcia i sam tworzy Twoją spiżarnię. Działa nawet przy prawdziwych, do połowy pustych, zabałaganionych lodówkach.",
+        body: "Skaner rozpoznaje składniki z jednego zdjęcia i sam tworzy Twoją spiżarnię. Działa nawet przy prawdziwych, do połowy pustych lodówkach.",
       },
       {
         kicker: "Sugestie z Twoich produktów",
@@ -134,8 +134,6 @@ export const pl: Dictionary = {
     ],
   },
   socialProof: {
-    eyebrow: "Tworzymy otwarcie",
-    heading: "Co mówią pierwsi testerzy.",
     lead: "Kilka szczerych reakcji od osób, które gotują z Pantryx.",
     testimonials: [
       {
@@ -171,20 +169,18 @@ export const pl: Dictionary = {
   },
   pricing: {
     eyebrow: "Cennik",
-    heading: "Jeden plan. Za darmo.",
-    lead: "Pantryx jest darmowy, dopóki rośniemy. Wszystkie funkcje, bez karty. Jeśli dodamy subskrypcje, jasno podamy cenę i co obejmuje, zanim zapłacisz.",
     included: [
       "Skaner lodówki AI",
+      "Import przepisów z linków",
       "Pomysły na dania z Twoich produktów",
       "Tryb gotowania z podpowiedziami",
       "Zapisywanie i udostępnianie przepisów",
       "Preferencje dietetyczne i alergie",
       "Lista zakupów",
+      "Powiadomienia i przypomnienia",
     ],
     price: "Za darmo",
-    priceNote: "dziś · subskrypcje później",
     cardNote: "Karta niepotrzebna · Usuń konto w każdej chwili.",
-    platformNote: "iPhone · iOS 18 lub nowszy",
   },
   faq: {
     eyebrow: "Pytania",
@@ -192,7 +188,7 @@ export const pl: Dictionary = {
     items: [
       {
         q: "Czy on naprawdę rozpozna moją lodówkę?",
-        a: "Tak. Skaner radzi sobie z prawdziwymi, zabałaganionymi, do połowy pustymi lodówkami — nie tylko z tymi wystylizowanymi. Zawsze możesz poprawić wszystko, co źle odczytał, zanim zaproponuje dania.",
+        a: "Tak. Skaner radzi sobie z prawdziwymi, do połowy pustymi lodówkami — nie tylko z tymi wystylizowanymi. Zawsze możesz poprawić wszystko, co źle odczytał, zanim zaproponuje dania.",
       },
       {
         q: "A jeśli pominie jakiś składnik?",
@@ -212,16 +208,7 @@ export const pl: Dictionary = {
       },
     ],
   },
-  finalCTA: {
-    heading: {
-      text: "Dzisiejsza kolacja jest",
-      em: "o jedno zdjęcie stąd.",
-    },
-    lead: "Bez zgadywania. Bez subskrypcji. Po prostu otwórz lodówkę.",
-    badges: ["Za darmo", "Bez karty", "Domyślnie prywatne"],
-  },
   footer: {
-    tagline: "Nie potrzebujesz kolejnych przepisów. Potrzebujesz właściwego.",
     columns: { product: "Produkt", legal: "Prawne", contact: "Kontakt" },
     links: {
       home: "Start",

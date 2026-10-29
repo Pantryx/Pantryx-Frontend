@@ -116,11 +116,8 @@ export function MobileMenu({ open, onClose, chrome }: Props) {
                 </li>
               ))}
             </ul>
-            <div className="mt-10 flex flex-col gap-3 pb-10">
+            <div className="mt-10 flex justify-center pb-10">
               <AppStoreButton />
-              <p className="text-xs text-muted">
-                iPhone · Free · Private by default
-              </p>
             </div>
           </motion.div>
         </motion.div>

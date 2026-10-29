@@ -23,11 +23,11 @@ export const en: Dictionary = {
       line2: "Decide dinner in 60 seconds.",
     },
     sub: "Pantryx scans what you already have and turns it into dishes you can actually cook tonight.",
-    ctaNote: "Free on iPhone · no credit card · no account needed",
+    ctaNote: "Free on iPhone · no account needed",
     stats: [
-      { value: "60s", label: "from pantry to recipe" },
-      { value: "2H", label: "saves per week" },
-      { value: "0", label: "subscriptions" },
+      { value: "~10s", label: "one fridge scan" },
+      { value: "150+", label: "recipes from what you have" },
+      { value: "$0", label: "no subscriptions or ads" },
     ],
   },
   whyExists: {
@@ -69,7 +69,7 @@ export const en: Dictionary = {
       {
         kicker: "AI scanner",
         title: "Snap once. No typing.",
-        body: "The scanner identifies ingredients from a single photo and builds your pantry for you. Works on messy, half-full, real-life fridges.",
+        body: "The scanner identifies ingredients from a single photo and builds your pantry for you. Works on half-full, real-life fridges.",
       },
       {
         kicker: "Pantry-based suggestions",
@@ -134,8 +134,6 @@ export const en: Dictionary = {
     ],
   },
   socialProof: {
-    eyebrow: "Built in the open",
-    heading: "What early testers are saying.",
     lead: "A few unfiltered reactions from people cooking with Pantryx.",
     testimonials: [
       {
@@ -171,20 +169,18 @@ export const en: Dictionary = {
   },
   pricing: {
     eyebrow: "Pricing",
-    heading: "One plan. Free.",
-    lead: "Pantryx is free while we grow. Every feature, no credit card. If we add subscriptions, we’ll spell out price and what’s included before you pay.",
     included: [
       "AI fridge scanner",
+      "Import recipes from links",
       "Pantry-based dish ideas",
       "Guided cook mode",
       "Save & share recipes",
       "Dietary preferences & allergies",
       "Shopping list",
+      "Reminders & notifications",
     ],
     price: "Free",
-    priceNote: "today · subscriptions later",
     cardNote: "No card required · Delete your account anytime.",
-    platformNote: "iPhone · iOS 18 or later",
   },
   faq: {
     eyebrow: "Questions",
@@ -192,7 +188,7 @@ export const en: Dictionary = {
     items: [
       {
         q: "Does it really recognize my fridge?",
-        a: "Yes. The scanner handles real, messy, half-full fridges — not just staged ones. You always get a chance to fix anything it misreads before it suggests dishes.",
+        a: "Yes. The scanner handles real, half-full fridges — not just staged ones. You always get a chance to fix anything it misreads before it suggests dishes.",
       },
       {
         q: "What if it misses an ingredient?",
@@ -212,16 +208,7 @@ export const en: Dictionary = {
       },
     ],
   },
-  finalCTA: {
-    heading: {
-      text: "Tonight’s dinner is",
-      em: "one photo away.",
-    },
-    lead: "No guesswork. No subscription. Just open the fridge.",
-    badges: ["Free", "No credit card", "Private by default"],
-  },
   footer: {
-    tagline: "You don’t need more recipes. You need the right one.",
     columns: { product: "Product", legal: "Legal", contact: "Contact" },
     links: {
       home: "Home",

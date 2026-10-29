@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu } from "lucide-react";
 import clsx from "clsx";
-import { nav, site } from "@/lib/site";
+import { nav } from "@/lib/site";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguagePicker } from "@/components/ui/LanguagePicker";
 import { MobileMenu } from "@/components/nav/MobileMenu";
@@ -82,9 +83,8 @@ export function Navbar({ chrome, locale }: Props) {
             scrolled ? "h-14" : "h-16"
           )}
         >
-          <Link href="/" className="group flex items-center gap-2" aria-label="Pantryx home">
+          <Link href="/" className="group flex items-center" aria-label="Pantryx home">
             <Logo />
-            <span className="font-display text-xl leading-none text-ink">{site.name}</span>
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
@@ -178,12 +178,31 @@ export function Navbar({ chrome, locale }: Props) {
   );
 }
 
+/**
+ * The Pantryx swan mark. Two theme-matched PNGs cross-faded by CSS only (no JS
+ * state), so the right one is already correct on first paint — the black mark on
+ * the light paper, the cream mark once the page goes dark. `alt=""` because the
+ * adjacent wordmark and the link's own aria-label already name the brand.
+ */
 function Logo() {
   return (
-    <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-line">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-        <path d="M2 2h10v3H2V2zm0 4.5h10V9H2V6.5zM2 10.5h6V13H2v-2.5z" fill="currentColor" />
-      </svg>
-    </span>
+    <>
+      <Image
+        src="/brand/logo-mark-black.png"
+        alt=""
+        width={36}
+        height={36}
+        priority
+        className="h-9 w-9 object-contain dark:hidden"
+      />
+      <Image
+        src="/brand/logo-mark-cream.png"
+        alt=""
+        width={36}
+        height={36}
+        priority
+        className="hidden h-9 w-9 object-contain dark:block"
+      />
+    </>
   );
 }

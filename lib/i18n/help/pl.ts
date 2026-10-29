@@ -46,7 +46,7 @@ export const helpPl: HelpDictionary = {
           a: "Po skanowaniu zobaczysz ekran potwierdzenia. Dotknij, aby dodać, usunąć lub zmienić nazwę czegokolwiek, zanim dostaniesz pomysły na dania.",
         },
         {
-          q: "Czy działa przy zabałaganionej lodówce?",
+          q: "Czy działa przy prawdziwej lodówce?",
           a: "Tak — właśnie do tego został stworzony. Nie musisz niczego układać.",
         },
       ],

@@ -1,4 +1,3 @@
-import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
@@ -13,18 +12,15 @@ export function Pricing({ copy, cta }: Props) {
   return (
     <section id="pricing" className="section border-t border-line">
       <div className="container-page">
-        <Reveal y={0} className="mx-auto max-w-2xl text-center">
+        <Reveal y={0} className="mx-auto max-w-3xl">
           <div className="eyebrow">{copy.eyebrow}</div>
-          <AnimatedHeading className="mt-3 text-display-2 text-balance">{copy.heading}</AnimatedHeading>
-          <p className="mt-5 text-lead text-muted">{copy.lead}</p>
         </Reveal>
 
-        <Reveal delay={0.05} className="mx-auto mt-12 max-w-xl rounded-3xl border border-line bg-paper p-8 md:p-10">
+        <Reveal delay={0.05} className="mx-auto mt-12 max-w-3xl rounded-3xl border border-line bg-paper p-8 md:p-10">
           {/* Stacked on mobile: at 375px the price and its caption can't share a
               baseline without the caption hanging awkwardly off the descender. */}
           <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-3">
             <span className="font-display text-[clamp(2.75rem,11vw,4rem)] leading-none">{copy.price}</span>
-            <span className="text-sm text-muted">{copy.priceNote}</span>
           </div>
           <p className="mt-4 text-sm text-muted">{copy.cardNote}</p>
 
@@ -39,7 +35,6 @@ export function Pricing({ copy, cta }: Props) {
 
           <div className="mt-10" data-inline-cta>
             <AppStoreButton label={cta.appStore} />
-            <p className="mt-3 text-xs text-muted">{copy.platformNote}</p>
           </div>
         </Reveal>
       </div>

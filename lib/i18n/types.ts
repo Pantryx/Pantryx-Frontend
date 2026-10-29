@@ -72,33 +72,21 @@ export type Dictionary = {
     items: { title: string; copy: string }[];
   };
   socialProof: {
-    eyebrow: string;
-    heading: string;
     lead: string;
     testimonials: { quote: string; name: string; role: string }[];
   };
   pricing: {
     eyebrow: string;
-    heading: string;
-    lead: string;
     included: string[];
     price: string;
-    priceNote: string;
     cardNote: string;
-    platformNote: string;
   };
   faq: {
     eyebrow: string;
     heading: string;
     items: { q: string; a: string }[];
   };
-  finalCTA: {
-    heading: Emphasis;
-    lead: string;
-    badges: string[];
-  };
   footer: {
-    tagline: string;
     columns: { product: string; legal: string; contact: string };
     links: { home: string; product: string; features: string; pricing: string; help: string };
     legalLinks: { privacy: string; terms: string };

@@ -29,18 +29,14 @@ export function SocialProof({ copy }: { copy: Dictionary["socialProof"] }) {
 
   return (
     <section
-      aria-label={copy.heading}
+      aria-label={copy.lead}
       className="border-t border-line bg-subtle"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <div className="container-page section">
         <Reveal y={0} className="mx-auto max-w-3xl">
-          <div className="eyebrow">{copy.eyebrow}</div>
-          <AnimatedHeading className="mt-3 text-display-2 text-balance">
-            {copy.heading}
-          </AnimatedHeading>
-          <p className="mt-5 text-lead text-muted">{copy.lead}</p>
+          <AnimatedHeading className="text-display-2 text-balance">{copy.lead}</AnimatedHeading>
         </Reveal>
 
         <Reveal

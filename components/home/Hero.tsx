@@ -3,7 +3,9 @@
 import { motion, type Variants } from "framer-motion";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
 import { HeroHeadline } from "@/components/home/HeroHeadline";
+import { HeroReel } from "@/components/home/HeroReel";
 import { HeroStat } from "@/components/home/HeroStat";
+import type { Locale } from "@/lib/i18n/locale";
 import type { Dictionary } from "@/lib/i18n/types";
 import {
   DURATION,
@@ -53,35 +55,34 @@ const item: Variants = {
 type Props = {
   copy: Dictionary["hero"];
   cta: Dictionary["cta"];
+  locale: Locale;
 };
 
-export function Hero({ copy, cta }: Props) {
+export function Hero({ copy, cta, locale }: Props) {
+  // Ukrainian leads with the product reel in motion; the headline, which nearly
+  // repeats the reel's own opening line, follows underneath, so the eyebrow is
+  // dropped. Every other locale keeps the text-first hero (no reel yet).
+  const reelFirst = locale === "uk";
+
   return (
     <section className="relative overflow-hidden pt-28 md:pt-32">
       <div className="container-page pb-20 md:pb-28">
         <motion.div initial="hidden" animate="show" className="mx-auto max-w-4xl text-center">
-          <motion.div
-            variants={slotItem}
-            custom={0}
-            className="eyebrow inline-flex items-center gap-2"
-          >
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
-            {copy.eyebrow}
-          </motion.div>
+          {reelFirst && (
+            <motion.div
+              variants={slotItem}
+              custom={0}
+              className="mx-auto mb-2 w-full max-w-[280px]"
+            >
+              <HeroReel src="/video/hero-kitchen-ua.mp4" poster="/video/hero-kitchen-ua.jpg" />
+            </motion.div>
+          )}
 
           <HeroHeadline headline={copy.headline} />
 
-          <motion.p
-            variants={slotItem}
-            custom={2}
-            className="mt-8 mx-auto max-w-2xl text-lead text-muted"
-          >
-            {copy.sub}
-          </motion.p>
-
           <motion.div
             variants={slotItem}
-            custom={3}
+            custom={2}
             className="mt-10 mx-auto w-full max-w-md"
             data-inline-cta
           >
