@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies, headers } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { Navbar } from "@/components/nav/Navbar";
@@ -6,6 +7,8 @@ import { Footer } from "@/components/footer/Footer";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { StickyMobileCTA } from "@/components/home/StickyMobileCTA";
 import { site } from "@/lib/site";
+import { LOCALE_COOKIE, resolveLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 import "./globals.css";
 
 const inter = Inter({
@@ -62,11 +65,25 @@ export const metadata: Metadata = {
 
 const themeInitScript = `(function(){try{var t=localStorage.getItem('pantryx-theme')||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;if(d)r.classList.add('dark');else r.classList.remove('dark');}catch(e){}})();`;
 
-export default function RootLayout({
+// Only the Home page is translated, so its <html lang> is corrected before
+// paint from the saved language cookie; every other route stays "en". Kept
+// inline (like the theme script) so the layout can stay statically rendered.
+const langInitScript = `(function(){try{if(location.pathname!=='/')return;var m=document.cookie.match(/(?:^|; )pantryx-lang=([^;]+)/);if(m&&['en','uk','pl'].indexOf(m[1])>-1)document.documentElement.lang=m[1];}catch(e){}})();`;
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // The shared header is localized on every route, so the layout resolves the
+  // locale (cookie, then Accept-Language) and renders the nav in it server-side.
+  // Reading the cookie makes routes render per request; page bodies other than
+  // Home stay English for now, so <html lang> is still corrected per route by
+  // langInitScript rather than forced to the chrome locale here.
+  const [cookieStore, headerList] = await Promise.all([cookies(), headers()]);
+  const locale = resolveLocale(cookieStore.get(LOCALE_COOKIE)?.value, headerList.get("accept-language"));
+  const { chrome, footer } = getDictionary(locale);
+
   return (
     <html
       lang="en"
@@ -75,9 +92,10 @@ export default function RootLayout({
     >
       <body className="bg-paper text-ink antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <Navbar />
+        <script dangerouslySetInnerHTML={{ __html: langInitScript }} />
+        <Navbar chrome={chrome} locale={locale} />
         <PageTransition>{children}</PageTransition>
-        <Footer />
+        <Footer copy={footer} />
         <StickyMobileCTA />
         {/*
           Only mounted on Vercel. Anywhere else — `next start`, the Playwright

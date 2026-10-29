@@ -6,6 +6,7 @@ import { set, stagger } from "animejs/utils";
 import { ANIME_EASE } from "@/lib/motion/anime";
 import { isDesktopViewport, prefersReducedMotion } from "@/lib/motion/env";
 import { splitWords } from "@/lib/motion/splitWords";
+import type { Dictionary } from "@/lib/i18n/types";
 import { DURATION, STAGGER, heroSlotDelay } from "@/lib/motion/tokens";
 
 const useIsomorphicLayoutEffect =
@@ -22,7 +23,7 @@ const START = heroSlotDelay(1);
  * use, so the line reads as the same entrance — just resolved a word at a time
  * instead of all at once.
  */
-export function HeroHeadline() {
+export function HeroHeadline({ headline }: { headline: Dictionary["hero"]["headline"] }) {
   const ref = useRef<HTMLHeadingElement>(null);
 
   useIsomorphicLayoutEffect(() => {
@@ -71,9 +72,9 @@ export function HeroHeadline() {
         className="mt-6 text-display-1 text-balance"
         style={{ opacity: 0 }}
       >
-        Stop staring at the fridge.
+        {headline.line1}
         <br />
-        <span className="italic text-muted">Decide dinner in 60&nbsp;seconds.</span>
+        <span className="italic text-muted">{headline.line2}</span>
       </h1>
     </>
   );

@@ -7,9 +7,17 @@ import { ChevronDown, Menu } from "lucide-react";
 import clsx from "clsx";
 import { nav, site } from "@/lib/site";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguagePicker } from "@/components/ui/LanguagePicker";
 import { MobileMenu } from "@/components/nav/MobileMenu";
+import type { Locale } from "@/lib/i18n/locale";
+import type { Dictionary } from "@/lib/i18n/types";
 
-export function Navbar() {
+type Props = {
+  chrome: Dictionary["chrome"];
+  locale: Locale;
+};
+
+export function Navbar({ chrome, locale }: Props) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -58,7 +66,7 @@ export function Navbar() {
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-ink focus:px-3 focus:py-2 focus:text-sm focus:text-paper"
       >
-        Skip to content
+        {chrome.skipToContent}
       </a>
       <header
         className={clsx(
@@ -89,7 +97,7 @@ export function Navbar() {
                   pathname === item.href ? "text-ink" : "text-muted hover:text-ink"
                 )}
               >
-                {item.label}
+                {chrome.nav[item.key]}
                 {pathname === item.href && (
                   <span className="absolute inset-x-4 -bottom-0.5 h-px bg-ink" />
                 )}
@@ -112,7 +120,7 @@ export function Navbar() {
                     : "text-muted hover:text-ink"
                 )}
               >
-                Legal
+                {chrome.legal}
                 <ChevronDown
                   className={clsx("h-3.5 w-3.5 transition-transform", legalOpen && "rotate-180")}
                   strokeWidth={2}
@@ -137,7 +145,7 @@ export function Navbar() {
                       className="block px-4 py-3 text-sm text-muted transition-colors hover:bg-subtle hover:text-ink"
                       role="menuitem"
                     >
-                      {item.label}
+                      {chrome.legalItems[item.key]}
                     </Link>
                   ))}
                 </div>
@@ -146,14 +154,16 @@ export function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-2 md:flex">
+            <LanguagePicker initialLocale={locale} />
             <ThemeToggle />
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
+            <LanguagePicker compact initialLocale={locale} />
             <ThemeToggle />
             <button
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink"
-              aria-label="Open menu"
+              aria-label={chrome.menu.open}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(true)}
             >
@@ -163,7 +173,7 @@ export function Navbar() {
         </div>
       </header>
 
-      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} chrome={chrome} />
     </>
   );
 }

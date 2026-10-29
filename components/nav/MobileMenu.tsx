@@ -6,14 +6,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { nav, site } from "@/lib/site";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
+import type { Dictionary } from "@/lib/i18n/types";
 
-type Props = { open: boolean; onClose: () => void };
+type Props = { open: boolean; onClose: () => void; chrome: Dictionary["chrome"] };
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export function MobileMenu({ open, onClose }: Props) {
+export function MobileMenu({ open, onClose, chrome }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
+
+  const links = [
+    ...nav.primary.map((item) => ({ href: item.href, label: chrome.nav[item.key] })),
+    ...nav.legal.map((item) => ({ href: item.href, label: chrome.legalItems[item.key] })),
+  ];
 
   useEffect(() => {
     if (!open) return;
@@ -74,7 +80,7 @@ export function MobileMenu({ open, onClose }: Props) {
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          aria-label="Menu"
+          aria-label={chrome.menu.title}
           className="fixed inset-0 z-[60] overflow-y-auto overscroll-contain bg-paper md:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -85,7 +91,7 @@ export function MobileMenu({ open, onClose }: Props) {
             <span className="font-display text-xl">{site.name}</span>
             <button
               onClick={onClose}
-              aria-label="Close menu"
+              aria-label={chrome.menu.close}
               className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line"
             >
               <X className="h-5 w-5" strokeWidth={1.75} />
@@ -98,7 +104,7 @@ export function MobileMenu({ open, onClose }: Props) {
             transition={{ duration: 0.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
           >
             <ul className="flex flex-col">
-              {[...nav.primary, ...nav.legal].map((item) => (
+              {links.map((item) => (
                 <li key={item.href} className="border-b border-line">
                   <Link
                     href={item.href}

@@ -4,10 +4,12 @@ import { site } from "@/lib/site";
 
 type Props = {
   className?: string;
+  /** Visible button text. Defaults to English; Home passes the localized label. */
+  label?: string;
 };
 
 /** The primary call to action on every page: the Pantryx App Store listing. */
-export function AppStoreButton({ className }: Props) {
+export function AppStoreButton({ className, label = "Download on the App Store" }: Props) {
   return (
     <a
       href={site.appStoreUrl}
@@ -18,7 +20,7 @@ export function AppStoreButton({ className }: Props) {
       )}
     >
       <AppleMark className="h-5 w-5" />
-      <span className="text-sm font-medium">Download on the App Store</span>
+      <span className="text-sm font-medium">{label}</span>
     </a>
   );
 }

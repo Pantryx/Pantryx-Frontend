@@ -4,6 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
 import { HeroHeadline } from "@/components/home/HeroHeadline";
 import { HeroStat } from "@/components/home/HeroStat";
+import type { Dictionary } from "@/lib/i18n/types";
 import {
   DURATION,
   EASE_OUT_EXPO,
@@ -49,7 +50,12 @@ const item: Variants = {
   },
 };
 
-export function Hero() {
+type Props = {
+  copy: Dictionary["hero"];
+  cta: Dictionary["cta"];
+};
+
+export function Hero({ copy, cta }: Props) {
   return (
     <section className="relative overflow-hidden pt-28 md:pt-32">
       <div className="container-page pb-20 md:pb-28">
@@ -60,17 +66,17 @@ export function Hero() {
             className="eyebrow inline-flex items-center gap-2"
           >
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
-            Now on the App Store · iOS
+            {copy.eyebrow}
           </motion.div>
 
-          <HeroHeadline />
+          <HeroHeadline headline={copy.headline} />
 
           <motion.p
             variants={slotItem}
             custom={2}
             className="mt-8 mx-auto max-w-2xl text-lead text-muted"
           >
-            Pantryx scans what you already have and turns it into dishes you can actually cook tonight.
+            {copy.sub}
           </motion.p>
 
           <motion.div
@@ -79,10 +85,8 @@ export function Hero() {
             className="mt-10 mx-auto w-full max-w-md"
             data-inline-cta
           >
-            <AppStoreButton />
-            <p className="mt-3 text-xs text-muted">
-              Free on iPhone · no credit card · no account needed
-            </p>
+            <AppStoreButton label={cta.appStore} />
+            <p className="mt-3 text-xs text-muted">{copy.ctaNote}</p>
           </motion.div>
         </motion.div>
 
@@ -92,17 +96,13 @@ export function Hero() {
           animate="show"
           className="mt-20 mx-auto grid grid-cols-3 gap-4 border-t border-line pt-10 text-sm md:mt-28 md:max-w-3xl md:gap-12"
         >
-          {[
-            ["60s", "from pantry to recipe"],
-            ["2H", "saves per week"],
-            ["0", "subscriptions"],
-          ].map(([big, small], i) => (
-            <motion.li key={small} variants={item} className="text-center">
+          {copy.stats.map((stat, i) => (
+            <motion.li key={stat.label} variants={item} className="text-center">
               <div className="font-display text-[clamp(2rem,4vw,3rem)] leading-none text-ink">
-                <HeroStat value={big} index={i} />
+                <HeroStat value={stat.value} index={i} />
               </div>
               <div className="mt-3 text-[11px] uppercase tracking-[0.05em] text-muted md:text-xs md:tracking-[0.14em]">
-                {small}
+                {stat.label}
               </div>
             </motion.li>
           ))}

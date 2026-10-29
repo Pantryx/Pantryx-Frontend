@@ -1,18 +1,29 @@
 import Link from "next/link";
-import { nav, site, social } from "@/lib/site";
+import { site, social } from "@/lib/site";
+import type { Dictionary } from "@/lib/i18n/types";
 import { SocialIcon } from "./SocialIcon";
 
-export function Footer() {
+export function Footer({ copy }: { copy: Dictionary["footer"] }) {
   const [emailUser, emailDomain] = site.contactEmail.split("@");
+
+  const productLinks = [
+    { href: "/", label: copy.links.home },
+    { href: "/product", label: copy.links.product },
+    { href: "/#features", label: copy.links.features },
+    { href: "/#pricing", label: copy.links.pricing },
+    { href: "/help", label: copy.links.help },
+  ];
+  const legalLinks = [
+    { href: "/privacy", label: copy.legalLinks.privacy },
+    { href: "/terms", label: copy.legalLinks.terms },
+  ];
 
   return (
     <footer className="cta-clearance border-t border-line">
       <div className="container-page flex flex-col gap-10 py-14 md:flex-row md:items-start md:justify-between">
         <div className="max-w-sm">
           <div className="font-display text-2xl">{site.name}</div>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            You don&apos;t need more recipes. You need the right one.
-          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted">{copy.tagline}</p>
         </div>
 
         {/* min-w-0 lets this shrink inside the flex row; without it the contact
@@ -20,19 +31,10 @@ export function Footer() {
             viewport narrower than the address is long — landscape phones most
             of all, where the md: row layout kicks in at only 852px. */}
         <div className="grid min-w-0 grid-cols-2 gap-10 sm:grid-cols-3">
-          <FooterCol
-            title="Product"
-            links={[
-              { href: "/", label: "Home" },
-              { href: "/product", label: "Product" },
-              { href: "/#features", label: "Features" },
-              { href: "/#pricing", label: "Pricing" },
-              { href: "/help", label: "Help" },
-            ]}
-          />
-          <FooterCol title="Legal" links={nav.legal.map((l) => ({ href: l.href, label: l.label }))} />
+          <FooterCol title={copy.columns.product} links={productLinks} />
+          <FooterCol title={copy.columns.legal} links={legalLinks} />
           <div className="col-span-2 sm:col-span-1">
-            <div className="eyebrow">Contact</div>
+            <div className="eyebrow">{copy.columns.contact}</div>
             <a
               href={`mailto:${site.contactEmail}`}
               // Spanning the full width on mobile gives the address room to sit on
@@ -51,9 +53,7 @@ export function Footer() {
       <div className="border-t border-line">
         <div className="container-page flex flex-col items-start justify-between gap-4 py-6 text-xs text-muted sm:flex-row sm:items-center">
           <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
-            <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
-            <span aria-hidden className="hidden sm:inline">·</span>
-            <span>Built in the open · iOS</span>
+            <span>© {new Date().getFullYear()} {site.name}. {copy.rights}</span>
           </div>
           {/* Icons sit above the copyright on phones, as a row of their own, so
               the last footer line stays text — the sticky CTA tests measure it. */}
